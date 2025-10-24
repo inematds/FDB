@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -7,8 +7,13 @@
   <meta name="description" content="Trilhas Iniciante, Técnico e Avançado para aprender bancos de dados, com comparativos e guia de IA (janela de contexto e RAG)."/>
   <meta property="og:title" content="FDB — Fundamentos de Banco de Dados"/>
   <meta property="og:description" content="Aprenda bancos de dados do zero ao avançado. Compare SGBDs e use IA com RAG."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <script defer src="assets/ui.js"></script>
+  <meta name="color-scheme" content="light dark"/>
 </head>
 <body>
   <header>
@@ -17,7 +22,8 @@
         <img src="01_capa.png" alt="FDB"/>
         <span>FDB</span>
       </div>
-      <div class="menu">
+      <button id="menu-toggle" class="theme-toggle" aria-label="Abrir menu" aria-expanded="false" style="display:none"></button>
+      <div class="menu" role="navigation" aria-label="Principal">
         <a class="active" href="index.html">Início</a>
         <a href="iniciante.html">Iniciante</a>
         <a href="tecnico.html">Técnico</a>
@@ -27,23 +33,24 @@
         <a href="gerencia-informacoes.html">Gerência</a>
         <a href="exercicios.html">Exercícios</a>
       </div>
+      <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Alternar tema">Tema</button>
     </nav>
   </header>
   <main>
     <section class="section" aria-labelledby="kinds-title">
       <h2 id="kinds-title">Três formas de gerenciar informação</h2>
       <div class="grid" role="list">
-        <div class="card" role="listitem">
+        <div class="card gradient-emerald" role="listitem">
           <div class="card-head"><span class="icon" aria-hidden="true">📊</span><h3>Estruturada</h3></div>
           <p class="muted">Dados tabulares (colunas/linhas). SQL em SGBDs como PostgreSQL e MySQL. Ideal para registros padronizados.</p>
           <a class="btn" href="gerencia-informacoes.html#estruturada" aria-label="Ver detalhes sobre gerência estruturada">Ver detalhes</a>
         </div>
-        <div class="card" role="listitem">
-          <div class="card-head"><span class="icon" aria-hidden="true">📝</span><h3>Não Estruturada</h3></div>
+        <div class="card gradient-blue" role="listitem">
+          <div class="card-head"><span class="icon" aria-hidden="true">📄</span><h3>Não Estruturada</h3></div>
           <p class="muted">Texto, PDFs, imagens, áudios e vídeos. NLP e OCR para extrair significado e pesquisar conteúdo.</p>
           <a class="btn" href="gerencia-informacoes.html#nao-estruturada" aria-label="Ver detalhes sobre gerência não estruturada">Ver detalhes</a>
         </div>
-        <div class="card" role="listitem">
+        <div class="card gradient-purple" role="listitem">
           <div class="card-head"><span class="icon" aria-hidden="true">🔎</span><h3>Vetorial (RAG)</h3></div>
           <p class="muted">Embeddings para busca semântica e respostas com IA. Base de sistemas RAG para consulta em linguagem natural.</p>
           <a class="btn" href="gerencia-informacoes.html#vetorial" aria-label="Ver detalhes sobre gerência vetorial (RAG)">Ver detalhes</a>
@@ -89,7 +96,7 @@
 
     <section class="section">
       <h2>Comparativos</h2>
-      <p class="muted">Entenda diferenças entre bancos relacionais, documentos, chave‑valor, colunares, grafos, séries temporais e busca. Escolha com base em objetivo, consistência, escala e custo.</p>
+      <p class="muted">Entenda diferenças entre bancos relacionais, documentos, chave-valor, colunares, grafos, séries temporais e busca. Escolha com base em objetivo, consistência, escala e custo.</p>
       <a class="btn" href="comparativos.html">Ver comparação</a>
     </section>
 
@@ -113,3 +120,4 @@
   </footer>
 </body>
 </html>
+

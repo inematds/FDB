@@ -1,11 +1,15 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>FDB — Trilha Iniciante</title>
   <meta name="description" content="Fundamentos de banco de dados, modelagem e SQL essencial com foco no porquê e como usar."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css"/>
+  <script defer src="assets/ui.js"></script>
 </head>
 <body>
   <header>
@@ -21,10 +25,11 @@
         <a href="gerencia-informacoes.html">Gerência</a>
         <a href="exercicios.html">Exercícios</a>
       </div>
+      <button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Alternar tema">Tema</button>
     </nav>
   </header>
   <main>
-    <div class="card-head"><span class="icon" aria-hidden="true">🎓</span><h1>Trilha Iniciante</h1></div>
+    <div class="card-head"><span class="icon" aria-hidden="true">📚</span><h1>Trilha Iniciante</h1></div>
     <p class="muted">Fundamentos, modelagem e SQL básico — sempre explicando o porquê e o como usar.</p>
 
     <section class="section">
@@ -40,8 +45,8 @@
       <h2>SQL essencial</h2>
       <div class="card">
         <ol>
-          <li>Crie a tabela <code>cliente</code> com PK, nome e email único.</li>
-          <li>Insira 3 clientes e consulte apenas os que têm email.</li>
+          <li>Crie a tabela <code>cliente</code> com PK, nome e e-mail único.</li>
+          <li>Insira 3 clientes e consulte apenas os que têm e-mail.</li>
           <li>Crie a tabela <code>pedido</code> com FK para <code>cliente</code>.</li>
         </ol>
       </div>
@@ -64,3 +69,4 @@ CREATE TABLE pedido (
   </footer>
 </body>
 </html>
+
