@@ -30,6 +30,28 @@
     </nav>
   </header>
   <main>
+    <section class="section" aria-labelledby="kinds-title">
+      <h2 id="kinds-title">Três formas de gerenciar informação</h2>
+      <div class="grid" role="list">
+        <div class="card" role="listitem">
+          <div class="card-head"><span class="icon" aria-hidden="true">📊</span><h3>Estruturada</h3></div>
+          <p class="muted">Dados tabulares (colunas/linhas). SQL em SGBDs como PostgreSQL e MySQL. Ideal para registros padronizados.</p>
+          <a class="btn" href="gerencia-informacoes.html#estruturada" aria-label="Ver detalhes sobre gerência estruturada">Ver detalhes</a>
+        </div>
+        <div class="card" role="listitem">
+          <div class="card-head"><span class="icon" aria-hidden="true">📝</span><h3>Não Estruturada</h3></div>
+          <p class="muted">Texto, PDFs, imagens, áudios e vídeos. NLP e OCR para extrair significado e pesquisar conteúdo.</p>
+          <a class="btn" href="gerencia-informacoes.html#nao-estruturada" aria-label="Ver detalhes sobre gerência não estruturada">Ver detalhes</a>
+        </div>
+        <div class="card" role="listitem">
+          <div class="card-head"><span class="icon" aria-hidden="true">🔎</span><h3>Vetorial (RAG)</h3></div>
+          <p class="muted">Embeddings para busca semântica e respostas com IA. Base de sistemas RAG para consulta em linguagem natural.</p>
+          <a class="btn" href="gerencia-informacoes.html#vetorial" aria-label="Ver detalhes sobre gerência vetorial (RAG)">Ver detalhes</a>
+        </div>
+      </div>
+      <p class="muted" style="margin-top:10px">Fonte: resumo em <a href="dados.txt">docs/dados.txt</a></p>
+    </section>
+
     <section class="hero">
       <div>
         <h1>Aprenda Banco de Dados — do básico ao avançado</h1>
@@ -71,9 +93,9 @@
       <a class="btn" href="comparativos.html">Ver comparação</a>
     </section>
 
-    <section class="section">
-      <h2>Gerência de Informações</h2>
-      <p class="muted">Três formas de tratar dados: estruturada, não estruturada e vetorial (RAG). Veja exemplos e quando usar cada uma.</p>
+    <section class="section" aria-labelledby="comparativos-title">
+      <h2 id="comparativos-title">Gerência de Informações</h2>
+      <p class="muted">Veja a classificação completa, exemplos e tecnologias por tipo.</p>
       <a class="btn" href="gerencia-informacoes.html">Ver classificação</a>
     </section>
 
@@ -91,4 +113,3 @@
   </footer>
 </body>
 </html>
-
