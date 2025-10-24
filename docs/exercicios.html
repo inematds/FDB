@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Exercícios</title>
+  <meta name="description" content="Exercícios práticos por nível: Iniciante, Técnico e Avançado, com foco em porquê e como fazer."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a class="active" href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Exercícios</h1>
+    <p class="muted">Pratique com tarefas curtas. Sempre explicando o porquê e o como fazer.</p>
+
+    <section class="section">
+      <h2>Iniciante</h2>
+      <div class="card">
+        <ol>
+          <li>Modele uma tabela <code>cliente</code> com PK, nome e email único. Por quê: integridade. Como: PK (id) e UNIQUE (email).</li>
+          <li>Insira 3 clientes e consulte apenas os que têm email. Por quê: filtragem. Como: <code>WHERE email IS NOT NULL</code>.</li>
+          <li>Crie a tabela <code>pedido</code> com FK para <code>cliente</code>. Por quê: relação. Como: <code>FOREIGN KEY</code>.</li>
+        </ol>
+      </div>
+      <pre><code>CREATE TABLE cliente (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  email TEXT UNIQUE
+);
+
+CREATE TABLE pedido (
+  id SERIAL PRIMARY KEY,
+  cliente_id INT REFERENCES cliente(id),
+  total NUMERIC(10,2) NOT NULL
+);
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Técnico</h2>
+      <div class="card">
+        <ol>
+          <li>Crie índice em <code>pedido(cliente_id)</code> e compare EXPLAIN antes/depois. Por quê: acelerar JOIN/filtro. Como: <code>CREATE INDEX</code>.</li>
+          <li>Implemente transação de transferência entre contas com rollback em caso de erro. Por quê: atomicidade. Como: <code>BEGIN/COMMIT/ROLLBACK</code>.</li>
+          <li>Projete consulta com agregação (total por cliente) e ordene. Por quê: relatórios. Como: <code>GROUP BY</code>.</li>
+        </ol>
+      </div>
+      <pre><code>CREATE INDEX idx_pedido_cliente ON pedido (cliente_id);
+EXPLAIN ANALYZE SELECT * FROM pedido WHERE cliente_id = 1;
+
+-- Agregação
+SELECT c.nome, SUM(p.total) AS total
+FROM cliente c JOIN pedido p ON p.cliente_id = c.id
+GROUP BY c.nome
+ORDER BY total DESC;
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Avançado</h2>
+      <div class="card">
+        <ol>
+          <li>Particione <code>pedido</code> por faixa de data. Por quê: manutenção/performance. Como: tabelas particionadas.</li>
+          <li>Implemente um mini‑ETL: exporte <code>pedido</code> diário e gere resumo (OLAP) em tabela colunar/sumarizada. Por quê: separar OLTP/OLAP. Como: job diário + tabela agregada.</li>
+          <li>Elabore política de retenção (ex.: 18 meses). Por quê: custo/lei. Como: <code>DELETE/ARCHIVE</code> programado.</li>
+        </ol>
+      </div>
+      <p class="muted">Dica: use o arquivo <code>docs/dados.txt</code> como fonte simples para popular tabelas em seus testes.</p>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Exercícios por nível • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

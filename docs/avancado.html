@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Trilha Avançada</title>
+  <meta name="description" content="Arquiteturas de dados, desempenho, particionamento, OLTP vs OLAP e cenários distribuídos."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a class="active" href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Trilha Avançada</h1>
+    <p class="muted">Objetivo: projetar sistemas robustos, escaláveis e observáveis, escolhendo ferramentas e estratégias com base em trade‑offs claros.</p>
+
+    <section class="section">
+      <h2>1) OLTP vs OLAP</h2>
+      <ul class="list">
+        <li>OLTP: transações curtas, baixa latência, integridade (ex.: PostgreSQL, MySQL).</li>
+        <li>OLAP: análises maciças, leitura em lote e agregações (ex.: BigQuery, Redshift, ClickHouse, Snowflake).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>2) Particionamento e Arquivamento</h2>
+      <ul class="list">
+        <li>Particione por data/intervalo/hash para manutenção e performance.</li>
+        <li>Defina políticas de retenção e arquivamento por compliance e custo.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3) Observabilidade</h2>
+      <ul class="list">
+        <li>Logs, métricas e traços (tracing) por serviço e por consulta.</li>
+        <li>Dashboards de saúde, alertas e SLOs por latência/erro.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Trilha Avançada • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

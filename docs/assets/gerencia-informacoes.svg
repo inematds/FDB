@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <defs>
+    <style>
+      .bg{fill:#0f1220}
+      .panel{fill:#171a2a;stroke:#23263a;stroke-width:2}
+      .title{fill:#e7e8ee;font:700 28px system-ui}
+      .text{fill:#a4a8c0;font:16px system-ui}
+      .chip{fill:#6ea8fe}
+      .accent{fill:#5eead4}
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1280" height="720"/>
+  <text x="40" y="60" class="title">Gerência de Informações — 3 tipos</text>
+
+  <!-- Estruturada -->
+  <g transform="translate(40,100)">
+    <rect class="panel" width="380" height="520" rx="16"/>
+    <text class="title" x="20" y="40">Estruturada</text>
+    <rect x="20" y="70" width="60" height="60" rx="8" fill="#6ea8fe"/>
+    <rect x="26" y="84" width="48" height="10" fill="#0f1220"/>
+    <rect x="26" y="100" width="48" height="10" fill="#0f1220"/>
+    <text class="text" x="20" y="160">• Tabelas (linhas/colunas), SQL</text>
+    <text class="text" x="20" y="186">• MySQL, PostgreSQL, Supabase</text>
+    <text class="text" x="20" y="212">• Casos: clientes, vendas, estoque</text>
+  </g>
+
+  <!-- Não estruturada -->
+  <g transform="translate(450,100)">
+    <rect class="panel" width="380" height="520" rx="16"/>
+    <text class="title" x="20" y="40">Não Estruturada</text>
+    <rect x="20" y="70" width="60" height="60" rx="8" fill="#fbbf24"/>
+    <circle cx="50" cy="100" r="14" fill="#0f1220"/>
+    <rect x="44" y="85" width="12" height="8" fill="#0f1220"/>
+    <text class="text" x="20" y="160">• Texto, PDF, imagem, áudio, vídeo</text>
+    <text class="text" x="20" y="186">• NLP, OCR para extrair significado</text>
+    <text class="text" x="20" y="212">• Casos: e-mails, relatórios, laudos</text>
+  </g>
+
+  <!-- Vetorial (RAG) -->
+  <g transform="translate(860,100)">
+    <rect class="panel" width="380" height="520" rx="16"/>
+    <text class="title" x="20" y="40">Vetorial (RAG)</text>
+    <g transform="translate(20,70)">
+      <circle cx="16" cy="16" r="6" class="accent"/>
+      <circle cx="64" cy="16" r="6" class="accent"/>
+      <circle cx="40" cy="48" r="6" class="accent"/>
+      <line x1="16" y1="16" x2="40" y2="48" stroke="#5eead4" stroke-width="2"/>
+      <line x1="64" y1="16" x2="40" y2="48" stroke="#5eead4" stroke-width="2"/>
+    </g>
+    <text class="text" x="20" y="160">• Embeddings/semântica, busca por similaridade</text>
+    <text class="text" x="20" y="186">• Base do RAG (busca + geração)</text>
+    <text class="text" x="20" y="212">• Caso: chatbot sobre documentos internos</text>
+  </g>
+
+  <text class="text" x="40" y="660">Dica: Veja IA aplicada (janela de contexto e RAG) no site FDB.</text>
+</svg>
+

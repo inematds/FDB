@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Gerência de Informações</title>
+  <meta name="description" content="Três tipos de gerência de informações: estruturada, não estruturada e vetorial (RAG) — com exemplos, porquê e como usar."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a class="active" href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Gerência de Informações — três tipos principais</h1>
+    <p class="muted">Classificação por forma de tratamento e uso dos dados, com foco em porquê e como utilizar.</p>
+
+    <figure class="section">
+      <img src="assets/gerencia-informacoes.svg" alt="Diagrama 16:9 dos três tipos de gerência de informações"/>
+      <figcaption class="muted">Visão geral 16:9 — Estruturada, Não Estruturada e Vetorial (RAG).</figcaption>
+    </figure>
+
+    <section class="section">
+      <h2>1) Gerência de Informações Estruturadas</h2>
+      <p><b>Exemplos:</b> planilhas, bancos de dados relacionais, sistemas ERP.</p>
+      <ul class="list">
+        <li>Dados em formato fixo (colunas, linhas, campos).</li>
+        <li>SQL e SGBDs como MySQL, PostgreSQL, Supabase.</li>
+        <li>Ideais para grandes volumes de registros padronizados.</li>
+        <li><b>Exemplo prático:</b> controle de clientes, vendas, estoque.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>2) Gerência de Informações Não Estruturadas</h2>
+      <p><b>Exemplos:</b> textos, PDFs, imagens, áudios e vídeos.</p>
+      <ul class="list">
+        <li>Informações sem formato fixo exigem análise semântica.</li>
+        <li>Ferramentas de <b>NLP</b> e <b>OCR</b> transformam conteúdo em dados legíveis por IA.</li>
+        <li><b>Exemplo prático:</b> analisar PDFs médicos, e-mails ou relatórios automáticos.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3) Gerência de Informações Vetoriais (RAG)</h2>
+      <p><b>Exemplo:</b> sistemas de busca inteligente com IA.</p>
+      <ul class="list">
+        <li>Uso de <b>embeddings vetoriais</b> para representar significado.</li>
+        <li>Perguntas em linguagem natural sobre documentos, textos, planilhas e PDFs.</li>
+        <li>Base de sistemas <b>RAG (Retrieval‑Augmented Generation)</b> — busca + geração com IA.</li>
+        <li><b>Exemplo prático:</b> chatbot que responde com base em documentos internos.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Resumo dos tipos</h2>
+      <div class="card">
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr style="text-align:left;border-bottom:1px solid #23263a">
+              <th>Tipo</th>
+              <th>Estrutura</th>
+              <th>Exemplo</th>
+              <th>Tecnologia comum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #23263a"><td>Estruturada</td><td>Tabelar</td><td>Planilhas, SQL</td><td>PostgreSQL, Supabase</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Não Estruturada</td><td>Texto livre</td><td>PDF, DOCX, imagens</td><td>OCR, NLP</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Vetorial (RAG)</td><td>Semântica</td><td>Chat documental</td><td>Embeddings, Vector DB</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">Relacionado: veja <a href="ia.html">IA aplicada</a> para janela de contexto e RAG.</p>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Gerência de Informações • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

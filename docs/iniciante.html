@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Trilha Iniciante</title>
+  <meta name="description" content="Fundamentos de banco de dados, modelagem e SQL essencial com foco no porquê e como usar."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a class="active" href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Trilha Iniciante</h1>
+    <p class="muted">Fundamentos, modelagem e SQL básico — sempre explicando o porquê e o como usar.</p>
+
+    <section class="section">
+      <h2>Conceitos fundamentais</h2>
+      <ul class="list">
+        <li>Modelo relacional: tabelas, linhas, colunas, chaves.</li>
+        <li>Integridade: PK, FK, UNIQUE, NOT NULL, CHECK.</li>
+        <li>Normalização: reduzir redundância (1FN → 3FN) e dependências.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>SQL essencial</h2>
+      <div class="card">
+        <ol>
+          <li>Crie a tabela <code>cliente</code> com PK, nome e email único.</li>
+          <li>Insira 3 clientes e consulte apenas os que têm email.</li>
+          <li>Crie a tabela <code>pedido</code> com FK para <code>cliente</code>.</li>
+        </ol>
+      </div>
+      <pre><code>CREATE TABLE cliente (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  email TEXT UNIQUE
+);
+
+CREATE TABLE pedido (
+  id SERIAL PRIMARY KEY,
+  cliente_id INT REFERENCES cliente(id),
+  total NUMERIC(10,2) NOT NULL
+);
+      </code></pre>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Trilha Iniciante • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

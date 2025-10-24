@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Trilha Técnica</title>
+  <meta name="description" content="Índices, transações, tipos de bancos de dados e boas práticas. Sempre o porquê e o como usar."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+  </head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a class="active" href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Trilha Técnica</h1>
+    <p class="muted">Objetivo: dominar índices, transações, tipos de bancos e boas práticas de consulta e integridade.</p>
+
+    <section class="section">
+      <h2>1) Índices</h2>
+      <ul class="list">
+        <li><b>Por que:</b> acelerar buscas e JOINs reduzindo I/O.</li>
+        <li><b>Como:</b> escolha colunas seletivas, avalie EXPLAIN/EXPLAIN ANALYZE e evite sobreindexação.</li>
+      </ul>
+      <pre><code>-- Índice para busca por email
+CREATE INDEX idx_cliente_email ON cliente (email);
+
+-- Investigue plano de execução (PostgreSQL)
+EXPLAIN ANALYZE SELECT * FROM cliente WHERE email = 'ana@example.com';
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>2) Transações e Isolamento</h2>
+      <ul class="list">
+        <li><b>Por que:</b> garantir ACID, consistência e recuperação.</li>
+        <li><b>Como:</b> delimite transações curtas, escolha nível de isolamento conforme risco (READ COMMITTED, REPEATABLE READ, SERIALIZABLE).</li>
+      </ul>
+      <pre><code>BEGIN;
+  UPDATE conta SET saldo = saldo - 100 WHERE id = 1;
+  UPDATE conta SET saldo = saldo + 100 WHERE id = 2;
+COMMIT;
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>3) Tipos de Bancos</h2>
+      <ul class="list">
+        <li>Relacional: schema rígido, SQL, integridade referencial, ideal para OLTP.</li>
+        <li>Documento: JSON/BSON, flexível, bom para conteúdo variável.</li>
+        <li>Chave‑valor: latência baixíssima, cache/sessões.</li>
+        <li>Colunar: leitura analítica massiva (OLAP).</li>
+        <li>Grafo: relações e caminhos complexos.</li>
+        <li>Séries temporais: métricas e janelas de tempo.</li>
+        <li>Busca: texto livre e relevância.</li>
+      </ul>
+      <div class="note">Como escolher: defina o caso de uso (OLTP/OLAP), consistência x disponibilidade, latência, custo e time.</div>
+    </section>
+
+    <section class="section">
+      <h2>4) Boas práticas de SQL</h2>
+      <ul class="list">
+        <li>Evite SELECT *, prefira colunas necessárias.</li>
+        <li>Use parâmetros preparados para segurança e cache de planos.</li>
+        <li>Monitore consultas lentas e crie índices com base em evidência (EXPLAIN).</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Trilha Técnica • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

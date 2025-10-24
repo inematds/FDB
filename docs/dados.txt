@@ -1,0 +1,49 @@
+Podemos classificar a **gerência de informações** em **três tipos principais**, conforme a forma como os dados são tratados e utilizados:
+
+---
+
+### 1. **Gerência de Informações Estruturadas**
+
+**Exemplo:** planilhas, bancos de dados relacionais, sistemas ERP.
+**Descrição:**
+
+* Os dados seguem um formato fixo (colunas, linhas, campos).
+* Usam SQL e sistemas como MySQL, PostgreSQL, ou Supabase.
+* Ideais para armazenar e consultar grandes volumes de registros padronizados.
+  **Exemplo prático:** controle de clientes, vendas, estoque.
+
+---
+
+### 2. **Gerência de Informações Não Estruturadas**
+
+**Exemplo:** textos, PDFs, imagens, áudios e vídeos.
+**Descrição:**
+
+* As informações não têm formato fixo e exigem análise semântica.
+* Utilizam ferramentas de **NLP (Processamento de Linguagem Natural)** e **OCR**.
+* Transformam conteúdo em dados legíveis por IA.
+  **Exemplo prático:** analisar PDFs médicos, e-mails ou relatórios automáticos.
+
+---
+
+### 3. **Gerência de Informações Vetoriais (RAG)**
+
+**Exemplo:** sistemas de busca inteligente com IA.
+**Descrição:**
+
+* Usa **embeddings vetoriais** para representar o significado dos dados.
+* Permite perguntas em linguagem natural sobre documentos, textos, planilhas e PDFs.
+* É a base dos sistemas **RAG (Retrieval-Augmented Generation)**, que combinam busca e geração de respostas com IA.
+  **Exemplo prático:** um chatbot que entende e responde com base em documentos internos da empresa.
+
+---
+
+### Resumo dos tipos
+
+| Tipo            | Estrutura   | Exemplo                  | Tecnologia comum      |
+| --------------- | ----------- | ------------------------ | --------------------- |
+| Estruturada     | Tabelar     | Planilhas, SQL           | PostgreSQL, Supabase  |
+| Não Estruturada | Texto livre | PDF, DOCX, imagens       | OCR, NLP              |
+| Vetorial (RAG)  | Semântica   | Chat com base documental | Embeddings, Vector DB |
+
+---

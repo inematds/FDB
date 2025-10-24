@@ -1,0 +1,36 @@
+/* Tema limpo e responsivo */
+:root{
+  --bg:#0f1220; --panel:#171a2a; --text:#e7e8ee; --muted:#a4a8c0;
+  --brand:#6ea8fe; --accent:#5eead4; --warn:#fbbf24;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+img{max-width:100%;height:auto}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+header{position:sticky;top:0;background:rgba(15,18,32,.9);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid #23263a}
+.nav{max-width:1100px;margin:0 auto;display:flex;gap:24px;align-items:center;justify-content:space-between;padding:14px 20px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.brand img{width:32px;height:32px;border-radius:8px}
+.menu{display:flex;gap:14px;flex-wrap:wrap}
+.menu a{padding:8px 10px;border-radius:8px}
+.menu a.active,.menu a:hover{background:var(--panel)}
+main{max-width:1100px;margin:0 auto;padding:28px 20px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+.hero h1{font-size:2.1rem;margin:.2rem 0}
+.hero p{color:var(--muted);margin:0 0 10px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--brand);color:#0a0d1a;font-weight:600}
+.btn.alt{background:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid #23263a;padding:16px;border-radius:12px}
+.card h3{margin:.2rem 0 .4rem}
+.muted{color:var(--muted)}
+code,pre{font-family:ui-monospace,Consolas,Menlo,monospace}
+pre{background:#0b0e19;border:1px solid #23263a;padding:14px;border-radius:10px;overflow:auto}
+.section{margin:28px 0}
+.list{display:grid;gap:10px}
+.note{border-left:3px solid var(--accent);background:#0b1515;padding:10px 12px;border-radius:6px}
+footer{max-width:1100px;margin:30px auto 50px;color:var(--muted);padding:0 20px}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+

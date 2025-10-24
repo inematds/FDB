@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — Comparativos de Bancos de Dados</title>
+  <meta name="description" content="Diferenças entre bancos relacionais, documentos, chave-valor, colunares, grafos, séries temporais e busca; recomendações por cenário."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a href="ia.html">IA</a>
+        <a class="active" href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>Comparativos de Bancos de Dados</h1>
+    <p class="muted">Escolha pelo objetivo: OLTP vs OLAP, consistência, latência, escala e custo de operação.</p>
+
+    <section class="section">
+      <h2>Por modelo de dados</h2>
+      <ul class="list">
+        <li><b>Relacional:</b> schema rígido, SQL, ACID; ótimo para OLTP e integridade referencial (PostgreSQL, MySQL, SQL Server, Oracle, SQLite).</li>
+        <li><b>Documento:</b> JSON/BSON, schema flexível; bom para conteúdo variável e iteração rápida (MongoDB, Couchbase).</li>
+        <li><b>Chave‑valor:</b> latência baixíssima; cache, sessões e contadores (Redis, DynamoDB).</li>
+        <li><b>Colunar:</b> leitura analítica massiva; compressão e scans rápidos (BigQuery, Redshift, ClickHouse, Snowflake).</li>
+        <li><b>Grafo:</b> caminhos e relações complexas (Neo4j, JanusGraph).</li>
+        <li><b>Séries temporais:</b> métricas e janelas (InfluxDB, TimescaleDB).</li>
+        <li><b>Busca:</b> texto livre e relevância (Elasticsearch, OpenSearch).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Comparativo rápido</h2>
+      <div class="card">
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr style="text-align:left;border-bottom:1px solid #23263a">
+              <th>SGBD</th><th>Modelo</th><th>Forças</th><th>Atenção</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-top:1px solid #23263a"><td>PostgreSQL</td><td>Relacional</td><td>SQL padrão, extensões (PostGIS/Timescale)</td><td>Tune fino necessário p/ cargas intensas</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>MySQL/MariaDB</td><td>Relacional</td><td>Popular, simples, vasto ecossistema</td><td>Recursos avançados variam por engine</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>SQL Server</td><td>Relacional</td><td>Integração MS, BI/SSIS/SSAS</td><td>Licenciamento</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Oracle</td><td>Relacional</td><td>Recursos corporativos e HA</td><td>Licenciamento</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>SQLite</td><td>Relacional</td><td>Embutido, zero‑config</td><td>Concorrência limitada</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>MongoDB</td><td>Documento</td><td>Flexível, agregação forte</td><td>Transações multi‑coleção</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Redis</td><td>Chave‑valor</td><td>In‑memory, latência mínima</td><td>Persistência/HA conforme modo</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Cassandra</td><td>Wide‑column</td><td>Alta escrita, escala horizontal</td><td>Modelagem por consultas</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Neo4j</td><td>Grafo</td><td>Roteiros/caminhos eficientes</td><td>Custo com grafos densos</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>ClickHouse</td><td>Colunar</td><td>Analítico muito rápido</td><td>Design p/ OLAP (não OLTP)</td></tr>
+            <tr style="border-top:1px solid #23263a"><td>Elasticsearch</td><td>Busca</td><td>Full‑text, agregações</td><td>Não substitui ACID</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Recomendações por cenário</h2>
+      <ul class="list">
+        <li><b>OLTP transacional:</b> PostgreSQL, MySQL, SQL Server, Oracle.</li>
+        <li><b>Conteúdo dinâmico/iterativo:</b> MongoDB.</li>
+        <li><b>Caches/sessões/filas:</b> Redis.</li>
+        <li><b>Data warehouse/analytics:</b> BigQuery, Redshift, Snowflake, ClickHouse.</li>
+        <li><b>Grafos/recomendações:</b> Neo4j.</li>
+        <li><b>Séries temporais/observabilidade:</b> InfluxDB, TimescaleDB, Prometheus (TSDB).</li>
+        <li><b>Busca full‑text:</b> Elasticsearch, OpenSearch.</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — Comparativos • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+

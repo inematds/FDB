@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>FDB — IA aplicada a dados</title>
+  <meta name="description" content="Guia prático: por que e como usar IA com bancos de dados — janela de contexto e RAG vetorial."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand"><a href="index.html">FDB</a></div>
+      <div class="menu">
+        <a href="index.html">Início</a>
+        <a href="iniciante.html">Iniciante</a>
+        <a href="tecnico.html">Técnico</a>
+        <a href="avancado.html">Avançado</a>
+        <a class="active" href="ia.html">IA</a>
+        <a href="comparativos.html">Comparativos</a>
+        <a href="gerencia-informacoes.html">Gerência</a>
+        <a href="exercicios.html">Exercícios</a>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1>IA aplicada a dados</h1>
+    <p class="muted">Por que: acelerar respostas, resumir dados, construir busca semântica e chat sobre conhecimento. Como: escolher janela de contexto adequada e aplicar RAG com vetores.</p>
+
+    <section class="section">
+      <h2>Janela de contexto (context window)</h2>
+      <ul class="list">
+        <li><b>Por que importa:</b> limita o quanto o modelo “olha” de uma vez. Estouro = perda de informação relevante.</li>
+        <li><b>Como escolher:</b> estime o tamanho médio dos prompts + dados; use janelas maiores para tarefas com muitos trechos, mas prefira RAG quando o corpus crescer.</li>
+        <li><b>Boas práticas:</b> comprima/estruture entradas, use resumos e metadados; priorize trechos por relevância antes de enviar ao modelo.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Weaviate — híbrido (vetor + BM25)</h2>
+      <p>Banco vetorial com busca híbrida. Por quê: combinar semântica e palavras‑chave. Como: upsert com vetor e consulta <code>nearVector</code>.</p>
+      <pre><code># Python — weaviate-client
+import weaviate, os
+
+client = weaviate.WeaviateClient("http://localhost:8080")
+
+# Inserção com vetor gerado externamente
+vec = embed("Normalização até 3FN reduz redundância")
+client.collections.get_or_create("documents", vectorizer_config={"none": {}})
+client.collections.get("documents").data.insert({
+  "content": "Normalização até 3FN reduz redundância",
+  "metadata": {"topic": "modelagem"}
+}, vector=vec)
+
+# Busca semântica
+q = embed("Como normalizar tabelas?")
+res = client.collections.get("documents").query.near_vector(q, limit=5)
+context = "\n".join(f"- {o['content']}" for o in res.objects)
+answer = llm.generate(f"Contexto:\n{context}\n\nPergunta: Como normalizar tabelas?")
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Milvus — open source em escala</h2>
+      <p>Banco vetorial open source. Por quê: alto desempenho e ecossistema maduro. Como: coleção com campo <code>FLOAT_VECTOR</code>.</p>
+      <pre><code># Python — pymilvus
+from pymilvus import connections, FieldSchema, CollectionSchema, DataType, Collection
+
+connections.connect(alias="default", host="localhost", port="19530")
+
+fields = [
+  FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
+  FieldSchema(name="content", dtype=DataType.VARCHAR, max_length=2048),
+  FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=1536),
+]
+schema = CollectionSchema(fields, description="docs")
+col = Collection("documents", schema=schema)
+
+# Índice e carga
+col.create_index("embedding", {"index_type":"IVF_FLAT","metric_type":"COSINE","params":{"nlist":1024}})
+col.load()
+
+# Inserção
+emb = embed("Índices aceleram leitura")
+col.insert([[None], ["Índices aceleram leitura"], [emb]])
+
+# Busca
+q = embed("Quando criar um índice?")
+res = col.search([q], "embedding", params={"nprobe":16}, limit=5, output_fields=["content"])
+context = "\n".join(f"- {hit.entity.get('content')}" for hit in res[0])
+answer = llm.generate(f"Contexto:\n{context}\n\nPergunta: Quando criar um índice?")
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Qdrant — vetorial com payload</h2>
+      <p>Armazena vetores com metadados (payload). Por quê: filtros estruturados + semântica. Como: coleção com <code>cosine</code>.</p>
+      <pre><code># Python — qdrant-client
+from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, VectorParams, PointStruct
+
+qc = QdrantClient(host="localhost", port=6333)
+qc.recreate_collection(
+  collection_name="documents",
+  vectors_config=VectorParams(size=1536, distance=Distance.COSINE)
+)
+
+emb = embed("Transações garantem atomicidade")
+qc.upsert("documents", [PointStruct(id=1, vector=emb, payload={"content":"Transações garantem atomicidade","topic":"transacoes"})])
+
+q = embed("O que é ACID?")
+res = qc.search("documents", query_vector=q, limit=5)
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Redis com vetores (RedisVL/FTS)</h2>
+      <pre><code># Definição do índice com campo vetorial
+FT.CREATE idx:docs ON HASH PREFIX 1 doc: SCHEMA embedding VECTOR HNSW 6 TYPE FLOAT32 DIM 1536 DISTANCE_METRIC COSINE content TEXT
+
+# Consulta KNN (retorna top‑5 por similaridade)
+FT.SEARCH idx:docs '*=>[KNN 5 @embedding $vec AS score]' PARAMS 2 vec &lt;BLOB_QUERY&gt; SORTBY score RETURN 2 content score DIALECT 2
+      </code></pre>
+      <div class="note">Mantenha embeddings como FLOAT32; para cosseno, normalize vetores na aplicação.</div>
+    </section>
+
+    <section class="section">
+      <h2>Chroma — local/dev</h2>
+      <p>Armazenamento vetorial leve para desenvolvimento local. Por quê: simplicidade. Como: coleção com embeddings externos.</p>
+      <pre><code># Python — chromadb
+import chromadb
+client = chromadb.Client()
+col = client.get_or_create_collection("documents")
+
+emb = embed("Índices e EXPLAIN")
+col.add(documents=["Índices e EXPLAIN"], embeddings=[emb], ids=["doc-1"], metadatas=[{"topic":"indices"}])
+
+q = embed("Como usar EXPLAIN?")
+res = col.query(query_embeddings=[q], n_results=5)
+context = "\n".join(f"- {d}" for d in res['documents'][0])
+answer = llm.generate(f"Contexto:\n{context}\n\nPergunta: Como usar EXPLAIN?")
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>Azure AI Search — índice vetorial</h2>
+      <p>Índice gerenciado com campos vetoriais. Por quê: integração com filtros e ranking. Como: campo <code>vector</code> + skillset opcional.</p>
+      <pre><code>{
+  "name": "documents",
+  "fields": [
+    {"name":"id","type":"Edm.String","key":true},
+    {"name":"content","type":"Edm.String","searchable":true},
+    {"name":"embedding","type":"Collection(Edm.Single)","searchable":true,"vectorSearchDimensions":1536}
+  ],
+  "vectorSearch": {"algorithmConfigurations": [{"name":"vec-config","kind":"hnsw"}]}
+}
+      </code></pre>
+      <div class="note">Combine busca semântica com filtros por metadados e reranking.</div>
+    </section>
+
+    <section class="section">
+      <h2>RAG com vetores</h2>
+      <p>RAG (Retrieval‑Augmented Generation) injeta conhecimento externo relevante na janela de contexto do modelo. Vetores (embeddings) permitem buscar por similaridade semântica.</p>
+      <ul class="list">
+        <li><b>Por que usar:</b> escalar além da janela, manter respostas atualizadas, reduzir alucinações.</li>
+        <li><b>Como usar (pipeline):</b> ingestão → chunking → geração de embeddings → indexação vetorial → consulta → reranking opcional → montagem do prompt → geração.</li>
+        <li><b>Ferramentas comuns:</b> pgvector (PostgreSQL), FAISS, Milvus, Elasticsearch/OpenSearch com vetores.</li>
+        <li><b>Dicas:</b> escolha tamanho de chunk coerente com as perguntas; armazene metadados (título, seção, fonte); faça avaliações offline (precisão/recall, utilidade).</li>
+      </ul>
+      <pre><code># Exemplo conceitual (pseudocódigo)
+docs = split_into_chunks(load_corpus(), tokens=600)
+vecs = embed(docs)
+index = build_vector_index(vecs)
+
+query = embed("Como normalizar tabelas?")
+tops = index.search(query, k=5)
+prompt = compose(system, user, context=tops)
+answer = llm.generate(prompt)
+      </code></pre>
+    </section>
+
+    <section class="section">
+      <h2>pgvector no PostgreSQL</h2>
+      <p>Armazene embeddings diretamente no PostgreSQL e faça busca por similaridade. Por quê: integra dados relacionais e semânticos no mesmo SGBD. Como: extensão <code>pgvector</code>.</p>
+      <pre><code>-- Instalar extensão (exige permissões de superuser)
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Tabela com coluna vetorial (dimensão 1536 como exemplo)
+CREATE TABLE doc_chunk (
+  id BIGSERIAL PRIMARY KEY,
+  content TEXT NOT NULL,
+  embedding VECTOR(1536)
+);
+
+-- Inserir: gere o embedding na app e envie como array
+INSERT INTO doc_chunk (content, embedding)
+VALUES (
+  'Normalização até 3FN reduz redundância',
+  '[0.012, -0.034, ...]'::vector
+);
+
+-- Consulta por similaridade (menor distância = mais similar)
+-- <->: distância euclidiana | <#>: inner product | <=>: cosine
+WITH q AS (
+  SELECT '[0.010, -0.020, ...]'::vector AS v
+)
+SELECT id, content
+FROM doc_chunk, q
+ORDER BY embedding <=> q.v
+LIMIT 5;
+      </code></pre>
+      <div class="note">Boas práticas: mantenha metadados (fonte, seção), crie índice <code>ivfflat</code> para escala e ajuste <code>lists</code>/<code>probes</code> conforme recall/latência.</div>
+    </section>
+  </main>
+  <footer>
+    <p class="muted">FDB — IA aplicada • Contato: <a href="mailto:inematds@gmail.com">inematds@gmail.com</a></p>
+  </footer>
+</body>
+</html>
+
