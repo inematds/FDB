@@ -1,40 +1,69 @@
-# FDB — Fundamentos de Banco de Dados
+# FDB - Fundamentos de Banco de Dados
 
-Conteúdo educativo para aprender e comparar bancos de dados, com três trilhas:
+Curso completo de Banco de Dados no formato INEMA.CLUB, com 3 trilhas progressivas.
 
-- Iniciante: conceitos, modelagem básica e SQL essencial.
-- Técnico: Índices, transações, tipos de bancos e boas práticas.
-- Avançado: arquitetura, desempenho, análises e cenários distribuídos.
+## Trilhas
 
-Também incluímos um guia de IA aplicado a dados: como escolher janela de contexto, usar RAG com vetores e quando essas técnicas fazem sentido — sempre explicando o porquê e o como usar.
+| Trilha | Tema | Modulos | Topicos | Nivel |
+|--------|------|---------|---------|-------|
+| T1 Iniciante | Fundamentos, modelagem e SQL essencial | 2 | 12 | Basico |
+| T2 Tecnico | Indices, transacoes, tipos de BD e comparativos | 2 | 12 | Intermediario |
+| T3 Avancado | Arquitetura, performance, IA aplicada e bancos vetoriais | 2 | 14 | Avancado |
 
-Site (GitHub Pages): a pasta `docs/` contém um site estático pronto para publicação. No GitHub, configure Pages com Source apontando para `main`/`docs/`.
+Total: 6 modulos, 38 topicos, ~4.5h de conteudo.
 
 ## Estrutura
 
-- `docs/index.html` — Home e trilhas de aprendizagem (Iniciante, Técnico, Avançado)
-- `docs/iniciante.html` — Fundamentos, modelagem e SQL básico
-- `docs/tecnico.html` — Índices, transações, tipos de bancos
-- `docs/avancado.html` — Tópicos avançados e cenários distribuídos
-- `docs/ia.html` — Guia: IA aplicada (janela de contexto e RAG vetorial)
-- `docs/comparativos.html` — Comparação entre bancos e recomendações
-- `docs/gerencia-informacoes.html` — Três tipos de gerência de informações (Estruturada, Não Estruturada, Vetorial/RAG) com diagrama 16:9 em `docs/assets/gerencia-informacoes.svg`
-- `docs/exercicios.html` — Exercícios práticos por nível (Iniciante, Técnico e Avançado)
-- `docs/assets/styles.css` — Estilos do site
+```
+FDB/
+├── index.html                          # Landing page
+├── curso/
+│   ├── trilha1/                        # Iniciante (Emerald)
+│   │   ├── index.html                  # Index com cards e topicos expansiveis
+│   │   ├── modulo-1-1.html             # Fundamentos e Modelagem
+│   │   └── modulo-1-2.html             # SQL Essencial
+│   ├── trilha2/                        # Tecnico (Blue)
+│   │   ├── index.html
+│   │   ├── modulo-2-1.html             # Indices e Transacoes
+│   │   └── modulo-2-2.html             # Tipos e Comparativos de SGBDs
+│   └── trilha3/                        # Avancado (Purple)
+│       ├── index.html
+│       ├── modulo-3-1.html             # Arquitetura e Performance
+│       └── modulo-3-2.html             # IA Aplicada a Dados (RAG, vetores)
+├── docs/                               # Versao anterior (referencia)
+│   ├── *.html                          # Paginas antigas
+│   ├── *.pdf                           # Materiais complementares
+│   └── assets/                         # CSS e imagens antigos
+└── README.md
+```
 
-Materiais existentes em `docs/` (PDFs, imagens e anotações) foram preservados e podem ser referenciados.
+## Tecnologias
 
-## Como publicar no GitHub Pages
+- Tailwind CSS (CDN)
+- Google Fonts (Inter)
+- Dark/Light mode com overrides completos
+- Topicos expansiveis com JavaScript vanilla
+- Modais com iframe (sem duplicacao de conteudo)
+- Responsivo (mobile/desktop)
 
-1. Vá em Settings → Pages.
-2. Em Source, selecione a branch `main` e a pasta `/docs`.
-3. Salve. Em alguns minutos, o site estará no ar.
+## Como publicar
 
-## Contribuindo
+### GitHub Pages
+1. Settings > Pages
+2. Source: branch `main`, pasta `/` (raiz)
+3. O `index.html` da raiz sera a entrada do site
 
-Contribuições são bem-vindas! Abra issues com dúvidas, sugestões de conteúdo ou correções. Ao propor mudanças, inclua o motivo (por que) e o procedimento (como) para manter o material didático claro.
+### Local
+Basta abrir `index.html` no navegador. Nao precisa de servidor.
+
+## Formato
+
+Segue o design system INEMA.CLUB:
+- Cores por trilha (Emerald, Blue, Purple)
+- Nav padrao com logo, INEMA.CLUB, trilhas e theme toggle
+- Topicos com numero em circulo e 3 secoes (O que e / Por que / Conceitos-chave)
+- Light mode com overrides de cor para contraste adequado
 
 ## Contato
 
 E-mail: inematds@gmail.com
-

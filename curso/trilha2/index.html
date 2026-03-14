@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 2 - Dominio Tecnico | FDB</title>
+  <meta name="description" content="Indices, transacoes, tipos de SGBDs e boas praticas. Nivel intermediario para dominar o funcionamento interno dos bancos de dados.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* ─── LIGHT MODE ─── */
+
+    /* Part 1 — Base overrides */
+    html:not(.dark) body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+    }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Part 2 — BLUE overrides */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .border-blue-500\/50 { border-color: rgba(37, 99, 235, 0.35); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.35); }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+
+    /* Part 3 — Remove gradients, special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Part 4 — Nav override */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+    }
+    .modal-content {
+      width: 95%;
+      max-width: 1200px;
+      height: 90vh;
+      border-radius: 1rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-content iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">&#x1F5C4;&#xFE0F;</span>
+            <span class="font-bold text-lg hidden sm:inline">FDB</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Iniciante</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10">
+            <span class="sm:hidden">T2</span>
+            <span class="hidden sm:inline">Tecnico</span>
+          </a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors">
+            <span class="sm:hidden">T3</span>
+            <span class="hidden sm:inline">Avancado</span>
+          </a>
+
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-16 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">
+        TRILHA 2
+      </span>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4">&#x1F6E0;&#xFE0F; Dominio Tecnico</h1>
+      <p class="text-xl text-neutral-400 max-w-3xl mb-8">Domine indices, transacoes, tipos de SGBDs e boas praticas SQL. Entenda o funcionamento interno dos bancos de dados e faca escolhas tecnicas com criterio.</p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+          <div class="text-2xl font-bold text-blue-400">2</div>
+          <div class="text-sm text-neutral-400">Modulos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+          <div class="text-2xl font-bold text-blue-400">12</div>
+          <div class="text-sm text-neutral-400">Topicos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+          <div class="text-2xl font-bold text-blue-400">~1.5h</div>
+          <div class="text-sm text-neutral-400">Duracao</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+          <div class="text-2xl font-bold text-blue-400">Inter</div>
+          <div class="text-sm text-neutral-400">Nivel</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- VISAO GERAL DOS MODULOS -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6">Visao Geral dos Modulos</h2>
+      <p class="text-neutral-400 mb-8">Clique em um card para acessar o modulo completo.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+        <!-- Card 2.1 -->
+        <a href="modulo-2-1.html" class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-blue-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-blue-400 font-bold">2.1</span>
+            <span class="text-xs text-neutral-500">~45 min</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">&#x26A1; Indices e Transacoes</h3>
+          <p class="text-neutral-400 text-sm">CREATE INDEX, EXPLAIN ANALYZE, transacoes ACID, niveis de isolamento e boas praticas SQL</p>
+        </a>
+
+        <!-- Card 2.2 -->
+        <a href="modulo-2-2.html" class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-blue-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-blue-400 font-bold">2.2</span>
+            <span class="text-xs text-neutral-500">~45 min</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">&#x1F5C2;&#xFE0F; Tipos e Comparativos de SGBDs</h3>
+          <p class="text-neutral-400 text-sm">Relacionais, documentos, chave-valor, colunares, grafos, series temporais e como escolher</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- MODULOS DETALHADOS -->
+    <section>
+      <h2 class="text-2xl font-bold mb-6">Conteudo Detalhado</h2>
+      <p class="text-neutral-400 mb-8">Explore os topicos de cada modulo. Clique para expandir.</p>
+
+      <!-- MODULO 2.1 -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.1</span>
+            <span class="text-xs text-neutral-500">~45 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">&#x26A1; Indices e Transacoes</h3>
+          <p class="text-neutral-400">Domine indices para acelerar buscas, transacoes ACID para garantir consistencia e boas praticas SQL para queries profissionais.</p>
+        </div>
+
+        <div class="divide-y divide-dark-600">
+          <!-- Topico 1 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">&#x1F4C8;</span>
+              <div>
+                <span class="font-medium">Por que Indices</span>
+                <span class="text-neutral-500 text-sm ml-2">- Acelerando buscas</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Estrutura auxiliar que acelera consultas evitando full table scan.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Sem indice, toda busca varre a tabela inteira. Performance cai exponencialmente.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">B-tree, Hash, indice cobridor, seletividade, custo de manutencao</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 2 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">&#x1F527;</span>
+              <div>
+                <span class="font-medium">CREATE INDEX na pratica</span>
+                <span class="text-neutral-500 text-sm ml-2">- Criando e avaliando</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Comando para criar indices com escolha de colunas e estrategia.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Indice errado e pior que nenhum. Consome espaco e lentifica escritas.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">CREATE INDEX, indice composto, indice parcial, INCLUDE, UNIQUE INDEX</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 3 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">&#x1F52C;</span>
+              <div>
+                <span class="font-medium">EXPLAIN e EXPLAIN ANALYZE</span>
+                <span class="text-neutral-500 text-sm ml-2">- Diagnosticando queries</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Ferramentas para ver o plano de execucao e custo real de uma query.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Sem EXPLAIN voce otimiza no escuro. E o raio-X da performance.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">Seq Scan, Index Scan, Nested Loop, Hash Join, custo estimado vs real</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 4 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">&#x1F512;</span>
+              <div>
+                <span class="font-medium">Transacoes ACID</span>
+                <span class="text-neutral-500 text-sm ml-2">- Garantindo consistencia</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Conjunto de operacoes que executa como unidade atomica (tudo ou nada).</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Transferencia bancaria sem transacao pode perder dinheiro. ACID e fundamental.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">Atomicidade, Consistencia, Isolamento, Durabilidade, BEGIN/COMMIT/ROLLBACK</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 5 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">&#x1F504;</span>
+              <div>
+                <span class="font-medium">Niveis de Isolamento</span>
+                <span class="text-neutral-500 text-sm ml-2">- Controlando concorrencia</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Configuracao que define o que uma transacao ve das mudancas de outras.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Isolamento errado causa dirty reads, phantom reads e dados inconsistentes.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 6 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">&#x1F4CB;</span>
+              <div>
+                <span class="font-medium">Boas Praticas SQL</span>
+                <span class="text-neutral-500 text-sm ml-2">- Escrevendo queries profissionais</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Padroes e habitos para queries seguras, performaticas e manteniveis.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">SQL mal escrito e divida tecnica. Boa pratica hoje evita incidente amanha.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">Prepared statements, evitar SELECT *, parametros, monitoramento</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botoes (ESQUERDA!) -->
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-2-1')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">
+            Ver em Modal
+          </button>
+          <a href="modulo-2-1.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
+            Ver Completo
+          </a>
+        </div>
+      </div>
+
+      <!-- MODULO 2.2 -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
+        <div class="p-6 border-b border-dark-600">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-blue-400 font-bold">2.2</span>
+            <span class="text-xs text-neutral-500">~45 min</span>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">&#x1F5C2;&#xFE0F; Tipos e Comparativos de SGBDs</h3>
+          <p class="text-neutral-400">Conheca os diferentes tipos de bancos de dados, quando usar cada um e como tomar a decisao certa para cada cenario.</p>
+        </div>
+
+        <div class="divide-y divide-dark-600">
+          <!-- Topico 1 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
+              <span class="text-lg">&#x1F3DB;&#xFE0F;</span>
+              <div>
+                <span class="font-medium">Bancos Relacionais</span>
+                <span class="text-neutral-500 text-sm ml-2">- O padrao da industria</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">SGBDs com schema rigido, SQL, ACID e integridade referencial.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Mais de 40 anos de maturidade. Padrao para OLTP e sistemas transacionais.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">PostgreSQL, MySQL, SQL Server, Oracle, SQLite, quando usar cada</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 2 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
+              <span class="text-lg">&#x1F4C4;</span>
+              <div>
+                <span class="font-medium">Bancos de Documentos</span>
+                <span class="text-neutral-500 text-sm ml-2">- Flexibilidade JSON</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Armazenam documentos JSON/BSON sem schema fixo.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Iteracao rapida, conteudo variavel. Ideal para prototipagem e CMS.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">MongoDB, Couchbase, agregacoes, sharding, transacoes multi-documento</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 3 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
+              <span class="text-lg">&#x26A1;</span>
+              <div>
+                <span class="font-medium">Chave-Valor e Cache</span>
+                <span class="text-neutral-500 text-sm ml-2">- Velocidade maxima</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Mapeamento simples key->value com latencia sub-milissegundo.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Cache, sessoes, filas. Redis e o banco mais rapido do ecossistema.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">Redis, DynamoDB, TTL, persistencia, pub/sub, Streams</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 4 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
+              <span class="text-lg">&#x1F4CA;</span>
+              <div>
+                <span class="font-medium">Bancos Colunares</span>
+                <span class="text-neutral-500 text-sm ml-2">- Analytics em escala</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Armazenam dados por coluna (nao por linha), otimizados para agregacoes.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">OLAP, data warehouse, BI. Compressao e scan de colunas sao ordens de magnitude mais rapidos.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">BigQuery, Redshift, ClickHouse, Snowflake, compressao colunar</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 5 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
+              <span class="text-lg">&#x1F578;&#xFE0F;</span>
+              <div>
+                <span class="font-medium">Grafos e Series Temporais</span>
+                <span class="text-neutral-500 text-sm ml-2">- Casos especiais</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Grafos modelam relacoes complexas. Series temporais otimizam dados cronologicos.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Redes sociais, recomendacoes, fraude (grafos). IoT, metricas, logs (series).</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">Neo4j, InfluxDB, TimescaleDB, Cypher, Prometheus</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Topico 6 -->
+          <div class="topic-item">
+            <button onclick="toggleTopic(this)" class="w-full px-6 py-4 flex items-center space-x-3 hover:bg-dark-700/50 transition-colors text-left">
+              <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
+              <span class="text-lg">&#x2696;&#xFE0F;</span>
+              <div>
+                <span class="font-medium">Como Escolher</span>
+                <span class="text-neutral-500 text-sm ml-2">- Decisao por cenario</span>
+              </div>
+            </button>
+            <div class="topic-explanation px-6 pb-4">
+              <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
+                <div>
+                  <span class="text-blue-400 font-semibold">O que e:</span>
+                  <p class="text-neutral-300 text-sm">Framework para selecionar o SGBD certo baseado em requisitos.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Por que aprender:</span>
+                  <p class="text-neutral-300 text-sm">Escolha errada custa meses de retrabalho. Decidir com criterio e profissionalismo.</p>
+                </div>
+                <div>
+                  <span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+                  <p class="text-neutral-300 text-sm">OLTP vs OLAP, consistencia vs disponibilidade, latencia, custo, ecossistema</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botoes (ESQUERDA!) -->
+        <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
+          <button onclick="openModal('modal-2-2')" class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors">
+            Ver em Modal
+          </button>
+          <a href="modulo-2-2.html" class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors">
+            Ver Completo
+          </a>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- MODAL CONTAINER -->
+  <div id="modal-container" class="modal hidden" onclick="if(event.target === this) closeModal()">
+    <div class="modal-content bg-dark-900 border border-dark-600">
+      <div class="p-3 bg-dark-800 border-b border-dark-600 flex justify-between items-center">
+        <span id="modal-title" class="text-blue-400 font-bold text-sm"></span>
+        <button onclick="closeModal()" class="text-neutral-400 hover:text-white text-2xl leading-none">&times;</button>
+      </div>
+      <iframe id="modal-iframe" src="" class="bg-dark-900"></iframe>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>&#x1F5C4;&#xFE0F; FDB - Fundamentos de Banco de Dados | <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> - 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+      lightIcon.classList.remove('hidden');
+    } else {
+      document.documentElement.classList.add('dark');
+      darkIcon.classList.remove('hidden');
+    }
+
+    themeToggle.addEventListener('click', function() {
+      darkIcon.classList.toggle('hidden');
+      lightIcon.classList.toggle('hidden');
+
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('color-theme', 'dark');
+      }
+    });
+
+    // Topic toggle
+    function toggleTopic(button) {
+      const topicItem = button.parentElement;
+      const explanation = topicItem.querySelector('.topic-explanation');
+      const moduleCard = topicItem.closest('.bg-dark-800');
+
+      // Close other topics in same module
+      moduleCard.querySelectorAll('.topic-explanation.active').forEach(exp => {
+        if (exp !== explanation) {
+          exp.classList.remove('active');
+        }
+      });
+
+      explanation.classList.toggle('active');
+    }
+
+    // Modal functions
+    const moduleNames = {
+      'modal-2-1': '2.1 - Indices e Transacoes',
+      'modal-2-2': '2.2 - Tipos e Comparativos de SGBDs'
+    };
+
+    function openModal(modalId) {
+      const container = document.getElementById('modal-container');
+      const iframe = document.getElementById('modal-iframe');
+      const title = document.getElementById('modal-title');
+
+      const moduleNum = modalId.replace('modal-', '');
+      title.textContent = moduleNames[modalId] || modalId;
+      iframe.src = 'modulo-' + moduleNum + '.html';
+
+      container.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const container = document.getElementById('modal-container');
+      const iframe = document.getElementById('modal-iframe');
+
+      container.classList.add('hidden');
+      iframe.src = '';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal with ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
+
+</body>
+</html>

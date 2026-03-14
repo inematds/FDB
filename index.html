@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDB - Fundamentos de Banco de Dados | INEMA.CLUB</title>
+  <meta name="description" content="Domine bancos de dados do zero ao avancado. Modelagem, SQL, indices, transacoes, arquitetura, performance e IA aplicada.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    /* ─── LIGHT MODE ─── */
+
+    /* Part 1 — Base overrides */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Part 2 — Trilha color overrides */
+
+    /* Emerald */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .group:hover .group-hover\:text-emerald-400 { color: #059669; }
+
+    /* Blue */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .group:hover .group-hover\:text-blue-400 { color: #2563eb; }
+
+    /* Purple */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+
+    /* Part 3 — Remove gradients, special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Part 4 — Nav override */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- Sticky Nav -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-700">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="flex items-center gap-2 hover:text-yellow-300 transition-colors">
+          <span class="text-lg">&#x1F5C4;&#xFE0F;</span>
+          <span class="text-yellow-400 font-semibold text-sm">FDB</span>
+        </a>
+        <span class="text-neutral-500">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium transition-colors">INEMA.CLUB</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-4 text-sm">
+          <a href="curso/trilha1/index.html" class="text-emerald-400 hover:text-emerald-400 transition-colors font-medium">Iniciante</a>
+          <a href="curso/trilha2/index.html" class="text-blue-400 hover:text-blue-400 transition-colors font-medium">Tecnico</a>
+          <a href="curso/trilha3/index.html" class="text-purple-400 hover:text-purple-400 transition-colors font-medium">Avancado</a>
+        </div>
+        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-dark-700 transition-colors">
+          <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="text-6xl mb-6">&#x1F5C4;&#xFE0F;</div>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 text-neutral-100">
+        FDB - Fundamentos de Banco de Dados
+      </h1>
+      <p class="text-lg md:text-xl text-neutral-400 mb-10 max-w-2xl mx-auto">
+        Domine bancos de dados do zero ao avancado. Modelagem, SQL, indices, transacoes, arquitetura, performance e IA aplicada.
+      </p>
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <div class="bg-dark-800 border border-dark-700 rounded-xl px-5 py-3 text-center">
+          <div class="text-2xl font-bold text-primary">3</div>
+          <div class="text-neutral-400">Trilhas</div>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl px-5 py-3 text-center">
+          <div class="text-2xl font-bold text-primary">6</div>
+          <div class="text-neutral-400">Modulos</div>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl px-5 py-3 text-center">
+          <div class="text-2xl font-bold text-primary">38</div>
+          <div class="text-neutral-400">Topicos</div>
+        </div>
+        <div class="bg-dark-800 border border-dark-700 rounded-xl px-5 py-3 text-center">
+          <div class="text-2xl font-bold text-primary">~4.5h</div>
+          <div class="text-neutral-400">Conteudo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trilhas Grid -->
+  <section class="pb-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- T1 - Iniciante (Emerald) -->
+        <a href="curso/trilha1/index.html" class="group block bg-dark-800 border border-dark-700 rounded-2xl p-6 hover:border-emerald-500/30 transition-all duration-300">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-emerald-500/20 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full">Trilha 1</span>
+            <span class="text-neutral-500 text-xs">Basico</span>
+          </div>
+          <h3 class="text-lg font-bold text-neutral-100 group-hover:text-emerald-400 transition-colors mb-2">
+            &#x1F331; Iniciante
+          </h3>
+          <p class="text-neutral-400 text-sm mb-4">
+            Fundamentos, modelagem e SQL essencial. Construa uma base solida para trabalhar com bancos de dados.
+          </p>
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3">
+              <span class="text-neutral-500 font-medium">2 modulos</span>
+              <span class="text-neutral-500">&middot;</span>
+              <span class="text-neutral-500 font-medium">12 topicos</span>
+            </div>
+            <span class="text-neutral-500 font-medium">~1h</span>
+          </div>
+        </a>
+
+        <!-- T2 - Tecnico (Blue) -->
+        <a href="curso/trilha2/index.html" class="group block bg-dark-800 border border-dark-700 rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-300">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-2.5 py-1 rounded-full">Trilha 2</span>
+            <span class="text-neutral-500 text-xs">Intermediario</span>
+          </div>
+          <h3 class="text-lg font-bold text-neutral-100 group-hover:text-blue-400 transition-colors mb-2">
+            &#x1F527; Tecnico
+          </h3>
+          <p class="text-neutral-400 text-sm mb-4">
+            Indices, transacoes, tipos de BD e comparativos. Entenda o funcionamento interno dos bancos de dados.
+          </p>
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3">
+              <span class="text-neutral-500 font-medium">2 modulos</span>
+              <span class="text-neutral-500">&middot;</span>
+              <span class="text-neutral-500 font-medium">12 topicos</span>
+            </div>
+            <span class="text-neutral-500 font-medium">~1.5h</span>
+          </div>
+        </a>
+
+        <!-- T3 - Avancado (Purple) -->
+        <a href="curso/trilha3/index.html" class="group block bg-dark-800 border border-dark-700 rounded-2xl p-6 hover:border-purple-500/30 transition-all duration-300">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="bg-purple-500/20 text-purple-400 text-xs font-bold px-2.5 py-1 rounded-full">Trilha 3</span>
+            <span class="text-neutral-500 text-xs">Avancado</span>
+          </div>
+          <h3 class="text-lg font-bold text-neutral-100 group-hover:text-purple-400 transition-colors mb-2">
+            &#x1F680; Avancado
+          </h3>
+          <p class="text-neutral-400 text-sm mb-4">
+            Arquitetura, performance, IA aplicada e bancos vetoriais. Domine tecnicas avancadas de banco de dados.
+          </p>
+          <div class="flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3">
+              <span class="text-neutral-500 font-medium">2 modulos</span>
+              <span class="text-neutral-500">&middot;</span>
+              <span class="text-neutral-500 font-medium">14 topicos</span>
+            </div>
+            <span class="text-neutral-500 font-medium">~2h</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-dark-700 py-8 px-6">
+    <div class="max-w-6xl mx-auto text-center text-neutral-500 text-sm">
+      <p>&#x1F5C4;&#xFE0F; FDB - Fundamentos de Banco de Dados - 2026 &middot; <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 transition-colors">INEMA.CLUB</a></p>
+    </div>
+  </footer>
+
+  <!-- Theme Toggle Script -->
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const html = document.documentElement;
+
+    if (localStorage.getItem('theme') === 'light') {
+      html.classList.remove('dark');
+      themeToggleDarkIcon.classList.remove('hidden');
+    } else {
+      themeToggleLightIcon.classList.remove('hidden');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+
+</body>
+</html>

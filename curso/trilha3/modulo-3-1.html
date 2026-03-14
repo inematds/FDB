@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo 3.1 - Arquitetura e Performance | FDB</title>
+  <meta name="description" content="OLTP vs OLAP, particionamento, data warehouse, ETL, observabilidade e governanca de dados. Modulo avancado do curso FDB.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+
+    /* ─── LIGHT MODE ─── */
+
+    /* Part 1 — Base overrides */
+    html:not(.dark) body {
+      background-color: #f8fafc;
+    }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Part 2 — PURPLE overrides */
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+    html:not(.dark) .group:hover .group-hover\:text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+
+    /* Part 3 — Remove gradients, special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-green-400 { color: #16a34a; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+
+    /* Part 4 — Nav override */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">&#x1F5C4;&#xFE0F;</span>
+            <span class="font-bold text-lg hidden sm:inline">FDB</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Iniciante</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span>
+            <span class="hidden sm:inline">Tecnico</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span>
+            <span class="hidden sm:inline">Avancado</span>
+          </a>
+
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-purple-400">Inicio</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-purple-400">Trilha 3</a>
+      <span>/</span>
+      <span class="text-purple-400">Modulo 3.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">
+        MODULO 3.1
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">&#x1F3D7;&#xFE0F; Arquitetura e Performance</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">OLTP vs OLAP, particionamento, data warehouse, ETL, observabilidade e governanca de dados para sistemas em escala.</p>
+
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">7</div>
+          <div class="text-xs text-neutral-400">Topicos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">50</div>
+          <div class="text-xs text-neutral-400">Minutos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">Avanc</div>
+          <div class="text-xs text-neutral-400">Nivel</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-purple-400">Arquit</div>
+          <div class="text-xs text-neutral-400">Tipo</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEUDO -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TOPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">&#x26A1; OLTP vs OLAP</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Dois paradigmas fundamentais de bancos de dados. <strong class="text-purple-400">OLTP</strong> processa transacoes em tempo real (INSERT, UPDATE, DELETE). <strong class="text-purple-400">OLAP</strong> analisa grandes volumes de dados historicos (SELECT com agregacoes massivas). Misturar os dois no mesmo banco e receita para desastre.
+      </p>
+
+      <!-- Box Conceito Principal -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Transacional vs Analitico
+        </h3>
+        <p class="text-neutral-300 mb-4">
+          <strong class="text-white">OLTP (Online Transaction Processing)</strong> e otimizado para operacoes rapidas e pontuais: cadastrar um cliente, registrar uma venda, atualizar estoque. Usa <strong>row-store</strong> (dados organizados por linha).
+        </p>
+        <p class="text-neutral-300 mb-4">
+          <strong class="text-white">OLAP (Online Analytical Processing)</strong> e otimizado para varrer milhoes de registros e gerar agregacoes: "qual o faturamento por regiao nos ultimos 3 anos?". Usa <strong>column-store</strong> (dados organizados por coluna), o que permite comprimir e ler apenas as colunas necessarias.
+        </p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Row-store:</strong> Otimo para buscar um registro inteiro (SELECT * WHERE id = X). PostgreSQL, MySQL, Oracle.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Column-store:</strong> Otimo para agregar uma coluna inteira (SUM, AVG, COUNT). BigQuery, Redshift, ClickHouse.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Hibrido (HTAP):</strong> Tenta combinar ambos. TiDB, CockroachDB, AlloyDB. Complexo mas promissor.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Do/Don't Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-green-400 mb-3 flex items-center">
+            <span class="mr-2">&#x2705;</span> FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; Separe cargas OLTP e OLAP em bancos distintos</li>
+            <li>&#x2022; Use replicas de leitura para queries analiticas</li>
+            <li>&#x2022; Avalie column-store para dashboards pesados</li>
+            <li>&#x2022; Defina SLAs diferentes para cada carga</li>
+          </ul>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-red-400 mb-3 flex items-center">
+            <span class="mr-2">&#x274C;</span> NAO FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; Rodar relatorios pesados no banco de producao</li>
+            <li>&#x2022; Achar que um unico banco resolve tudo</li>
+            <li>&#x2022; Ignorar latencia de escrita em sistemas OLAP</li>
+            <li>&#x2022; Confundir row-store lento com "banco ruim"</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">&#x1F4E6; Particionamento</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-purple-400">Particionamento</strong> divide uma tabela grande em pedacos menores (particoes) baseados em um criterio. O banco sabe em qual particao buscar, evitando varrer a tabela inteira. Essencial para tabelas com <strong class="text-white">milhoes ou bilhoes de linhas</strong>.
+      </p>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4">&#x1F4BB; Particionamento por Range (PostgreSQL)</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>CREATE TABLE pedido (
+  id        SERIAL,
+  total     NUMERIC,
+  criado_em DATE
+) PARTITION BY RANGE (criado_em);
+
+CREATE TABLE pedido_2024 PARTITION OF pedido
+  FOR VALUES FROM ('2024-01-01') TO ('2025-01-01');
+
+CREATE TABLE pedido_2025 PARTITION OF pedido
+  FOR VALUES FROM ('2025-01-01') TO ('2026-01-01');</code></pre>
+      </div>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F50D;</span> Tipos de Particionamento
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-1">Range</p>
+            <p class="text-sm">Divide por faixas de valor (datas, IDs). O mais comum. Ideal para dados temporais.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Hash</p>
+            <p class="text-sm">Distribui uniformemente por hash de uma coluna. Bom para balancear carga entre particoes.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">List</p>
+            <p class="text-sm">Divide por valores discretos (pais, status, categoria). Cada valor vai para sua particao.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Particione somente tabelas com <strong>milhoes de registros</strong>. Tabelas pequenas nao se beneficiam e o overhead de gerenciar particoes nao vale. A coluna de particao deve estar presente em praticamente todas as queries com WHERE para que o <strong>partition pruning</strong> funcione.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">&#x1F5C4;&#xFE0F; Arquivamento e Retencao</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Dados nao podem ficar no banco para sempre. <strong class="text-purple-400">Politicas de retencao</strong> definem quanto tempo manter cada tipo de dado. <strong class="text-purple-400">Arquivamento</strong> move dados antigos para storage mais barato. E questao de <strong class="text-white">compliance, custo e performance</strong>.
+      </p>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Compliance: LGPD e GDPR
+        </h3>
+        <p class="text-neutral-300 mb-4">
+          Leis de protecao de dados exigem que dados pessoais sejam mantidos apenas pelo tempo necessario. Guardar dados alem do necessario e <strong class="text-white">risco juridico e financeiro</strong>.
+        </p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>LGPD (Brasil):</strong> Dados pessoais devem ser eliminados quando a finalidade for atingida ou o consentimento revogado</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>GDPR (Europa):</strong> Principio de minimizacao - colete e retenha apenas o estritamente necessario</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Cold Storage:</strong> Dados historicos podem ir para storage barato (S3 Glacier, Azure Archive) com acesso eventual</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Purge Jobs:</strong> Jobs agendados que removem dados expirados automaticamente. Sem purge, o banco so cresce.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Crie uma tabela de <strong>politicas de retencao</strong> que mapeie cada tipo de dado ao seu prazo maximo. Implemente um cron job (ou pg_cron) que roda semanalmente, verifica os prazos e executa o arquivamento/purge automaticamente. Documente tudo - auditorias vao pedir.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">&#x1F4CA; Data Warehouse</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Um <strong class="text-purple-400">Data Warehouse</strong> e um repositorio centralizado otimizado para consultas analiticas. Enquanto bancos OLTP servem a aplicacao, o DW serve o <strong class="text-white">business intelligence</strong>. Dados de multiplas fontes sao consolidados em um modelo otimizado para analise.
+      </p>
+
+      <!-- Box Conceito Principal -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Star Schema
+        </h3>
+        <p class="text-neutral-300 mb-4">
+          O modelo mais usado em Data Warehouses. Uma <strong class="text-white">tabela fato</strong> central (metricas, eventos) cercada por <strong class="text-white">tabelas dimensao</strong> (contexto descritivo).
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-purple-400 mb-1">Tabela Fato (fact)</h4>
+            <p class="text-neutral-300 text-sm">Contem metricas quantitativas: valor da venda, quantidade, custo. Chaves estrangeiras para dimensoes. Muitas linhas, poucas colunas.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-purple-400 mb-1">Tabela Dimensao (dim)</h4>
+            <p class="text-neutral-300 text-sm">Contem atributos descritivos: nome do produto, cidade, categoria. Poucas linhas, muitas colunas. Responde "quem, o que, onde, quando".</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data research box -->
+      <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F50D;</span> Ecossistema Data Warehouse
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li><strong>BigQuery (Google):</strong> Serverless, column-store, paga por query. Escala automaticamente.</li>
+          <li><strong>Redshift (AWS):</strong> Cluster gerenciado, column-store, integracao nativa com S3.</li>
+          <li><strong>Snowflake:</strong> Multi-cloud, separa storage de compute, concurrency nativa.</li>
+          <li><strong>ClickHouse:</strong> Open source, extremamente rapido para agregacoes, usado por Cloudflare e Uber.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TOPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">&#x1F504; ETL e Pipelines</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-purple-400">ETL</strong> (Extract, Transform, Load) e o processo de mover dados entre sistemas. Dados brutos saem da origem, sao limpos e transformados, e carregados no destino. Sem pipeline confiavel, seu Data Warehouse e <strong class="text-white">lixo com interface bonita</strong>.
+      </p>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F50D;</span> ETL vs ELT
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-1">ETL (classico)</p>
+            <p class="text-sm">Transforma antes de carregar. Dados chegam limpos no destino. Mais controle, mais lento. Ferramentas: Airflow, Informatica, Talend.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">ELT (moderno)</p>
+            <p class="text-sm">Carrega bruto e transforma no destino (que tem poder computacional). Mais rapido, mais flexivel. Ferramentas: dbt, Fivetran + BigQuery.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Component -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-6">&#x1F504; Pipeline ETL em 3 Etapas</h3>
+        <div class="relative">
+          <!-- Line -->
+          <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-purple-500/30"></div>
+
+          <!-- Step 1 -->
+          <div class="relative flex items-start space-x-4 mb-8">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">1</div>
+            <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
+              <h4 class="font-semibold text-white mb-1">Extract (Extrair)</h4>
+              <p class="text-neutral-300 text-sm">Coleta dados das fontes: APIs, bancos OLTP, arquivos CSV, logs, webhooks. O objetivo e capturar tudo sem perder nada. Incremental e melhor que full load.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="relative flex items-start space-x-4 mb-8">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">2</div>
+            <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
+              <h4 class="font-semibold text-white mb-1">Transform (Transformar)</h4>
+              <p class="text-neutral-300 text-sm">Limpa, normaliza, agrega e enriquece os dados. Remove duplicatas, padroniza formatos, calcula metricas derivadas. dbt e a ferramenta referencia para transformacoes em SQL.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="relative flex items-start space-x-4">
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">3</div>
+            <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
+              <h4 class="font-semibold text-white mb-1">Load (Carregar)</h4>
+              <p class="text-neutral-300 text-sm">Insere os dados transformados no destino (Data Warehouse, Data Lake). Pode ser batch (diario/horario) ou streaming (tempo real com Kafka/Kinesis).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Comece com <strong>Airflow</strong> para orquestrar pipelines e <strong>dbt</strong> para transformacoes SQL. Ambos sao open source e o padrao de mercado. Sempre implemente <strong>data quality checks</strong> entre as etapas - dados ruins propagados pelo pipeline contaminam tudo downstream.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">&#x1F4E1; Observabilidade</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-purple-400">Observabilidade</strong> e a capacidade de entender o estado interno do banco atraves de sinais externos. Os tres pilares: <strong class="text-white">metricas, logs e traces</strong>. Banco sem monitoramento e bomba-relogio. Quando o incidente acontecer - e vai acontecer - voce precisa saber onde olhar.
+      </p>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Os 3 Pilares da Observabilidade
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-purple-400 mb-1">Metricas</h4>
+            <p class="text-neutral-300 text-sm">Numeros ao longo do tempo: latencia p95/p99, throughput (queries/s), conexoes ativas, uso de disco, cache hit ratio. pg_stat_statements e essencial.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-purple-400 mb-1">Logs</h4>
+            <p class="text-neutral-300 text-sm">Registros de eventos: queries lentas, erros, deadlocks, autovacuum. Configure log_min_duration_statement para capturar slow queries automaticamente.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-purple-400 mb-1">Traces</h4>
+            <p class="text-neutral-300 text-sm">Rastreamento fim-a-fim de uma requisicao: do frontend ao banco e volta. Identifica gargalos na cadeia completa. OpenTelemetry e o padrao.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alert Box (Red) -->
+      <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F6A8;</span> Falhas Comuns de Monitoramento
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-red-400 mt-1">&#x2022;</span>
+            <span><strong>Alertas so para "disco cheio":</strong> Quando o alerta dispara, ja e tarde. Monitore taxa de crescimento, nao apenas uso absoluto.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-red-400 mt-1">&#x2022;</span>
+            <span><strong>Sem baseline:</strong> Se voce nao sabe o que e "normal", nao consegue detectar anomalias. Colete metricas por semanas antes de definir thresholds.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-red-400 mt-1">&#x2022;</span>
+            <span><strong>Alert fatigue:</strong> 200 alertas/dia = zero alertas uteis. Priorize e silencie ruido. Menos alertas, mais acao.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-red-400 mt-1">&#x2022;</span>
+            <span><strong>Monitorar so o banco:</strong> O problema pode estar na rede, na app, no connection pool. Observabilidade e fim-a-fim.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TOPICO 7 -->
+    <section id="topico-7" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
+        <h2 class="text-2xl font-bold">&#x1F3DB;&#xFE0F; Governanca</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-purple-400">Governanca de dados</strong> e o framework de politicas, processos e responsabilidades que garante que dados sejam tratados como ativo estrategico. Sem governanca, dados viram <strong class="text-white">lixo caro</strong>. Qualidade, seguranca e compliance dependem dela.
+      </p>
+
+      <!-- Box Conceito Principal -->
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Pilares da Governanca
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Data Catalog:</strong> Inventario de todos os datasets, tabelas, colunas, owners e descricoes. "Que dados temos e onde estao?" DataHub, Amundsen, OpenMetadata.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Data Lineage:</strong> Rastreamento da origem e transformacao dos dados. "De onde veio esse numero no relatorio?" Essencial para auditoria e debug.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>RBAC (Role-Based Access Control):</strong> Cada pessoa/sistema acessa apenas o que precisa. Principio do menor privilegio. GRANT/REVOKE no PostgreSQL.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Classificacao de dados:</strong> Publico, interno, confidencial, restrito. Cada nivel com regras de acesso, retencao e criptografia diferentes.</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-purple-400 mt-1">&#x2022;</span>
+            <span><strong>Auditoria:</strong> Logs de quem acessou o que, quando e por que. Requisito legal (LGPD/GDPR) e base para investigacao de incidentes.</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Governanca nao precisa comecar grande. Primeiro passo: documente quem e o <strong>owner</strong> de cada tabela/dataset. Segundo: implemente RBAC basico com roles no banco. Terceiro: ligue <strong>audit logging</strong>. Esses tres passos ja cobrem 80% do que auditorias pedem.
+        </p>
+      </div>
+    </section>
+
+    <!-- RESUMO / CHECKLIST -->
+    <section class="mb-12">
+      <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6">
+        <h3 class="text-xl font-bold text-purple-400 mb-6 flex items-center">
+          <span class="mr-2">&#x2705;</span> Checklist do Modulo 3.1
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Entendo a diferenca entre OLTP e OLAP</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Sei quando usar row-store vs column-store</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Consigo criar tabelas particionadas no PostgreSQL</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Conheco politicas de retencao e compliance</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Entendo Star Schema e tabelas fato/dimensao</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Sei a diferenca entre ETL e ELT</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Conheco os 3 pilares da observabilidade</span>
+          </label>
+          <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500">
+            <span>Entendo governanca: catalog, lineage, RBAC</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegacao entre modulos -->
+    <div class="flex justify-between items-center pt-8 border-t border-dark-600">
+      <a href="index.html" class="text-neutral-400 hover:text-purple-400 transition-colors text-sm">
+        &#x2190; Voltar para Trilha 3
+      </a>
+      <a href="modulo-3-2.html" class="text-purple-400 hover:text-purple-300 transition-colors text-sm font-semibold">
+        Modulo 3.2 - IA Aplicada a Dados &#x2192;
+      </a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>&#x1F5C4;&#xFE0F; FDB - Fundamentos de Banco de Dados | <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> - 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+      lightIcon.classList.remove('hidden');
+    } else {
+      document.documentElement.classList.add('dark');
+      darkIcon.classList.remove('hidden');
+    }
+
+    themeToggle.addEventListener('click', function() {
+      darkIcon.classList.toggle('hidden');
+      lightIcon.classList.toggle('hidden');
+
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('color-theme', 'dark');
+      }
+    });
+
+    // Topic toggle (available for consistency)
+    function toggleTopic(button) {
+      const topicItem = button.closest('.topic-item');
+      if (!topicItem) return;
+      const explanation = topicItem.querySelector('.topic-explanation');
+      if (!explanation) return;
+      explanation.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>

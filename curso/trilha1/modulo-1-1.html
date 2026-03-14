@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo 1.1 - Fundamentos e Modelagem | FDB</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: {
+              900: '#111827',
+              800: '#1f2937',
+              700: '#374151',
+              600: '#4b5563'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #111827;
+    }
+
+    .concept-box {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .tip-box {
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.1), rgba(250, 204, 21, 0.05));
+      border: 1px solid rgba(250, 204, 21, 0.2);
+    }
+
+    pre {
+      background-color: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    .inline-code {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.875rem;
+    }
+
+    /* Light mode styles */
+    html:not(.dark) body {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+
+    html:not(.dark) nav {
+      background-color: rgba(255,255,255,0.95) !important;
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) nav a {
+      color: #6b7280 !important;
+    }
+
+    html:not(.dark) nav a:hover {
+      color: #059669 !important;
+    }
+
+    html:not(.dark) .text-neutral-400,
+    html:not(.dark) .text-neutral-300 {
+      color: #4b5563 !important;
+    }
+
+    html:not(.dark) .text-neutral-500 {
+      color: #6b7280 !important;
+    }
+
+    html:not(.dark) .text-neutral-100 {
+      color: #111827 !important;
+    }
+
+    html:not(.dark) .text-neutral-200 {
+      color: #1f2937 !important;
+    }
+
+    /* Emerald color overrides for light mode */
+    html:not(.dark) .text-emerald-400 {
+      color: #059669 !important;
+    }
+
+    html:not(.dark) .bg-emerald-500\/20 {
+      background-color: rgba(5, 150, 105, 0.1) !important;
+    }
+
+    html:not(.dark) .border-emerald-500\/30 {
+      border-color: rgba(5, 150, 105, 0.2) !important;
+    }
+
+    /* Gradient removal for light mode */
+    html:not(.dark) .from-emerald-900\/30 {
+      --tw-gradient-from: rgba(5, 150, 105, 0.05) !important;
+    }
+
+    html:not(.dark) .bg-dark-800,
+    html:not(.dark) .bg-dark-700 {
+      background-color: #ffffff !important;
+    }
+
+    html:not(.dark) .bg-dark-900 {
+      background-color: #f9fafb !important;
+    }
+
+    html:not(.dark) .bg-dark-900\/95 {
+      background-color: rgba(255,255,255,0.95) !important;
+    }
+
+    html:not(.dark) .border-dark-600,
+    html:not(.dark) .border-dark-700 {
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .concept-box {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.08), rgba(5, 150, 105, 0.03));
+      border-color: rgba(5, 150, 105, 0.2);
+    }
+
+    html:not(.dark) .tip-box {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(217, 119, 6, 0.03));
+      border-color: rgba(217, 119, 6, 0.2);
+    }
+
+    html:not(.dark) pre {
+      background-color: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    html:not(.dark) pre code {
+      color: #1e293b;
+    }
+
+    html:not(.dark) .inline-code {
+      background-color: rgba(5, 150, 105, 0.1);
+      color: #059669;
+    }
+
+    /* Nav light mode */
+    html:not(.dark) .text-yellow-400 {
+      color: #d97706 !important;
+    }
+
+    html:not(.dark) .text-sky-400 {
+      color: #0284c7 !important;
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🗄️</span>
+          <span class="text-xl font-bold text-yellow-400">FDB</span>
+        </a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="index.html" class="text-emerald-400 font-semibold transition-colors">Iniciante</a>
+          <a href="../trilha2/index.html" class="text-neutral-400 hover:text-blue-400 transition-colors">Tecnico</a>
+          <a href="../trilha3/index.html" class="text-neutral-400 hover:text-purple-400 transition-colors">Avancado</a>
+        </div>
+
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <nav class="flex items-center space-x-2 text-sm text-neutral-500">
+      <a href="../../index.html" class="hover:text-emerald-400 transition-colors">Inicio</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-emerald-400 transition-colors">Trilha 1</a>
+      <span>/</span>
+      <span class="text-emerald-400">Modulo 1.1</span>
+    </nav>
+  </div>
+
+  <!-- Header -->
+  <section class="relative py-12 lg:py-16 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/30 via-transparent to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center">
+        <span class="inline-block px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-full text-sm font-semibold mb-6 border border-emerald-500/30">
+          MODULO 1.1
+        </span>
+        <h1 class="text-4xl sm:text-5xl font-bold mb-6">
+          📖 Fundamentos e Modelagem
+        </h1>
+        <p class="text-xl text-neutral-400 max-w-3xl mx-auto mb-8">
+          Entenda como dados sao organizados em tabelas, como garantir integridade e como modelar antes de escrever uma linha de SQL.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6">
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>6 Topicos</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>30 min</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span>Basico</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            <span>Teoria + Pratica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics Content -->
+  <section class="py-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+
+      <!-- Topic 1: Modelo Relacional -->
+      <div id="topico-1" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">1</span>
+          </div>
+          <h2 class="text-3xl font-bold">📊 Modelo Relacional</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          O modelo relacional e a base de praticamente todos os bancos de dados que voce vai usar na carreira. Criado por Edgar F. Codd na IBM em 1970, ele organiza dados em <strong class="text-emerald-400">tabelas</strong> (chamadas de relacoes) com linhas e colunas bem definidas. Cada tabela representa uma entidade do mundo real.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">Conceitos fundamentais</h3>
+          <ul class="space-y-2 text-neutral-300">
+            <li><strong class="text-emerald-400">Tabela (Relacao):</strong> Estrutura que armazena dados de uma entidade. Ex: <code class="inline-code">cliente</code>, <code class="inline-code">pedido</code></li>
+            <li><strong class="text-emerald-400">Linha (Tupla/Registro):</strong> Uma instancia da entidade. Ex: um cliente especifico</li>
+            <li><strong class="text-emerald-400">Coluna (Atributo):</strong> Uma propriedade da entidade. Ex: nome, email, data_nascimento</li>
+            <li><strong class="text-emerald-400">Dominio:</strong> O tipo de dados que uma coluna aceita. Ex: TEXT, INTEGER, DATE</li>
+          </ul>
+        </div>
+
+        <div class="tip-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-primary mb-3">Dica pratica</h3>
+          <p class="text-neutral-300">Pense em uma tabela como uma planilha Excel, mas com regras rigidas: cada coluna tem um tipo, cada linha e unica, e a ordem das linhas nao importa. A grande diferenca e que no banco relacional, as regras sao <strong>impostas pelo sistema</strong>, nao pela disciplina do usuario.</p>
+        </div>
+
+        <pre><code class="text-emerald-300">-- Exemplo: tabela cliente
+-- Cada linha = um cliente, cada coluna = um atributo
+
+CREATE TABLE cliente (
+  id    SERIAL PRIMARY KEY,    -- Coluna: identificador unico
+  nome  TEXT NOT NULL,          -- Coluna: nome obrigatorio
+  email TEXT UNIQUE             -- Coluna: email unico
+);
+
+-- Inserindo uma "tupla" (linha/registro)
+INSERT INTO cliente (nome, email)
+VALUES ('Ana Silva', 'ana@email.com');</code></pre>
+      </div>
+
+      <!-- Topic 2: Chaves Primarias e Estrangeiras -->
+      <div id="topico-2" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">2</span>
+          </div>
+          <h2 class="text-3xl font-bold">🔑 Chaves Primarias e Estrangeiras</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          Chaves sao o mecanismo que da identidade aos registros e conecta tabelas entre si. A <strong class="text-emerald-400">chave primaria (PK)</strong> garante que cada registro e unico. A <strong class="text-emerald-400">chave estrangeira (FK)</strong> cria um vinculo entre tabelas, referenciando a PK de outra tabela.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">Como funcionam</h3>
+          <ul class="space-y-2 text-neutral-300">
+            <li><strong class="text-emerald-400">PRIMARY KEY:</strong> Identifica cada registro de forma unica. Nao aceita NULL nem duplicatas.</li>
+            <li><strong class="text-emerald-400">FOREIGN KEY:</strong> Coluna que referencia a PK de outra tabela, criando um relacionamento.</li>
+            <li><strong class="text-emerald-400">REFERENCES:</strong> Palavra-chave SQL que define qual tabela/coluna a FK aponta.</li>
+            <li><strong class="text-emerald-400">ON DELETE CASCADE:</strong> Quando o registro pai e deletado, os filhos sao removidos automaticamente.</li>
+            <li><strong class="text-emerald-400">Integridade referencial:</strong> Garante que toda FK aponta para um registro existente na tabela pai.</li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+            <h4 class="font-bold text-emerald-400 mb-2">FACA</h4>
+            <ul class="text-sm text-neutral-300 space-y-1">
+              <li>Use SERIAL ou UUID para PKs</li>
+              <li>Defina FKs com REFERENCES</li>
+              <li>Pense no ON DELETE antes</li>
+            </ul>
+          </div>
+          <div class="bg-red-500/10 rounded-xl p-4 border border-red-500/20">
+            <h4 class="font-bold text-red-400 mb-2">NAO FACA</h4>
+            <ul class="text-sm text-neutral-300 space-y-1">
+              <li>Usar dados de negocio como PK (CPF muda!)</li>
+              <li>Ignorar FKs por "performance"</li>
+              <li>Usar CASCADE sem pensar</li>
+            </ul>
+          </div>
+        </div>
+
+        <pre><code class="text-emerald-300">-- PK: identifica o cliente
+CREATE TABLE cliente (
+  id    SERIAL PRIMARY KEY,
+  nome  TEXT NOT NULL,
+  email TEXT UNIQUE
+);
+
+-- FK: conecta pedido ao cliente
+CREATE TABLE pedido (
+  id         SERIAL PRIMARY KEY,
+  cliente_id INT NOT NULL REFERENCES cliente(id)
+               ON DELETE CASCADE,
+  total      NUMERIC(10,2) NOT NULL,
+  criado_em  TIMESTAMP DEFAULT NOW()
+);
+
+-- Tentativa de inserir pedido com cliente inexistente:
+-- INSERT INTO pedido (cliente_id, total) VALUES (999, 50.00);
+-- ERRO: violacao de chave estrangeira!</code></pre>
+      </div>
+
+      <!-- Topic 3: Restricoes de Integridade -->
+      <div id="topico-3" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">3</span>
+          </div>
+          <h2 class="text-3xl font-bold">✅ Restricoes de Integridade</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          Restricoes sao regras declarativas no schema que impedem dados invalidos de entrar no banco. Sao a <strong class="text-emerald-400">ultima linha de defesa</strong> da integridade, mesmo que a aplicacao tenha bugs. O banco recusa dados que violam as restricoes.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">Tipos de restricoes</h3>
+          <ul class="space-y-2 text-neutral-300">
+            <li><strong class="text-emerald-400">NOT NULL:</strong> A coluna nao aceita valores nulos. Obriga o campo a ser preenchido.</li>
+            <li><strong class="text-emerald-400">UNIQUE:</strong> Impede valores duplicados na coluna (mas aceita multiplos NULLs).</li>
+            <li><strong class="text-emerald-400">CHECK:</strong> Valida que o valor atende a uma condicao. Ex: <code class="inline-code">CHECK (idade >= 0)</code></li>
+            <li><strong class="text-emerald-400">DEFAULT:</strong> Define um valor padrao quando nenhum e fornecido no INSERT.</li>
+          </ul>
+        </div>
+
+        <div class="tip-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-primary mb-3">Validacao em camadas</h3>
+          <p class="text-neutral-300">A boa pratica e validar em multiplas camadas: <strong>frontend</strong> (UX rapida), <strong>backend</strong> (regras de negocio), e <strong>banco</strong> (ultima defesa). Nunca confie apenas na validacao do frontend. O banco e a unica camada que voce controla 100%.</p>
+        </div>
+
+        <pre><code class="text-emerald-300">CREATE TABLE produto (
+  id        SERIAL PRIMARY KEY,
+  nome      TEXT NOT NULL,                    -- obrigatorio
+  sku       TEXT UNIQUE NOT NULL,             -- unico e obrigatorio
+  preco     NUMERIC(10,2) NOT NULL
+            CHECK (preco > 0),               -- deve ser positivo
+  estoque   INT NOT NULL DEFAULT 0
+            CHECK (estoque >= 0),            -- nao pode ser negativo
+  ativo     BOOLEAN DEFAULT true              -- padrao: ativo
+);
+
+-- Tentativas que o banco REJEITA:
+-- INSERT INTO produto (nome, sku, preco) VALUES ('X', 'ABC', -10);
+-- ERRO: violacao de CHECK (preco > 0)
+
+-- INSERT INTO produto (sku, preco) VALUES ('DEF', 25.00);
+-- ERRO: violacao de NOT NULL (nome)</code></pre>
+      </div>
+
+      <!-- Topic 4: Normalizacao -->
+      <div id="topico-4" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">4</span>
+          </div>
+          <h2 class="text-3xl font-bold">📐 Normalizacao (1FN a 3FN)</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          Normalizacao e o processo de reorganizar tabelas para eliminar redundancia e evitar anomalias. Segue etapas progressivas chamadas <strong class="text-emerald-400">formas normais</strong>. Na pratica, chegar ate a 3FN resolve a maioria dos problemas.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">As tres formas normais</h3>
+          <ul class="space-y-3 text-neutral-300">
+            <li>
+              <strong class="text-emerald-400">1FN (Atomicidade):</strong> Cada celula contem um valor unico e indivisivel. Nada de listas em uma coluna. Ex: em vez de <code class="inline-code">telefones: "11-9999, 11-8888"</code>, crie uma tabela <code class="inline-code">telefone</code> separada.
+            </li>
+            <li>
+              <strong class="text-emerald-400">2FN (Sem dependencia parcial):</strong> Todo atributo nao-chave depende da chave primaria completa, nao de parte dela. Relevante quando a PK e composta.
+            </li>
+            <li>
+              <strong class="text-emerald-400">3FN (Sem dependencia transitiva):</strong> Nenhum atributo nao-chave depende de outro atributo nao-chave. Se A depende de B e B depende de C, mova B para sua propria tabela.
+            </li>
+          </ul>
+        </div>
+
+        <div class="tip-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-primary mb-3">Na pratica</h3>
+          <p class="text-neutral-300">Tabelas nao normalizadas causam tres tipos de anomalia: <strong>insercao</strong> (nao consigo inserir um dado sem outro), <strong>atualizacao</strong> (preciso atualizar em N lugares) e <strong>exclusao</strong> (perco dados que nao queria). Normalizacao elimina as tres.</p>
+        </div>
+
+        <pre><code class="text-emerald-300">-- ANTES (nao normalizado, violando 1FN):
+-- | id | nome | telefones          |
+-- | 1  | Ana  | 11-9999, 11-8888   |  <- lista em uma celula!
+
+-- DEPOIS (normalizado, 1FN):
+CREATE TABLE cliente (
+  id   SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL
+);
+
+CREATE TABLE telefone (
+  id         SERIAL PRIMARY KEY,
+  cliente_id INT REFERENCES cliente(id),
+  numero     TEXT NOT NULL
+);
+
+-- Cada telefone e um registro separado
+INSERT INTO telefone (cliente_id, numero) VALUES (1, '11-9999');
+INSERT INTO telefone (cliente_id, numero) VALUES (1, '11-8888');</code></pre>
+      </div>
+
+      <!-- Topic 5: Modelagem ER -->
+      <div id="topico-5" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">5</span>
+          </div>
+          <h2 class="text-3xl font-bold">🏗️ Modelagem ER</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          Antes de escrever SQL, voce modela. O <strong class="text-emerald-400">Diagrama Entidade-Relacionamento (ER)</strong> e a planta do banco de dados. Ele mostra quais entidades existem, quais atributos cada uma tem e como elas se relacionam.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">Componentes do diagrama ER</h3>
+          <ul class="space-y-2 text-neutral-300">
+            <li><strong class="text-emerald-400">Entidade:</strong> Objeto do mundo real (Cliente, Pedido, Produto). Vira tabela no banco.</li>
+            <li><strong class="text-emerald-400">Atributo:</strong> Propriedade da entidade (nome, preco, data). Vira coluna.</li>
+            <li><strong class="text-emerald-400">Relacionamento:</strong> Conexao entre entidades. Ex: Cliente <em>faz</em> Pedido.</li>
+            <li><strong class="text-emerald-400">Cardinalidade:</strong> Quantos de um lado se relacionam com o outro:
+              <ul class="ml-4 mt-1 space-y-1">
+                <li><code class="inline-code">1:1</code> - Um para um (pessoa e CPF)</li>
+                <li><code class="inline-code">1:N</code> - Um para muitos (cliente e pedidos)</li>
+                <li><code class="inline-code">N:N</code> - Muitos para muitos (aluno e disciplina, precisa tabela intermediaria)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tip-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-primary mb-3">Dica pratica</h3>
+          <p class="text-neutral-300">Sempre modele antes de criar tabelas. Use ferramentas como <strong>dbdiagram.io</strong>, <strong>draw.io</strong> ou ate papel e caneta. Um bom diagrama ER economiza horas de refatoracao. Lembre: relacionamento N:N sempre precisa de uma <strong>tabela associativa</strong> (tabela ponte).</p>
+        </div>
+
+        <pre><code class="text-emerald-300">-- Exemplo de N:N: aluno cursa disciplina
+-- Precisa de tabela associativa "matricula"
+
+CREATE TABLE aluno (
+  id   SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL
+);
+
+CREATE TABLE disciplina (
+  id   SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL
+);
+
+-- Tabela ponte (resolve o N:N)
+CREATE TABLE matricula (
+  aluno_id      INT REFERENCES aluno(id),
+  disciplina_id INT REFERENCES disciplina(id),
+  semestre      TEXT NOT NULL,
+  PRIMARY KEY (aluno_id, disciplina_id, semestre)
+);</code></pre>
+      </div>
+
+      <!-- Topic 6: Quando Usar Relacional -->
+      <div id="topico-6" class="scroll-mt-20">
+        <div class="flex items-center space-x-4 mb-6">
+          <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
+            <span class="text-lg font-bold text-emerald-400">6</span>
+          </div>
+          <h2 class="text-3xl font-bold">💡 Quando Usar Relacional</h2>
+        </div>
+
+        <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
+          Banco relacional nao e a resposta para tudo. Saber <strong class="text-emerald-400">quando usar e quando nao usar</strong> e tao importante quanto saber SQL. A escolha certa depende da natureza dos dados e dos requisitos do sistema.
+        </p>
+
+        <div class="concept-box rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-bold text-emerald-400 mb-3">Quando relacional e ideal</h3>
+          <ul class="space-y-2 text-neutral-300">
+            <li><strong class="text-emerald-400">OLTP:</strong> Sistemas transacionais (e-commerce, ERP, bancario). Muitas escritas pequenas com integridade forte.</li>
+            <li><strong class="text-emerald-400">Dados estruturados:</strong> Quando o schema e bem definido e muda pouco.</li>
+            <li><strong class="text-emerald-400">Integridade forte:</strong> Quando erros de dados custam caro (financeiro, saude, juridico).</li>
+            <li><strong class="text-emerald-400">Relacoes complexas:</strong> Quando dados se conectam de formas variadas e voce precisa de JOINs.</li>
+          </ul>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+            <h4 class="font-bold text-emerald-400 mb-2">USE RELACIONAL</h4>
+            <ul class="text-sm text-neutral-300 space-y-1">
+              <li>Transacoes financeiras</li>
+              <li>Cadastros com regras rigidas</li>
+              <li>Dados com muitas relacoes</li>
+              <li>Relatorios SQL complexos</li>
+            </ul>
+          </div>
+          <div class="bg-red-500/10 rounded-xl p-4 border border-red-500/20">
+            <h4 class="font-bold text-red-400 mb-2">CONSIDERE ALTERNATIVAS</h4>
+            <ul class="text-sm text-neutral-300 space-y-1">
+              <li>Logs de alto volume (use time-series)</li>
+              <li>Dados semi-estruturados (use documento/JSON)</li>
+              <li>Cache de sessao (use chave-valor)</li>
+              <li>Grafos sociais (use banco de grafos)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tip-box rounded-xl p-6">
+          <h3 class="text-lg font-bold text-primary mb-3">Regra de ouro</h3>
+          <p class="text-neutral-300">Na duvida, comece com relacional. PostgreSQL e MySQL cobrem 80% dos casos de uso. So migre para NoSQL quando tiver um problema real de escala ou formato que o relacional nao resolve bem. "Premature optimization is the root of all evil."</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <section class="py-12 bg-dark-800/50">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold mb-6 text-emerald-400">Resumo do Modulo 1.1</h2>
+
+      <div class="space-y-3 mb-8">
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Modelo relacional: tabelas, linhas, colunas, dominios</span>
+        </div>
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>PK identifica, FK conecta, integridade referencial protege</span>
+        </div>
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Restricoes (UNIQUE, NOT NULL, CHECK, DEFAULT) protegem dados</span>
+        </div>
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Normalizacao (1FN-3FN) elimina redundancia e anomalias</span>
+        </div>
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Diagrama ER: modele antes de codificar</span>
+        </div>
+        <div class="flex items-center space-x-3 text-neutral-300">
+          <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Relacional e ideal para OLTP, dados estruturados e integridade forte</span>
+        </div>
+      </div>
+
+      <!-- Navigation buttons -->
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="inline-flex items-center space-x-2 px-4 py-2 bg-dark-700 text-neutral-300 rounded-lg hover:bg-dark-600 transition-colors border border-dark-600">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          <span>Voltar a Trilha</span>
+        </a>
+        <a href="modulo-1-2.html" class="inline-flex items-center space-x-2 px-6 py-3 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30 font-semibold">
+          <span>Proximo: SQL Essencial</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark-900 border-t border-dark-700 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-neutral-500 text-sm">FDB - Fundamentos de Banco de Dados | INEMA.CLUB</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'light') {
+      document.documentElement.classList.remove('dark');
+      themeToggleDarkIcon.classList.remove('hidden');
+      themeToggleLightIcon.classList.add('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      document.documentElement.classList.toggle('dark');
+
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('color-theme', 'dark');
+      } else {
+        localStorage.setItem('color-theme', 'light');
+      }
+    });
+  </script>
+
+</body>
+</html>

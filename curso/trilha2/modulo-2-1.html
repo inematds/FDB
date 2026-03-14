@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modulo 2.1 - Indices e Transacoes | FDB</title>
+  <meta name="description" content="Indices para acelerar buscas, transacoes ACID, niveis de isolamento e boas praticas SQL. Modulo tecnico do curso FDB.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+
+    /* ─── LIGHT MODE ─── */
+
+    /* Part 1 — Base overrides */
+    html:not(.dark) body {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
+    }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Part 2 — BLUE overrides */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .hover\:text-emerald-400:hover { color: #059669; }
+    html:not(.dark) .hover\:bg-emerald-500\/10:hover { background-color: rgba(5, 150, 105, 0.08); }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .hover\:text-purple-400:hover { color: #7c3aed; }
+    html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
+
+    /* Part 3 — Remove gradients, special colors */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+    html:not(.dark) .text-green-400 { color: #16a34a; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+
+    /* Part 4 — Nav override */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- NAVIGATION -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">&#x1F5C4;&#xFE0F;</span>
+            <span class="font-bold text-lg hidden sm:inline">FDB</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+        </div>
+
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Iniciante</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10">
+            <span class="sm:hidden">T2</span>
+            <span class="hidden sm:inline">Tecnico</span>
+          </a>
+          <a href="../trilha3/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors">
+            <span class="sm:hidden">T3</span>
+            <span class="hidden sm:inline">Avancado</span>
+          </a>
+
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center space-x-2 text-sm text-neutral-400">
+      <a href="../../index.html" class="hover:text-blue-400">Inicio</a>
+      <span>/</span>
+      <a href="index.html" class="hover:text-blue-400">Trilha 2</a>
+      <span>/</span>
+      <span class="text-blue-400">Modulo 2.1</span>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">
+        MODULO 2.1
+      </span>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">&#x26A1; Indices e Transacoes</h1>
+      <p class="text-lg text-neutral-400 max-w-3xl">Domine indices para acelerar buscas, transacoes ACID para garantir consistencia e boas praticas SQL para queries profissionais.</p>
+
+      <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-blue-400">6</div>
+          <div class="text-xs text-neutral-400">Topicos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-blue-400">45</div>
+          <div class="text-xs text-neutral-400">Minutos</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-blue-400">Inter</div>
+          <div class="text-xs text-neutral-400">Nivel</div>
+        </div>
+        <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+          <div class="text-xl font-bold text-blue-400">Pratico</div>
+          <div class="text-xs text-neutral-400">Tipo</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEUDO -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <!-- TOPICO 1 -->
+    <section id="topico-1" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
+        <h2 class="text-2xl font-bold">&#x1F4C8; Por que Indices</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Um <strong class="text-blue-400">indice</strong> e uma estrutura auxiliar que acelera consultas evitando o <strong class="text-white">full table scan</strong>. Sem indice, toda busca varre a tabela inteira - e a performance cai exponencialmente conforme os dados crescem.
+      </p>
+
+      <!-- Box Conceito Principal -->
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> Analogia: Indice de um Livro
+        </h3>
+        <p class="text-neutral-300 mb-4">
+          Imagine procurar um assunto em um livro de 500 paginas <strong class="text-white">sem indice</strong> - voce leria pagina por pagina. Com o indice, vai direto ao capitulo certo. Um indice de banco de dados funciona exatamente assim.
+        </p>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>B-tree:</strong> Estrutura balanceada, ideal para ranges e ordenacao (padrao na maioria dos SGBDs)</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Hash:</strong> Busca exata por igualdade, O(1) mas sem suporte a ranges</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Indice cobridor:</strong> Contem todas as colunas da query, evita acesso a tabela</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Seletividade:</strong> Quanto mais valores unicos, melhor o indice funciona</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Box Dados -->
+      <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F4CA;</span> Impacto Real
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li>Tabela com <strong>1 milhao de linhas</strong>: full scan ~500ms, index scan ~2ms</li>
+          <li>Cada indice <strong>consome espaco</strong> em disco e <strong>desacelera escritas</strong> (INSERT/UPDATE/DELETE)</li>
+          <li>Indice em coluna com <strong>baixa seletividade</strong> (ex: boolean) geralmente nao ajuda</li>
+          <li>PostgreSQL cria <strong>indices automaticos</strong> para PRIMARY KEY e UNIQUE</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TOPICO 2 -->
+    <section id="topico-2" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
+        <h2 class="text-2xl font-bold">&#x1F527; CREATE INDEX na pratica</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Criar um indice e simples. Criar o indice <strong class="text-blue-400">certo</strong> exige entender a query, os dados e o trade-off entre leitura e escrita. <strong class="text-white">Indice errado e pior que nenhum</strong> - consome espaco e lentifica escritas sem beneficio.
+      </p>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">&#x1F4BB; Exemplos SQL</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>-- Indice simples: acelera buscas por email
+CREATE INDEX idx_cliente_email ON cliente (email);
+
+-- Indice composto: otimiza queries com WHERE cidade AND estado
+CREATE INDEX idx_endereco_cidade_estado ON endereco (cidade, estado);
+
+-- Indice parcial: apenas registros ativos (economia de espaco)
+CREATE INDEX idx_pedido_ativo ON pedido (data_criacao)
+WHERE status = 'ativo';
+
+-- Indice com INCLUDE: colunas extras sem afetar a arvore
+CREATE INDEX idx_produto_categoria ON produto (categoria_id)
+INCLUDE (nome, preco);
+
+-- Indice unico: garante unicidade + acelera buscas
+CREATE UNIQUE INDEX idx_usuario_cpf ON usuario (cpf);</code></pre>
+      </div>
+
+      <!-- Do/Don't Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-green-400 mb-3 flex items-center">
+            <span class="mr-2">&#x2705;</span> FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; Indexe colunas usadas em WHERE, JOIN e ORDER BY</li>
+            <li>&#x2022; Prefira indices compostos para queries multi-coluna</li>
+            <li>&#x2022; Use indice parcial para filtrar subconjuntos</li>
+            <li>&#x2022; Monitore indices nao utilizados e remova-os</li>
+          </ul>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-red-400 mb-3 flex items-center">
+            <span class="mr-2">&#x274C;</span> NAO FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; Indexar colunas de baixa seletividade (boolean, status)</li>
+            <li>&#x2022; Criar indice para cada coluna sem analise</li>
+            <li>&#x2022; Ignorar o custo de escrita em tabelas com muitos INSERTs</li>
+            <li>&#x2022; Esquecer de REINDEX apos grandes cargas de dados</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOPICO 3 -->
+    <section id="topico-3" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
+        <h2 class="text-2xl font-bold">&#x1F52C; EXPLAIN e EXPLAIN ANALYZE</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        <strong class="text-blue-400">EXPLAIN</strong> mostra o plano de execucao que o banco vai usar. <strong class="text-blue-400">EXPLAIN ANALYZE</strong> executa a query e mostra tempos reais. Sem essas ferramentas, voce otimiza no escuro. E o <strong class="text-white">raio-X da performance</strong>.
+      </p>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">&#x1F4BB; Exemplos de Uso</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>-- Ver plano estimado (nao executa a query)
+EXPLAIN SELECT * FROM cliente WHERE email = 'ana@example.com';
+
+-- Ver plano + tempo real (executa a query)
+EXPLAIN ANALYZE SELECT * FROM cliente WHERE email = 'ana@example.com';
+
+-- Exemplo de saida:
+-- Index Scan using idx_cliente_email on cliente
+--   (cost=0.29..8.31 rows=1 width=64)
+--   (actual time=0.027..0.028 rows=1 loops=1)
+-- Planning Time: 0.152 ms
+-- Execution Time: 0.065 ms</code></pre>
+      </div>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F50D;</span> Operadores do Plano de Execucao
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-1">Seq Scan</p>
+            <p class="text-sm">Varredura sequencial da tabela inteira. Sinal de que falta indice.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Index Scan</p>
+            <p class="text-sm">Usa o indice para localizar registros. O que queremos ver.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Nested Loop</p>
+            <p class="text-sm">JOIN linha a linha. Eficiente para poucos registros.</p>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-1">Hash Join</p>
+            <p class="text-sm">Constroi hash table na memoria. Eficiente para muitos registros.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Se EXPLAIN mostra <strong>Seq Scan</strong> em uma tabela grande com filtro WHERE, provavelmente falta um indice nessa coluna. Crie o indice e rode EXPLAIN novamente para confirmar que mudou para <strong>Index Scan</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOPICO 4 -->
+    <section id="topico-4" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
+        <h2 class="text-2xl font-bold">&#x1F512; Transacoes ACID</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        Uma <strong class="text-blue-400">transacao</strong> e um conjunto de operacoes que executa como unidade atomica: <strong class="text-white">tudo ou nada</strong>. Se qualquer operacao falhar, todas sao revertidas. Transferencia bancaria sem transacao pode perder dinheiro. ACID e fundamental.
+      </p>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">&#x1F4BB; Transacao na Pratica</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>-- Transferencia bancaria atomica
+BEGIN;
+  UPDATE conta SET saldo = saldo - 500.00 WHERE id = 1;
+  UPDATE conta SET saldo = saldo + 500.00 WHERE id = 2;
+
+  -- Verifica se saldo ficou negativo
+  -- Se sim, desfaz tudo
+  DO $$
+  BEGIN
+    IF (SELECT saldo FROM conta WHERE id = 1) < 0 THEN
+      RAISE EXCEPTION 'Saldo insuficiente';
+    END IF;
+  END $$;
+COMMIT;
+
+-- Se algo der errado, ROLLBACK desfaz tudo
+-- ROLLBACK;</code></pre>
+      </div>
+
+      <!-- ACID Cards -->
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F3AF;</span> As 4 Propriedades ACID
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-blue-400 mb-1">A - Atomicidade</h4>
+            <p class="text-neutral-300 text-sm">Tudo ou nada. Se uma operacao falha, todas sao revertidas.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-blue-400 mb-1">C - Consistencia</h4>
+            <p class="text-neutral-300 text-sm">O banco vai de um estado valido para outro estado valido. Constraints sao respeitadas.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-blue-400 mb-1">I - Isolamento</h4>
+            <p class="text-neutral-300 text-sm">Transacoes concorrentes nao interferem entre si. Cada uma ve um snapshot consistente.</p>
+          </div>
+          <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+            <h4 class="font-bold text-blue-400 mb-1">D - Durabilidade</h4>
+            <p class="text-neutral-300 text-sm">Apos COMMIT, os dados persistem mesmo com crash do servidor. WAL garante isso.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOPICO 5 -->
+    <section id="topico-5" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
+        <h2 class="text-2xl font-bold">&#x1F504; Niveis de Isolamento</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        O <strong class="text-blue-400">nivel de isolamento</strong> define o que uma transacao ve das mudancas feitas por outras transacoes concorrentes. Isolamento errado causa <strong class="text-white">dirty reads, phantom reads e dados inconsistentes</strong>.
+      </p>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">&#x1F4BB; Configurando Isolamento</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>-- Definir nivel para a transacao atual
+BEGIN;
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;
+  SELECT * FROM estoque WHERE produto_id = 42;
+  -- ... operacoes ...
+COMMIT;
+
+-- Definir nivel padrao da sessao
+SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL READ COMMITTED;
+
+-- Verificar nivel atual
+SHOW transaction_isolation;</code></pre>
+      </div>
+
+      <!-- Tabela de niveis -->
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F4CA;</span> Comparativo dos Niveis
+        </h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-neutral-300">
+            <thead>
+              <tr class="border-b border-dark-600">
+                <th class="text-left py-2 pr-4 text-blue-400 font-semibold">Nivel</th>
+                <th class="text-center py-2 px-3 text-blue-400 font-semibold">Dirty Read</th>
+                <th class="text-center py-2 px-3 text-blue-400 font-semibold">Non-Repeatable</th>
+                <th class="text-center py-2 px-3 text-blue-400 font-semibold">Phantom</th>
+                <th class="text-left py-2 pl-4 text-blue-400 font-semibold">Uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-dark-700">
+                <td class="py-2 pr-4 font-medium">READ UNCOMMITTED</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="py-2 pl-4 text-neutral-400 text-xs">Quase nunca</td>
+              </tr>
+              <tr class="border-b border-dark-700">
+                <td class="py-2 pr-4 font-medium">READ COMMITTED</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="py-2 pl-4 text-neutral-400 text-xs">Padrao PG</td>
+              </tr>
+              <tr class="border-b border-dark-700">
+                <td class="py-2 pr-4 font-medium">REPEATABLE READ</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="text-center py-2 px-3 text-red-400">Sim</td>
+                <td class="py-2 pl-4 text-neutral-400 text-xs">Relatorios</td>
+              </tr>
+              <tr>
+                <td class="py-2 pr-4 font-medium">SERIALIZABLE</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="text-center py-2 px-3 text-green-400">Nao</td>
+                <td class="py-2 pl-4 text-neutral-400 text-xs">Critico</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dica pratica -->
+      <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
+          <span class="mr-2">&#x1F4A1;</span> Dica Pratica
+        </h3>
+        <p class="text-neutral-300 text-sm">
+          Para a maioria das aplicacoes, <strong>READ COMMITTED</strong> (padrao do PostgreSQL) e suficiente. Use <strong>REPEATABLE READ</strong> para relatorios que precisam de snapshot consistente. <strong>SERIALIZABLE</strong> somente para operacoes financeiras criticas onde consistencia total e obrigatoria.
+        </p>
+      </div>
+    </section>
+
+    <!-- TOPICO 6 -->
+    <section id="topico-6" class="mb-16">
+      <div class="flex items-center space-x-4 mb-6">
+        <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
+        <h2 class="text-2xl font-bold">&#x1F4CB; Boas Praticas SQL</h2>
+      </div>
+
+      <p class="text-neutral-300 mb-6 leading-relaxed">
+        SQL mal escrito e <strong class="text-blue-400">divida tecnica</strong>. Padroes e habitos para queries seguras, performaticas e manteniveis. Boa pratica hoje evita <strong class="text-white">incidente amanha</strong>.
+      </p>
+
+      <!-- Do/Don't Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-green-400 mb-3 flex items-center">
+            <span class="mr-2">&#x2705;</span> FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; Use <strong>prepared statements</strong> para evitar SQL injection</li>
+            <li>&#x2022; Selecione apenas as <strong>colunas necessarias</strong> (nunca SELECT *)</li>
+            <li>&#x2022; Use <strong>parametros</strong> em vez de concatenar valores</li>
+            <li>&#x2022; Monitore <strong>queries lentas</strong> com pg_stat_statements</li>
+            <li>&#x2022; Mantenha transacoes <strong>curtas e focadas</strong></li>
+          </ul>
+        </div>
+        <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+          <h4 class="font-semibold text-red-400 mb-3 flex items-center">
+            <span class="mr-2">&#x274C;</span> NAO FACA
+          </h4>
+          <ul class="space-y-2 text-neutral-300 text-sm">
+            <li>&#x2022; <strong>SELECT *</strong> em producao (transfere dados desnecessarios)</li>
+            <li>&#x2022; <strong>Concatenar</strong> input do usuario direto na query</li>
+            <li>&#x2022; Transacoes <strong>longas</strong> que travam locks por minutos</li>
+            <li>&#x2022; Ignorar <strong>EXPLAIN</strong> em queries que rodam em producao</li>
+            <li>&#x2022; Criar <strong>indice sem testar</strong> o impacto em escritas</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SQL Examples -->
+      <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4">&#x1F4BB; Exemplos de Boas Praticas</h3>
+        <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300"><code>-- RUIM: SELECT * e concatenacao
+SELECT * FROM usuario WHERE nome = '" + input + "';
+
+-- BOM: colunas especificas e parametros
+SELECT id, nome, email FROM usuario WHERE nome = $1;
+
+-- RUIM: transacao longa com logica de negocio
+BEGIN;
+  SELECT * FROM pedido WHERE id = 1;
+  -- ... 30 segundos de processamento em app ...
+  UPDATE pedido SET status = 'aprovado' WHERE id = 1;
+COMMIT;
+
+-- BOM: transacao curta e focada
+-- Faz o processamento ANTES de abrir a transacao
+BEGIN;
+  UPDATE pedido SET status = 'aprovado' WHERE id = 1;
+  INSERT INTO log_auditoria (pedido_id, acao) VALUES (1, 'aprovado');
+COMMIT;</code></pre>
+      </div>
+
+      <!-- Box Conceito -->
+      <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+        <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+          <span class="mr-2">&#x1F6E1;&#xFE0F;</span> Checklist de Seguranca SQL
+        </h3>
+        <ul class="space-y-2 text-neutral-300">
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Prepared statements:</strong> Sempre usar para queries com input externo</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Principio do menor privilegio:</strong> Cada app conecta com usuario de banco com permissoes minimas</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Monitoramento:</strong> pg_stat_statements + alertas para queries acima de X ms</span>
+          </li>
+          <li class="flex items-start space-x-2">
+            <span class="text-blue-400 mt-1">&#x2022;</span>
+            <span><strong>Revisao de queries:</strong> EXPLAIN em toda query nova antes de ir para producao</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Navegacao entre modulos -->
+    <div class="flex justify-between items-center pt-8 border-t border-dark-600">
+      <a href="index.html" class="text-neutral-400 hover:text-blue-400 transition-colors text-sm">
+        &#x2190; Voltar para Trilha 2
+      </a>
+      <a href="modulo-2-2.html" class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-semibold">
+        Modulo 2.2 - Tipos de SGBDs &#x2192;
+      </a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-dark-600 py-8 mt-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
+      <p>&#x1F5C4;&#xFE0F; FDB - Fundamentos de Banco de Dados | <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a> - 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      document.documentElement.classList.remove('dark');
+      lightIcon.classList.remove('hidden');
+    } else {
+      document.documentElement.classList.add('dark');
+      darkIcon.classList.remove('hidden');
+    }
+
+    themeToggle.addEventListener('click', function() {
+      darkIcon.classList.toggle('hidden');
+      lightIcon.classList.toggle('hidden');
+
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('color-theme', 'light');
+      } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('color-theme', 'dark');
+      }
+    });
+  </script>
+
+</body>
+</html>

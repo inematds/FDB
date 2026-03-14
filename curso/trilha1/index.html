@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha 1 - Iniciante | FDB - Fundamentos de Banco de Dados</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: {
+              900: '#111827',
+              800: '#1f2937',
+              700: '#374151',
+              600: '#4b5563'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #111827;
+    }
+
+    .card-glow:hover {
+      box-shadow: 0 0 30px rgba(5, 150, 105, 0.15);
+    }
+
+    .module-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .module-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .topic-button {
+      transition: all 0.2s ease;
+    }
+
+    .topic-explanation {
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background-color: #1f2937;
+      margin: auto;
+      padding: 0;
+      width: 90%;
+      max-width: 1000px;
+      max-height: 90vh;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      border: 1px solid #4b5563;
+    }
+
+    .modal-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #4b5563;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #1f2937, #111827);
+    }
+
+    .modal-body {
+      padding: 0;
+      overflow-y: auto;
+      max-height: calc(90vh - 80px);
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: calc(90vh - 80px);
+      border: none;
+    }
+
+    .close-modal {
+      color: #9ca3af;
+      font-size: 2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .close-modal:hover {
+      color: #ef4444;
+    }
+
+    /* Light mode styles */
+    html:not(.dark) body {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+
+    html:not(.dark) nav {
+      background-color: rgba(255,255,255,0.95) !important;
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) nav a {
+      color: #6b7280 !important;
+    }
+
+    html:not(.dark) nav a:hover,
+    html:not(.dark) nav a.active-trilha {
+      color: #059669 !important;
+    }
+
+    html:not(.dark) .text-neutral-400,
+    html:not(.dark) .text-neutral-300 {
+      color: #4b5563 !important;
+    }
+
+    html:not(.dark) .text-neutral-500 {
+      color: #6b7280 !important;
+    }
+
+    html:not(.dark) .text-neutral-100 {
+      color: #111827 !important;
+    }
+
+    html:not(.dark) .text-neutral-200 {
+      color: #1f2937 !important;
+    }
+
+    /* Emerald color overrides for light mode */
+    html:not(.dark) .text-emerald-400 {
+      color: #059669 !important;
+    }
+
+    html:not(.dark) .bg-emerald-500\/20 {
+      background-color: rgba(5, 150, 105, 0.1) !important;
+    }
+
+    html:not(.dark) .border-emerald-500\/30 {
+      border-color: rgba(5, 150, 105, 0.2) !important;
+    }
+
+    /* Gradient removal for light mode */
+    html:not(.dark) .from-emerald-900\/30 {
+      --tw-gradient-from: rgba(5, 150, 105, 0.05) !important;
+    }
+
+    html:not(.dark) .bg-dark-800,
+    html:not(.dark) .bg-dark-700 {
+      background-color: #ffffff !important;
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .bg-dark-900 {
+      background-color: #f9fafb !important;
+    }
+
+    html:not(.dark) .bg-dark-900\/95 {
+      background-color: rgba(255,255,255,0.95) !important;
+    }
+
+    html:not(.dark) .border-dark-600 {
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .border-dark-700 {
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .module-card {
+      background-color: #ffffff !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    html:not(.dark) .topic-button {
+      background-color: #f3f4f6 !important;
+      color: #1f2937 !important;
+    }
+
+    html:not(.dark) .topic-button:hover {
+      background-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .topic-explanation {
+      background-color: rgba(5, 150, 105, 0.05) !important;
+    }
+
+    html:not(.dark) .modal-content {
+      background-color: #ffffff !important;
+      border-color: #e5e7eb !important;
+    }
+
+    html:not(.dark) .modal-header {
+      background: linear-gradient(135deg, #f9fafb, #ffffff) !important;
+      border-color: #e5e7eb !important;
+    }
+
+    /* Nav light mode */
+    html:not(.dark) .text-yellow-400 {
+      color: #d97706 !important;
+    }
+
+    html:not(.dark) .text-sky-400 {
+      color: #0284c7 !important;
+    }
+  </style>
+</head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <a href="../../index.html" class="flex items-center space-x-2">
+          <span class="text-2xl">🗄️</span>
+          <span class="text-xl font-bold text-yellow-400">FDB</span>
+        </a>
+        <span class="text-neutral-600">|</span>
+        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="index.html" class="active-trilha text-emerald-400 font-semibold transition-colors">Iniciante</a>
+          <a href="../trilha2/index.html" class="text-neutral-400 hover:text-blue-400 transition-colors">Tecnico</a>
+          <a href="../trilha3/index.html" class="text-neutral-400 hover:text-purple-400 transition-colors">Avancado</a>
+        </div>
+
+        <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors">
+          <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+          </svg>
+          <svg id="theme-toggle-light-icon" class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/30 via-transparent to-transparent"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="text-center">
+        <span class="inline-block px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-full text-sm font-semibold mb-6 border border-emerald-500/30">
+          TRILHA 1
+        </span>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+          📚 Fundamentos e SQL
+        </h1>
+        <p class="text-xl text-neutral-400 max-w-3xl mx-auto mb-8">
+          Aprenda os fundamentos de banco de dados relacional e domine o SQL essencial.
+          Da modelagem a consultas, construa uma base solida para sua carreira.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-6 mb-8">
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            <span>2 Modulos</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>12 Topicos</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span>~1h</span>
+          </div>
+          <div class="flex items-center space-x-2 text-neutral-400">
+            <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+            <span>Basico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules Section -->
+  <section id="modulos" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Module 1.1: Fundamentos e Modelagem -->
+      <div class="module-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-8 border border-emerald-500/30 card-glow">
+        <div class="flex items-start justify-between mb-6">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+              <span class="text-xl font-bold text-emerald-400">1.1</span>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2 mb-1">
+                <span class="text-xs text-neutral-500">~30 min</span>
+              </div>
+              <h2 class="text-2xl font-bold text-neutral-100">📖 Fundamentos e Modelagem</h2>
+              <p class="text-neutral-400">Entenda o modelo relacional, chaves, restricoes, normalizacao e modelagem ER</p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="topics-list space-y-1 mb-6">
+          <!-- Topic 1 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">1</span>
+              <span>📊 Modelo Relacional - Tabelas organizando dados</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Sistema de organizar dados em tabelas com linhas e colunas, criado por Edgar Codd. Cada tabela representa uma entidade do mundo real e as relacoes entre os dados sao feitas de forma explicita.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Base de todos os bancos SQL modernos. Entender o modelo relacional e pre-requisito para qualquer trabalho com banco de dados.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> Tabela (relacao), Linha (tupla/registro), Coluna (atributo), Dominio (tipo de dados)
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 2 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">2</span>
+              <span>🔑 Chaves Primarias e Estrangeiras - Identificacao e relacoes</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> PK identifica cada registro unicamente. FK conecta tabelas entre si, estabelecendo relacionamentos entre entidades.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Sem chaves nao ha integridade. FK impede dados orfaos e garante que relacoes entre tabelas sejam validas.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> PRIMARY KEY, FOREIGN KEY, REFERENCES, ON DELETE CASCADE, integridade referencial
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 3 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">3</span>
+              <span>✅ Restricoes de Integridade - Protegendo dados</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Regras que o banco aplica para garantir validade dos dados (UNIQUE, NOT NULL, CHECK). Sao restricoes declarativas no schema.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Dados invalidos custam caro. Validacao no banco e a ultima linha de defesa contra inconsistencias.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> UNIQUE, NOT NULL, CHECK, DEFAULT, validacao em camadas
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 4 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">4</span>
+              <span>📐 Normalizacao (1FN a 3FN) - Eliminando redundancia</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Processo de reorganizar tabelas para reduzir duplicacao e dependencias. Segue formas normais progressivas.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Tabelas nao normalizadas causam anomalias de insercao, atualizacao e exclusao. Normalizacao elimina redundancia.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> 1FN (atomicidade), 2FN (dependencia parcial), 3FN (dependencia transitiva)
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 5 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">5</span>
+              <span>🏗️ Modelagem ER - Diagrama antes do codigo</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Diagrama Entidade-Relacionamento que modela a estrutura antes de criar tabelas. Representa visualmente entidades e suas conexoes.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Construir sem modelar e como construir sem planta. Evita retrabalho e garante que o schema atenda aos requisitos.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> Entidade, Atributo, Relacionamento, Cardinalidade (1:1, 1:N, N:N)
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 6 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">6</span>
+              <span>💡 Quando Usar Relacional - Escolhendo o modelo certo</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Criterios para decidir se banco relacional e a melhor opcao para seu caso de uso. Nem todo problema e um prego.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Nem todo problema precisa de SQL. Saber quando usar (e quando nao usar) evita problemas de arquitetura.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> OLTP, dados estruturados, integridade forte, quando NAO usar relacional
+              </p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="flex items-center space-x-3 justify-start">
+          <button onclick="openModal('modal-mod11')" class="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            <span>Ver em Modal</span>
+          </button>
+          <a href="modulo-1-1.html" class="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30">
+            <span>Ver Completo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Module 1.2: SQL Essencial -->
+      <div class="module-card bg-dark-800 rounded-2xl p-6 lg:p-8 mb-8 border border-emerald-500/30 card-glow">
+        <div class="flex items-start justify-between mb-6">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+              <span class="text-xl font-bold text-emerald-400">1.2</span>
+            </div>
+            <div>
+              <div class="flex items-center space-x-2 mb-1">
+                <span class="text-xs text-neutral-500">~30 min</span>
+              </div>
+              <h2 class="text-2xl font-bold text-neutral-100">💻 SQL Essencial</h2>
+              <p class="text-neutral-400">Domine os comandos fundamentais: CREATE, INSERT, SELECT, JOIN, GROUP BY e DELETE</p>
+            </div>
+          </div>
+        </div>
+
+        <ul class="topics-list space-y-1 mb-6">
+          <!-- Topic 1 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">1</span>
+              <span>🏗️ CREATE TABLE - Criando estruturas</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Comando DDL para definir tabelas com colunas, tipos e restricoes. O ponto de partida de qualquer banco de dados.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Tudo comeca com a tabela. Errar a estrutura impacta todo o sistema desde o inicio.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> CREATE TABLE, tipos (TEXT, INT, NUMERIC, SERIAL), PRIMARY KEY, REFERENCES
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 2 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">2</span>
+              <span>➕ INSERT e UPDATE - Manipulando dados</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Comandos DML para inserir novos registros e atualizar existentes. A base do CRUD.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> CRUD basico. Todo sistema precisa criar e modificar dados de forma segura e eficiente.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> INSERT INTO...VALUES, UPDATE...SET...WHERE, RETURNING, upsert
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 3 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">3</span>
+              <span>🔍 SELECT e WHERE - Consultando dados</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Comando para ler dados com filtros, ordenacao e limite. O comando mais usado em SQL.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> 80% do trabalho com banco e leitura. Dominar SELECT e essencial para qualquer profissional.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> SELECT, WHERE, ORDER BY, LIMIT, LIKE, IN, BETWEEN, IS NULL
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 4 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">4</span>
+              <span>🔗 JOINs - Combinando tabelas</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Operacao que combina dados de duas ou mais tabelas usando chaves. Reconstroi informacao normalizada.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Dados normalizados vivem em tabelas separadas. JOIN reconstroi a informacao completa quando voce precisa.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> INNER JOIN, LEFT JOIN, RIGHT JOIN, ON, alias de tabela
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 5 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">5</span>
+              <span>📊 GROUP BY e Agregacoes - Resumindo dados</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Agrupa registros e aplica funcoes (COUNT, SUM, AVG, MAX, MIN). Transforma dados brutos em informacao.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> Relatorios e dashboards dependem de agregacoes. E o caminho de dados brutos para decisoes.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> GROUP BY, HAVING, COUNT, SUM, AVG, funcoes de janela (intro)
+              </p>
+            </div>
+          </li>
+
+          <!-- Topic 6 -->
+          <li class="topic-item">
+            <button class="topic-button w-full text-left px-4 py-3 bg-dark-700 hover:bg-dark-600 rounded-lg transition-colors font-medium text-neutral-200 flex items-center space-x-3" onclick="toggleTopic(this)">
+              <span class="w-8 h-8 bg-emerald-500/20 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold text-emerald-400">6</span>
+              <span>🛡️ DELETE e Seguranca - Removendo com cuidado</span>
+            </button>
+            <div class="topic-explanation hidden mt-2 ml-11 p-4 bg-emerald-900/20 rounded-lg border-l-4 border-emerald-500">
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">O que e:</strong> Comando para remover registros com seguranca. Requer cuidado extremo em producao.
+              </p>
+              <p class="text-sm mb-3 text-neutral-300">
+                <strong class="text-emerald-400">Por que aprender:</strong> DELETE sem WHERE e desastre. Aprender padroes seguros e obrigatorio para qualquer DBA ou dev.
+              </p>
+              <p class="text-sm text-neutral-300">
+                <strong class="text-emerald-400">Conceitos-chave:</strong> DELETE FROM...WHERE, soft delete, TRUNCATE, backup antes de deletar
+              </p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="flex items-center space-x-3 justify-start">
+          <button onclick="openModal('modal-mod12')" class="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+            </svg>
+            <span>Ver em Modal</span>
+          </button>
+          <a href="modulo-1-2.html" class="inline-flex items-center space-x-2 px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30">
+            <span>Ver Completo</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark-900 border-t border-dark-700 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-neutral-500 text-sm">FDB - Fundamentos de Banco de Dados | INEMA.CLUB</p>
+    </div>
+  </footer>
+
+  <!-- Modal Module 1.1 -->
+  <div id="modal-mod11" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="text-lg font-bold text-emerald-400">📖 Modulo 1.1 - Fundamentos e Modelagem</h3>
+        <span class="close-modal" onclick="closeModal('modal-mod11')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <iframe src="modulo-1-1.html"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Module 1.2 -->
+  <div id="modal-mod12" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="text-lg font-bold text-emerald-400">💻 Modulo 1.2 - SQL Essencial</h3>
+        <span class="close-modal" onclick="closeModal('modal-mod12')">&times;</span>
+      </div>
+      <div class="modal-body">
+        <iframe src="modulo-1-2.html"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Theme Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+    if (localStorage.getItem('color-theme') === 'light') {
+      document.documentElement.classList.remove('dark');
+      themeToggleDarkIcon.classList.remove('hidden');
+      themeToggleLightIcon.classList.add('hidden');
+    }
+
+    themeToggleBtn.addEventListener('click', function() {
+      themeToggleDarkIcon.classList.toggle('hidden');
+      themeToggleLightIcon.classList.toggle('hidden');
+      document.documentElement.classList.toggle('dark');
+
+      if (document.documentElement.classList.contains('dark')) {
+        localStorage.setItem('color-theme', 'dark');
+      } else {
+        localStorage.setItem('color-theme', 'light');
+      }
+    });
+
+    // Topic Toggle
+    function toggleTopic(button) {
+      const explanation = button.nextElementSibling;
+      if (explanation) {
+        explanation.classList.toggle('hidden');
+      }
+    }
+
+    // Modal Functions
+    function openModal(modalId) {
+      document.getElementById(modalId).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on outside click
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+          this.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(modal => {
+          modal.classList.remove('active');
+        });
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+
+</body>
+</html>
