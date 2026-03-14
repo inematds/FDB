@@ -27,9 +27,7 @@
     /* ─── LIGHT MODE ─── */
 
     /* Part 1 — Base overrides */
-    html:not(.dark) body {
-      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-    }
+    html:not(.dark) body { background-color: #f8fafc; }
     html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
     html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
     html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
@@ -55,6 +53,9 @@
     html:not(.dark) .hover\:bg-purple-500\/10:hover { background-color: rgba(124, 58, 237, 0.08); }
 
     /* Part 3 — Remove gradients, special colors */
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
     html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
     html:not(.dark) .text-sky-400 { color: #0369a1; }
     html:not(.dark) .text-yellow-400 { color: #a16207; }
@@ -567,25 +568,18 @@
     const darkIcon = document.getElementById('theme-toggle-dark-icon');
     const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-    if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.documentElement.classList.remove('dark');
-      lightIcon.classList.remove('hidden');
-    } else {
-      document.documentElement.classList.add('dark');
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !document.documentElement.classList.contains('dark'))) {
       darkIcon.classList.remove('hidden');
+      document.documentElement.classList.remove('dark');
+    } else {
+      lightIcon.classList.remove('hidden');
     }
 
     themeToggle.addEventListener('click', function() {
       darkIcon.classList.toggle('hidden');
       lightIcon.classList.toggle('hidden');
-
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
-      }
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     });
   </script>
 

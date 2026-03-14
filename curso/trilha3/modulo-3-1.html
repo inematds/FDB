@@ -628,25 +628,18 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
     const darkIcon = document.getElementById('theme-toggle-dark-icon');
     const lightIcon = document.getElementById('theme-toggle-light-icon');
 
-    if (localStorage.getItem('color-theme') === 'light' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-      document.documentElement.classList.remove('dark');
-      lightIcon.classList.remove('hidden');
-    } else {
-      document.documentElement.classList.add('dark');
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && !document.documentElement.classList.contains('dark'))) {
       darkIcon.classList.remove('hidden');
+      document.documentElement.classList.remove('dark');
+    } else {
+      lightIcon.classList.remove('hidden');
     }
 
     themeToggle.addEventListener('click', function() {
       darkIcon.classList.toggle('hidden');
       lightIcon.classList.toggle('hidden');
-
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
-      } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
-      }
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
     });
 
     // Topic toggle (available for consistency)

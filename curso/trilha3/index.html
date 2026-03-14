@@ -71,30 +71,39 @@
 <body class="bg-dark-900 text-neutral-100 min-h-screen">
 
   <!-- Sticky Nav -->
-  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-700">
-    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <a href="../../index.html" class="flex items-center gap-2 hover:text-yellow-300 transition-colors">
-          <span class="text-lg">&#x1F5C4;&#xFE0F;</span>
-          <span class="text-yellow-400 font-semibold text-sm">FDB</span>
-        </a>
-        <span class="text-neutral-500">|</span>
-        <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium transition-colors">INEMA.CLUB</a>
-      </div>
-      <div class="flex items-center gap-4">
-        <div class="hidden md:flex items-center gap-4 text-sm">
-          <a href="../trilha1/index.html" class="text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 px-3 py-1.5 rounded-lg transition-colors font-medium">Iniciante</a>
-          <a href="../trilha2/index.html" class="text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 px-3 py-1.5 rounded-lg transition-colors font-medium">Tecnico</a>
-          <a href="index.html" class="text-purple-400 bg-purple-500/10 px-3 py-1.5 rounded-lg font-medium">Avancado</a>
+  <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-14">
+        <div class="flex items-center space-x-4">
+          <a href="../../index.html" class="flex items-center space-x-2 text-yellow-400 hover:text-yellow-300">
+            <span class="text-2xl">&#x1F5C4;&#xFE0F;</span>
+            <span class="font-bold text-lg hidden sm:inline">FDB</span>
+          </a>
+          <span class="text-neutral-600">|</span>
+          <a href="https://inema.club" target="_blank" class="text-sky-400 hover:text-sky-300 text-sm font-medium">INEMA.CLUB</a>
         </div>
-        <button id="theme-toggle" class="p-2 rounded-lg hover:bg-dark-700 transition-colors">
-          <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-          </svg>
-          <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden text-neutral-400" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
-          </svg>
-        </button>
+        <div class="flex items-center space-x-1 sm:space-x-2">
+          <a href="../trilha1/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors">
+            <span class="sm:hidden">T1</span>
+            <span class="hidden sm:inline">Iniciante</span>
+          </a>
+          <a href="../trilha2/index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors">
+            <span class="sm:hidden">T2</span>
+            <span class="hidden sm:inline">Tecnico</span>
+          </a>
+          <a href="index.html" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10">
+            <span class="sm:hidden">T3</span>
+            <span class="hidden sm:inline">Avancado</span>
+          </a>
+          <button id="theme-toggle" class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2">
+            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+            </svg>
+            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 text-neutral-300" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
@@ -133,6 +142,32 @@
 
   <!-- Modulos -->
   <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold mb-6">Visao Geral dos Modulos</h2>
+      <p class="text-neutral-400 mb-8">Clique em um card para acessar o modulo completo.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+        <a href="modulo-3-1.html" class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-purple-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-purple-400 font-bold">3.1</span>
+            <span class="text-xs text-neutral-500">~50 min</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2 group-hover:text-purple-400 transition-colors">&#x1F3D7;&#xFE0F; Arquitetura e Performance</h3>
+          <p class="text-neutral-400 text-sm">OLTP vs OLAP, particionamento, data warehouse, ETL, observabilidade e governanca de dados</p>
+        </a>
+        <a href="modulo-3-2.html" class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-purple-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-purple-400 font-bold">3.2</span>
+            <span class="text-xs text-neutral-500">~70 min</span>
+          </div>
+          <h3 class="text-lg font-bold mb-2 group-hover:text-purple-400 transition-colors">&#x1F916; IA Aplicada a Dados</h3>
+          <p class="text-neutral-400 text-sm">Janela de contexto, RAG, pgvector, Weaviate, Milvus, Qdrant, Redis Vetorial, Chroma e Azure AI Search</p>
+        </a>
+      </div>
+    </section>
+
+    <h2 class="text-2xl font-bold mb-6">Conteudo Detalhado</h2>
+    <p class="text-neutral-400 mb-8">Explore os topicos de cada modulo. Clique para expandir.</p>
 
     <!-- Modulo 3.1 - Arquitetura e Performance -->
     <div class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
