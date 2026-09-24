@@ -67,3 +67,11 @@ Segue o design system INEMA.CLUB:
 ## Contato
 
 E-mail: inematds@gmail.com
+
+<!-- inema-backlink:v1 -->
+## Mais no INEMA.CLUB
+
+- [Ficha completa deste curso](https://www.inema.club/cursos/8-fdb-fundamentos-de-banco-de-dados/)
+- [Guia: como aprender inteligência artificial](https://www.inema.club/aprender-inteligencia-artificial/)
+- [Todos os cursos](https://www.inema.club/cursos/)
+<!-- /inema-backlink:v1 -->
