@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="dark" lang="es">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Modulo 1.1 - Fundamentos e Modelagem | FDB</title>
+<title>Módulo 1.2 - SQL esencial | FDB</title>
 <!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -133,8 +133,8 @@
       color: #059669;
     }
   </style>
-<link href="https://inematds.github.io/FDB/curso/trilha1/modulo-1-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha1/modulo-1-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha1/modulo-1-1.html" hreflang="es" rel="alternate"/></head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-1-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha1/modulo-1-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha1/modulo-1-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<link href="https://inematds.github.io/FDB/curso/trilha1/modulo-1-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha1/modulo-1-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha1/modulo-1-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha1/modulo-1-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-1-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
 <!-- Navigation -->
 <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,15 +150,15 @@
 <div class="flex items-center space-x-1 sm:space-x-2">
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-emerald-400 bg-emerald-500/10" href="index.html">
 <span class="sm:hidden">T1</span>
-<span class="hidden sm:inline">Iniciante</span>
+<span class="hidden sm:inline">Principiante</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html">
 <span class="sm:hidden">T2</span>
-<span class="hidden sm:inline">Tecnico</span>
+<span class="hidden sm:inline">Técnico</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html">
 <span class="sm:hidden">T3</span>
-<span class="hidden sm:inline">Avancado</span>
+<span class="hidden sm:inline">Avanzado</span>
 </a>
 <button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
 <svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
@@ -177,9 +177,9 @@
 <nav class="flex items-center space-x-2 text-sm text-neutral-500">
 <a class="hover:text-emerald-400 transition-colors" href="../../index.html">Inicio</a>
 <span>/</span>
-<a class="hover:text-emerald-400 transition-colors" href="index.html">Trilha 1</a>
+<a class="hover:text-emerald-400 transition-colors" href="index.html">Ruta 1</a>
 <span>/</span>
-<span class="text-emerald-400">Modulo 1.1</span>
+<span class="text-emerald-400">Módulo 1.2</span>
 </nav>
 </div>
 <!-- Header -->
@@ -188,20 +188,20 @@
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
 <div class="text-center">
 <span class="inline-block px-4 py-2 bg-emerald-500/20 text-emerald-400 rounded-full text-sm font-semibold mb-6 border border-emerald-500/30">
-          MODULO 1.1
+          MÓDULO 1.2
         </span>
 <h1 class="text-4xl sm:text-5xl font-bold mb-6">
-          Fundamentos e Modelagem
+          SQL esencial
         </h1>
 <p class="text-xl text-neutral-400 max-w-3xl mx-auto mb-8">
-          Entenda como dados sao organizados em tabelas, como garantir integridade e como modelar antes de escrever uma linha de SQL.
+          Domina los comandos fundamentales de SQL: crea tablas, inserta datos, consulta con filtros, combina tablas con JOIN y agrega resultados.
         </p>
 <div class="flex flex-wrap justify-center gap-6">
 <div class="flex items-center space-x-2 text-neutral-400">
 <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>6 Topicos</span>
+<span>6 temas</span>
 </div>
 <div class="flex items-center space-x-2 text-neutral-400">
 <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
@@ -213,13 +213,13 @@
 <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Basico</span>
+<span>Básico</span>
 </div>
 <div class="flex items-center space-x-2 text-neutral-400">
 <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
-<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Teoria + Pratica</span>
+<span>Práctica</span>
 </div>
 </div>
 </div>
@@ -228,343 +228,302 @@
 <!-- Topics Content -->
 <section class="py-12">
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-<!-- Topic 1: Modelo Relacional -->
+<!-- Topic 1: CREATE TABLE -->
 <div class="scroll-mt-20" id="topico-1">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">1</span>
 </div>
-<h2 class="text-3xl font-bold">Modelo Relacional</h2>
+<h2 class="text-3xl font-bold">CREATE TABLE - Creación de estructuras</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          O modelo relacional e a base de praticamente todos os bancos de dados que voce vai usar na carreira. Criado por Edgar F. Codd na IBM em 1970, ele organiza dados em <strong class="text-emerald-400">tabelas</strong> (chamadas de relacoes) com linhas e colunas bem definidas. Cada tabela representa uma entidade do mundo real.
+          El comando <code class="inline-code">CREATE TABLE</code> forma parte de la <strong class="text-emerald-400">DDL (Data Definition Language)</strong>, el subconjunto de SQL responsable de definir la estructura de la base de datos. Con él creas tablas y defines columnas, tipos de datos y restricciones. Es el primer paso antes de cualquier operación con datos.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">Conceitos fundamentais</h3>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Tipos de datos más usados</h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong class="text-emerald-400">Tabela (Relacao):</strong> Estrutura que armazena dados de uma entidade. Ex: <code class="inline-code">cliente</code>, <code class="inline-code">pedido</code></li>
-<li><strong class="text-emerald-400">Linha (Tupla/Registro):</strong> Uma instancia da entidade. Ex: um cliente especifico</li>
-<li><strong class="text-emerald-400">Coluna (Atributo):</strong> Uma propriedade da entidade. Ex: nome, email, data_nascimento</li>
-<li><strong class="text-emerald-400">Dominio:</strong> O tipo de dados que uma coluna aceita. Ex: TEXT, INTEGER, DATE</li>
+<li><strong class="text-emerald-400">TEXT:</strong> Texto de longitud variable. Ideal para nombres, correos electrónicos y descripciones.</li>
+<li><strong class="text-emerald-400">INT / INTEGER:</strong> Números enteros. Ideales para cantidades, ID manuales y contadores.</li>
+<li><strong class="text-emerald-400">NUMERIC(p,s):</strong> Número con precisión decimal. Ideal para valores monetarios. Ej.: <code class="inline-code">NUMERIC(10,2)</code> = hasta 10 dígitos, 2 decimales.</li>
+<li><strong class="text-emerald-400">SERIAL:</strong> Entero autoincremental. Se usa como clave primaria automática.</li>
+<li><strong class="text-emerald-400">TIMESTAMP:</strong> Fecha y hora. Ideal para registrar cuándo ocurrió algo.</li>
+<li><strong class="text-emerald-400">BOOLEAN:</strong> Verdadero o falso. Ideal para indicadores (activo, verificado, etc.).</li>
 </ul>
 </div>
 <div class="tip-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-primary mb-3">Dica pratica</h3>
-<p class="text-neutral-300">Pense em uma tabela como uma planilha Excel, mas com regras rigidas: cada coluna tem um tipo, cada linha e unica, e a ordem das linhas nao importa. A grande diferenca e que no banco relacional, as regras sao <strong>impostas pelo sistema</strong>, nao pela disciplina do usuario.</p>
+<h3 class="text-lg font-bold text-primary mb-3">Constraints (restricciones)</h3>
+<p class="text-neutral-300">Al crear una tabla, defines restricciones directamente en las columnas: <code class="inline-code">PRIMARY KEY</code> identifica el registro, <code class="inline-code">NOT NULL</code> impide los valores vacíos, <code class="inline-code">UNIQUE</code> impide los duplicados, <code class="inline-code">REFERENCES</code> crea una clave foránea y <code class="inline-code">DEFAULT</code> define un valor predeterminado.</p>
 </div>
-<pre><code class="text-emerald-300">-- Exemplo: tabela cliente
--- Cada linha = um cliente, cada coluna = um atributo
-
-CREATE TABLE cliente (
-  id    SERIAL PRIMARY KEY,    -- Coluna: identificador unico
-  nome  TEXT NOT NULL,          -- Coluna: nome obrigatorio
-  email TEXT UNIQUE             -- Coluna: email unico
+<pre><code class="text-emerald-300">CREATE TABLE cliente (
+  id SERIAL PRIMARY KEY,
+  nome TEXT NOT NULL,
+  email TEXT UNIQUE
 );
 
--- Inserindo uma "tupla" (linha/registro)
-INSERT INTO cliente (nome, email)
-VALUES ('Ana Silva', 'ana@email.com');</code></pre>
+CREATE TABLE pedido (
+  id SERIAL PRIMARY KEY,
+  cliente_id INT REFERENCES cliente(id),
+  total NUMERIC(10,2) NOT NULL,
+  criado_em TIMESTAMP DEFAULT NOW()
+);</code></pre>
 </div>
-<!-- Topic 2: Chaves Primarias e Estrangeiras -->
+<!-- Topic 2: INSERT e UPDATE -->
 <div class="scroll-mt-20" id="topico-2">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">2</span>
 </div>
-<h2 class="text-3xl font-bold">Chaves Primarias e Estrangeiras</h2>
+<h2 class="text-3xl font-bold">INSERT y UPDATE - Manipulación de datos</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          Chaves sao o mecanismo que da identidade aos registros e conecta tabelas entre si. A <strong class="text-emerald-400">chave primaria (PK)</strong> garante que cada registro e unico. A <strong class="text-emerald-400">chave estrangeira (FK)</strong> cria um vinculo entre tabelas, referenciando a PK de outra tabela.
+          Después de crear la estructura, necesitas llenar las tablas. El <code class="inline-code">INSERT</code> agrega nuevos registros y el <code class="inline-code">UPDATE</code> modifica registros existentes. Juntos con <code class="inline-code">DELETE</code>, forman las operaciones <strong class="text-emerald-400">CRUD</strong> (Create, Read, Update, Delete): la base de cualquier aplicación.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">Como funcionam</h3>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Operaciones DML</h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong class="text-emerald-400">PRIMARY KEY:</strong> Identifica cada registro de forma unica. Nao aceita NULL nem duplicatas.</li>
-<li><strong class="text-emerald-400">FOREIGN KEY:</strong> Coluna que referencia a PK de outra tabela, criando um relacionamento.</li>
-<li><strong class="text-emerald-400">REFERENCES:</strong> Palavra-chave SQL que define qual tabela/coluna a FK aponta.</li>
-<li><strong class="text-emerald-400">ON DELETE CASCADE:</strong> Quando o registro pai e deletado, os filhos sao removidos automaticamente.</li>
-<li><strong class="text-emerald-400">Integridade referencial:</strong> Garante que toda FK aponta para um registro existente na tabela pai.</li>
+<li><strong class="text-emerald-400">INSERT INTO ... VALUES:</strong> Agrega una o más filas. Especificas las columnas y los valores correspondientes.</li>
+<li><strong class="text-emerald-400">INSERT múltiple:</strong> Inserta varias filas en un solo comando separando los grupos de valores con comas.</li>
+<li><strong class="text-emerald-400">UPDATE ... SET ... WHERE:</strong> Modifica los valores de las columnas en los registros que cumplen la condición WHERE.</li>
 </ul>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-<div class="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
-<h4 class="font-bold text-emerald-400 mb-2">FACA</h4>
-<ul class="text-sm text-neutral-300 space-y-1">
-<li>Use SERIAL ou UUID para PKs</li>
-<li>Defina FKs com REFERENCES</li>
-<li>Pense no ON DELETE antes</li>
-</ul>
+<div class="tip-box rounded-xl p-6 mb-6">
+<h3 class="text-lg font-bold text-primary mb-3">Cuidado con UPDATE sin WHERE</h3>
+<p class="text-neutral-300">Un <code class="inline-code">UPDATE</code> sin cláusula <code class="inline-code">WHERE</code> modifica <strong>todos</strong> los registros de la tabla. Incluye siempre WHERE para limitar el alcance. Antes de ejecutar un UPDATE, ejecuta un SELECT con el mismo WHERE para confirmar qué registros se verán afectados.</p>
 </div>
-<div class="bg-red-500/10 rounded-xl p-4 border border-red-500/20">
-<h4 class="font-bold text-red-400 mb-2">NAO FACA</h4>
-<ul class="text-sm text-neutral-300 space-y-1">
-<li>Usar dados de negocio como PK (CPF muda!)</li>
-<li>Ignorar FKs por "performance"</li>
-<li>Usar CASCADE sem pensar</li>
-</ul>
-</div>
-</div>
-<pre><code class="text-emerald-300">-- PK: identifica o cliente
-CREATE TABLE cliente (
-  id    SERIAL PRIMARY KEY,
-  nome  TEXT NOT NULL,
-  email TEXT UNIQUE
-);
+<pre><code class="text-emerald-300">-- Inserindo um registro
+INSERT INTO cliente (nome, email)
+VALUES ('Ana Silva', 'ana@example.com');
 
--- FK: conecta pedido ao cliente
-CREATE TABLE pedido (
-  id         SERIAL PRIMARY KEY,
-  cliente_id INT NOT NULL REFERENCES cliente(id)
-               ON DELETE CASCADE,
-  total      NUMERIC(10,2) NOT NULL,
-  criado_em  TIMESTAMP DEFAULT NOW()
-);
+-- Inserindo multiplos registros de uma vez
+INSERT INTO cliente (nome, email)
+VALUES ('Carlos Lima', 'carlos@example.com'),
+       ('Maria Santos', 'maria@example.com');
 
--- Tentativa de inserir pedido com cliente inexistente:
--- INSERT INTO pedido (cliente_id, total) VALUES (999, 50.00);
--- ERRO: violacao de chave estrangeira!</code></pre>
+-- Atualizando um registro especifico
+UPDATE cliente
+SET email = 'ana.silva@example.com'
+WHERE id = 1;</code></pre>
 </div>
-<!-- Topic 3: Restricoes de Integridade -->
+<!-- Topic 3: SELECT e WHERE -->
 <div class="scroll-mt-20" id="topico-3">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">3</span>
 </div>
-<h2 class="text-3xl font-bold">Restricoes de Integridade</h2>
+<h2 class="text-3xl font-bold">SELECT y WHERE - Consultar datos</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          Restricoes sao regras declarativas no schema que impedem dados invalidos de entrar no banco. Sao a <strong class="text-emerald-400">ultima linha de defesa</strong> da integridade, mesmo que a aplicacao tenha bugs. O banco recusa dados que violam as restricoes.
+          O <code class="inline-code">SELECT</code> es el comando más usado de SQL. Lee datos de las tablas y devuelve resultados filtrados, ordenados y limitados según lo que necesitas. La cláusula <code class="inline-code">WHERE</code> filtra qué filas deben aparecer en el resultado.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">Tipos de restricoes</h3>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Anatomía de un SELECT</h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong class="text-emerald-400">NOT NULL:</strong> A coluna nao aceita valores nulos. Obriga o campo a ser preenchido.</li>
-<li><strong class="text-emerald-400">UNIQUE:</strong> Impede valores duplicados na coluna (mas aceita multiplos NULLs).</li>
-<li><strong class="text-emerald-400">CHECK:</strong> Valida que o valor atende a uma condicao. Ex: <code class="inline-code">CHECK (idade &gt;= 0)</code></li>
-<li><strong class="text-emerald-400">DEFAULT:</strong> Define um valor padrao quando nenhum e fornecido no INSERT.</li>
+<li><strong class="text-emerald-400">Columnas de SELECT:</strong> Qué columnas devolver. Usa <code class="inline-code">*</code> para todas (evítalo en producción).</li>
+<li><strong class="text-emerald-400">FROM tabla:</strong> De qué tabla obtener los datos.</li>
+<li><strong class="text-emerald-400">WHERE condición:</strong> Filtra filas. Acepta operadores como <code class="inline-code">=</code>, <code class="inline-code">!=</code>, <code class="inline-code">&gt;</code>, <code class="inline-code">&lt;</code>, <code class="inline-code">LIKE</code>, <code class="inline-code">IS NULL</code>, <code class="inline-code">IN</code>.</li>
+<li><strong class="text-emerald-400">ORDER BY:</strong> Ordena el resultado. <code class="inline-code">ASC</code> (predeterminado) o <code class="inline-code">DESC</code>.</li>
+<li><strong class="text-emerald-400">LIMIT:</strong> Limita el número de filas devueltas.</li>
 </ul>
 </div>
 <div class="tip-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-primary mb-3">Validacao em camadas</h3>
-<p class="text-neutral-300">A boa pratica e validar em multiplas camadas: <strong>frontend</strong> (UX rapida), <strong>backend</strong> (regras de negocio), e <strong>banco</strong> (ultima defesa). Nunca confie apenas na validacao do frontend. O banco e a unica camada que voce controla 100%.</p>
+<h3 class="text-lg font-bold text-primary mb-3">Operadores lógicos</h3>
+<p class="text-neutral-300">Combina condiciones con <code class="inline-code">AND</code> (ambas deben ser verdaderas), <code class="inline-code">OR</code> (al menos una verdadera) y <code class="inline-code">NOT</code> (invierte la condición). Usa paréntesis para controlar la precedencia cuando combines AND y OR.</p>
 </div>
-<pre><code class="text-emerald-300">CREATE TABLE produto (
-  id        SERIAL PRIMARY KEY,
-  nome      TEXT NOT NULL,                    -- obrigatorio
-  sku       TEXT UNIQUE NOT NULL,             -- unico e obrigatorio
-  preco     NUMERIC(10,2) NOT NULL
-            CHECK (preco &gt; 0),               -- deve ser positivo
-  estoque   INT NOT NULL DEFAULT 0
-            CHECK (estoque &gt;= 0),            -- nao pode ser negativo
-  ativo     BOOLEAN DEFAULT true              -- padrao: ativo
-);
+<pre><code class="text-emerald-300">-- Selecionar colunas especificas com filtro
+SELECT nome, email
+FROM cliente
+WHERE email IS NOT NULL;
 
--- Tentativas que o banco REJEITA:
--- INSERT INTO produto (nome, sku, preco) VALUES ('X', 'ABC', -10);
--- ERRO: violacao de CHECK (preco &gt; 0)
+-- Filtrar, ordenar e limitar
+SELECT *
+FROM pedido
+WHERE total &gt; 100
+ORDER BY criado_em DESC
+LIMIT 10;
 
--- INSERT INTO produto (sku, preco) VALUES ('DEF', 25.00);
--- ERRO: violacao de NOT NULL (nome)</code></pre>
+-- Combinando condicoes com AND e operadores
+SELECT nome
+FROM cliente
+WHERE email LIKE '%example.com'
+  AND nome != 'Ana Silva';</code></pre>
 </div>
-<!-- Topic 4: Normalizacao -->
+<!-- Topic 4: JOINs -->
 <div class="scroll-mt-20" id="topico-4">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">4</span>
 </div>
-<h2 class="text-3xl font-bold">Normalizacao (1FN a 3FN)</h2>
+<h2 class="text-3xl font-bold">JOINs - Combinación de tablas</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          Normalizacao e o processo de reorganizar tabelas para eliminar redundancia e evitar anomalias. Segue etapas progressivas chamadas <strong class="text-emerald-400">formas normais</strong>. Na pratica, chegar ate a 3FN resolve a maioria dos problemas.
+          En el modelo relacional, los datos se distribuyen en varias tablas. El <code class="inline-code">JOIN</code> combina filas de dos o más tablas según una condición de relación (generalmente clave foránea = clave primaria). Esto es lo que le da poder real a SQL.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">As tres formas normais</h3>
-<ul class="space-y-3 text-neutral-300">
-<li>
-<strong class="text-emerald-400">1FN (Atomicidade):</strong> Cada celula contem um valor unico e indivisivel. Nada de listas em uma coluna. Ex: em vez de <code class="inline-code">telefones: "11-9999, 11-8888"</code>, crie uma tabela <code class="inline-code">telefone</code> separada.
-            </li>
-<li>
-<strong class="text-emerald-400">2FN (Sem dependencia parcial):</strong> Todo atributo nao-chave depende da chave primaria completa, nao de parte dela. Relevante quando a PK e composta.
-            </li>
-<li>
-<strong class="text-emerald-400">3FN (Sem dependencia transitiva):</strong> Nenhum atributo nao-chave depende de outro atributo nao-chave. Se A depende de B e B depende de C, mova B para sua propria tabela.
-            </li>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Tipos de JOIN</h3>
+<ul class="space-y-2 text-neutral-300">
+<li><strong class="text-emerald-400">INNER JOIN:</strong> Devuelve solo las filas que tienen correspondencia en ambas tablas. Si un cliente no tiene ningún pedido, no aparece.</li>
+<li><strong class="text-emerald-400">LEFT JOIN:</strong> Devuelve todas las filas de la tabla de la izquierda, aunque no haya correspondencia en la derecha. Las columnas de la derecha quedan en NULL.</li>
+<li><strong class="text-emerald-400">RIGHT JOIN:</strong> Inverso de LEFT. Todas las de la derecha, incluso sin correspondencia en la izquierda.</li>
+<li><strong class="text-emerald-400">FULL JOIN:</strong> Devuelve todas las filas de ambos lados, con NULL donde no hay correspondencia.</li>
 </ul>
 </div>
 <div class="tip-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-primary mb-3">Na pratica</h3>
-<p class="text-neutral-300">Tabelas nao normalizadas causam tres tipos de anomalia: <strong>insercao</strong> (nao consigo inserir um dado sem outro), <strong>atualizacao</strong> (preciso atualizar em N lugares) e <strong>exclusao</strong> (perco dados que nao queria). Normalizacao elimina as tres.</p>
+<h3 class="text-lg font-bold text-primary mb-3">Los alias hacen que todo sea más legible</h3>
+<p class="text-neutral-300">Usa alias (nombres alternativos) para las tablas: <code class="inline-code">FROM cliente c</code> permite referenciar como <code class="inline-code">c.nome</code> en lugar de <code class="inline-code">cliente.nome</code>. Esto es especialmente útil cuando unes varias tablas y las columnas tienen nombres ambiguos.</p>
 </div>
-<pre><code class="text-emerald-300">-- ANTES (nao normalizado, violando 1FN):
--- | id | nome | telefones          |
--- | 1  | Ana  | 11-9999, 11-8888   |  &lt;- lista em uma celula!
+<pre><code class="text-emerald-300">-- INNER JOIN: clientes que TEM pedidos
+SELECT c.nome, p.total, p.criado_em
+FROM cliente c
+INNER JOIN pedido p ON p.cliente_id = c.id
+ORDER BY p.total DESC;
 
--- DEPOIS (normalizado, 1FN):
-CREATE TABLE cliente (
-  id   SERIAL PRIMARY KEY,
-  nome TEXT NOT NULL
-);
-
-CREATE TABLE telefone (
-  id         SERIAL PRIMARY KEY,
-  cliente_id INT REFERENCES cliente(id),
-  numero     TEXT NOT NULL
-);
-
--- Cada telefone e um registro separado
-INSERT INTO telefone (cliente_id, numero) VALUES (1, '11-9999');
-INSERT INTO telefone (cliente_id, numero) VALUES (1, '11-8888');</code></pre>
+-- LEFT JOIN: TODOS os clientes, mesmo sem pedidos
+-- COALESCE substitui NULL por 0
+SELECT c.nome, COALESCE(SUM(p.total), 0) AS total_gasto
+FROM cliente c
+LEFT JOIN pedido p ON p.cliente_id = c.id
+GROUP BY c.nome;</code></pre>
 </div>
-<!-- Topic 5: Modelagem ER -->
+<!-- Topic 5: GROUP BY e Agregacoes -->
 <div class="scroll-mt-20" id="topico-5">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">5</span>
 </div>
-<h2 class="text-3xl font-bold">Modelagem ER</h2>
+<h2 class="text-3xl font-bold">GROUP BY y agregaciones: resumir datos</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          Antes de escrever SQL, voce modela. O <strong class="text-emerald-400">Diagrama Entidade-Relacionamento (ER)</strong> e a planta do banco de dados. Ele mostra quais entidades existem, quais atributos cada uma tem e como elas se relacionam.
+          Las funciones de agregación transforman muchas filas en un único resultado resumido. El <code class="inline-code">GROUP BY</code> agrupa las filas que comparten un valor en común, y las funciones de agregación operan sobre cada grupo. Así es como generas informes y estadísticas directamente en SQL.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">Componentes do diagrama ER</h3>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Funciones de agregación</h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong class="text-emerald-400">Entidade:</strong> Objeto do mundo real (Cliente, Pedido, Produto). Vira tabela no banco.</li>
-<li><strong class="text-emerald-400">Atributo:</strong> Propriedade da entidade (nome, preco, data). Vira coluna.</li>
-<li><strong class="text-emerald-400">Relacionamento:</strong> Conexao entre entidades. Ex: Cliente <em>faz</em> Pedido.</li>
-<li><strong class="text-emerald-400">Cardinalidade:</strong> Quantos de um lado se relacionam com o outro:
-              <ul class="ml-4 mt-1 space-y-1">
-<li><code class="inline-code">1:1</code> - Um para um (pessoa e CPF)</li>
-<li><code class="inline-code">1:N</code> - Um para muitos (cliente e pedidos)</li>
-<li><code class="inline-code">N:N</code> - Muitos para muitos (aluno e disciplina, precisa tabela intermediaria)</li>
-</ul>
-</li>
+<li><strong class="text-emerald-400">COUNT(*):</strong> Cuenta el número de filas del grupo.</li>
+<li><strong class="text-emerald-400">SUM(columna):</strong> Suma los valores de la columna en el grupo.</li>
+<li><strong class="text-emerald-400">AVG(columna):</strong> Calcula el promedio de los valores.</li>
+<li><strong class="text-emerald-400">MIN(columna) / MAX(columna):</strong> Devuelve el valor mínimo/máximo.</li>
+<li><strong class="text-emerald-400">HAVING:</strong> Filtra grupos después de la agregación (el WHERE de los grupos). A diferencia de WHERE, que filtra filas <em>antes</em> del agrupamiento.</li>
 </ul>
 </div>
 <div class="tip-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-primary mb-3">Dica pratica</h3>
-<p class="text-neutral-300">Sempre modele antes de criar tabelas. Use ferramentas como <strong>dbdiagram.io</strong>, <strong>draw.io</strong> ou ate papel e caneta. Um bom diagrama ER economiza horas de refatoracao. Lembre: relacionamento N:N sempre precisa de uma <strong>tabela associativa</strong> (tabela ponte).</p>
+<h3 class="text-lg font-bold text-primary mb-3">WHERE vs HAVING</h3>
+<p class="text-neutral-300"><code class="inline-code">WHERE</code> filtra filas individuales antes de la agrupación. <code class="inline-code">HAVING</code> filtra grupos después de la agregación. Ejemplo: "muestra clientes que gastaron más de R$500" usa HAVING, porque el total se calcula con SUM después de GROUP BY.</p>
 </div>
-<pre><code class="text-emerald-300">-- Exemplo de N:N: aluno cursa disciplina
--- Precisa de tabela associativa "matricula"
-
-CREATE TABLE aluno (
-  id   SERIAL PRIMARY KEY,
-  nome TEXT NOT NULL
-);
-
-CREATE TABLE disciplina (
-  id   SERIAL PRIMARY KEY,
-  nome TEXT NOT NULL
-);
-
--- Tabela ponte (resolve o N:N)
-CREATE TABLE matricula (
-  aluno_id      INT REFERENCES aluno(id),
-  disciplina_id INT REFERENCES disciplina(id),
-  semestre      TEXT NOT NULL,
-  PRIMARY KEY (aluno_id, disciplina_id, semestre)
-);</code></pre>
+<pre><code class="text-emerald-300">-- Resumo por cliente: contagem, soma e media
+SELECT cliente_id,
+       COUNT(*) AS num_pedidos,
+       SUM(total) AS total,
+       AVG(total) AS media
+FROM pedido
+GROUP BY cliente_id
+HAVING SUM(total) &gt; 500;</code></pre>
 </div>
-<!-- Topic 6: Quando Usar Relacional -->
+<!-- Topic 6: DELETE e Seguranca -->
 <div class="scroll-mt-20" id="topico-6">
 <div class="flex items-center space-x-4 mb-6">
 <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center border border-emerald-500/30">
 <span class="text-lg font-bold text-emerald-400">6</span>
 </div>
-<h2 class="text-3xl font-bold">Quando Usar Relacional</h2>
+<h2 class="text-3xl font-bold">DELETE y seguridad: eliminar con cuidado</h2>
 </div>
 <p class="text-neutral-300 mb-6 text-lg leading-relaxed">
-          Banco relacional nao e a resposta para tudo. Saber <strong class="text-emerald-400">quando usar e quando nao usar</strong> e tao importante quanto saber SQL. A escolha certa depende da natureza dos dados e dos requisitos do sistema.
+          O <code class="inline-code">DELETE</code> elimina registros permanentemente. Es un comando potente y peligroso: sin WHERE, borra <strong class="text-emerald-400">todo</strong> de la tabla. En la práctica, muchas aplicaciones prefieren el patrón <strong class="text-emerald-400">soft delete</strong>, que marca el registro como eliminado en lugar de borrarlo realmente.
         </p>
 <div class="concept-box rounded-xl p-6 mb-6">
-<h3 class="text-lg font-bold text-emerald-400 mb-3">Quando relacional e ideal</h3>
+<h3 class="text-lg font-bold text-emerald-400 mb-3">Estrategias de eliminación</h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong class="text-emerald-400">OLTP:</strong> Sistemas transacionais (e-commerce, ERP, bancario). Muitas escritas pequenas com integridade forte.</li>
-<li><strong class="text-emerald-400">Dados estruturados:</strong> Quando o schema e bem definido e muda pouco.</li>
-<li><strong class="text-emerald-400">Integridade forte:</strong> Quando erros de dados custam caro (financeiro, saude, juridico).</li>
-<li><strong class="text-emerald-400">Relacoes complexas:</strong> Quando dados se conectam de formas variadas e voce precisa de JOINs.</li>
+<li><strong class="text-emerald-400">Hard delete:</strong> <code class="inline-code">DELETE FROM tabela WHERE ...</code> Elimina permanentemente. Úsalo para datos temporales o cuando la normativa lo exija.</li>
+<li><strong class="text-emerald-400">Soft delete:</strong> Agrega una columna <code class="inline-code">deletado_em TIMESTAMP</code>. En lugar de eliminar, haz un UPDATE que marque la fecha. Los datos permanecen en la base de datos para la auditoría.</li>
+<li><strong class="text-emerald-400">TRUNCATE:</strong> Elimina TODOS los registros de una vez, más rápido que DELETE, pero sin WHERE. Se usa para limpiezas completas.</li>
 </ul>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 <div class="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
-<h4 class="font-bold text-emerald-400 mb-2">USE RELACIONAL</h4>
+<h4 class="font-bold text-emerald-400 mb-2">HAZLO</h4>
 <ul class="text-sm text-neutral-300 space-y-1">
-<li>Transacoes financeiras</li>
-<li>Cadastros com regras rigidas</li>
-<li>Dados com muitas relacoes</li>
-<li>Relatorios SQL complexos</li>
+<li>Siempre usa WHERE en DELETE</li>
+<li>Ejecuta SELECT primero para confirmar</li>
+<li>Prefiere el borrado lógico en producción</li>
+<li>Usa transacciones (BEGIN/ROLLBACK)</li>
 </ul>
 </div>
 <div class="bg-red-500/10 rounded-xl p-4 border border-red-500/20">
-<h4 class="font-bold text-red-400 mb-2">CONSIDERE ALTERNATIVAS</h4>
+<h4 class="font-bold text-red-400 mb-2">NO HAGAS</h4>
 <ul class="text-sm text-neutral-300 space-y-1">
-<li>Logs de alto volume (use time-series)</li>
-<li>Dados semi-estruturados (use documento/JSON)</li>
-<li>Cache de sessao (use chave-valor)</li>
-<li>Grafos sociais (use banco de grafos)</li>
+<li>DELETE sin WHERE</li>
+<li>TRUNCATE en tablas de producción</li>
+<li>Eliminar sin un backup reciente</li>
+<li>Ignorar claves foráneas</li>
 </ul>
 </div>
 </div>
-<div class="tip-box rounded-xl p-6">
-<h3 class="text-lg font-bold text-primary mb-3">Regra de ouro</h3>
-<p class="text-neutral-300">Na duvida, comece com relacional. PostgreSQL e MySQL cobrem 80% dos casos de uso. So migre para NoSQL quando tiver um problema real de escala ou formato que o relacional nao resolve bem. "Premature optimization is the root of all evil."</p>
-</div>
+<pre><code class="text-emerald-300">-- SEGURO: sempre com WHERE
+DELETE FROM pedido WHERE id = 5;
+
+-- SOFT DELETE (recomendado)
+-- Passo 1: adicione a coluna de controle
+ALTER TABLE cliente ADD COLUMN deletado_em TIMESTAMP;
+
+-- Passo 2: em vez de deletar, marque a data
+UPDATE cliente SET deletado_em = NOW() WHERE id = 3;
+
+-- Nas consultas, filtre os "deletados":
+-- SELECT * FROM cliente WHERE deletado_em IS NULL;</code></pre>
 </div>
 </div>
 </section>
 <!-- Summary -->
 <section class="py-12 bg-dark-800/50">
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="text-2xl font-bold mb-6 text-emerald-400">Resumo do Modulo 1.1</h2>
+<h2 class="text-2xl font-bold mb-6 text-emerald-400">Resumen del módulo 1.2</h2>
 <div class="space-y-3 mb-8">
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Modelo relacional: tabelas, linhas, colunas, dominios</span>
+<span>CREATE TABLE define la estructura, los tipos y las restricciones</span>
 </div>
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>PK identifica, FK conecta, integridade referencial protege</span>
+<span>INSERT agrega datos, UPDATE modifica registros existentes</span>
 </div>
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Restricoes (UNIQUE, NOT NULL, CHECK, DEFAULT) protegem dados</span>
+<span>SELECT + WHERE + ORDER BY + LIMIT para consultas precisas</span>
 </div>
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Normalizacao (1FN-3FN) elimina redundancia e anomalias</span>
+<span>Los JOINs combinan tablas: INNER para coincidencias, LEFT para incluir todas</span>
 </div>
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Diagrama ER: modele antes de codificar</span>
+<span>GROUP BY + funciones de agregación (COUNT, SUM, AVG) para informes</span>
 </div>
 <div class="flex items-center space-x-3 text-neutral-300">
 <svg class="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Relacional e ideal para OLTP, dados estruturados e integridade forte</span>
+<span>DELETE con cuidado: siempre usa WHERE, prefiere la eliminación lógica en producción</span>
 </div>
 </div>
 <!-- Navigation buttons -->
 <div class="flex items-center justify-between">
-<a class="inline-flex items-center space-x-2 px-4 py-2 bg-dark-700 text-neutral-300 rounded-lg hover:bg-dark-600 transition-colors border border-dark-600" href="index.html">
+<a class="inline-flex items-center space-x-2 px-4 py-2 bg-dark-700 text-neutral-300 rounded-lg hover:bg-dark-600 transition-colors border border-dark-600" href="modulo-1-1.html">
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M10 19l-7-7m0 0l7-7m-7 7h18" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
-<span>Voltar a Trilha</span>
+<span>Anterior: fundamentos</span>
 </a>
-<a class="inline-flex items-center space-x-2 px-6 py-3 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30 font-semibold" href="modulo-1-2.html">
-<span>Proximo: SQL Essencial</span>
+<a class="inline-flex items-center space-x-2 px-6 py-3 bg-emerald-500/20 text-emerald-400 rounded-lg hover:bg-emerald-500/30 transition-colors border border-emerald-500/30 font-semibold" href="../trilha2/modulo-2-1.html">
+<span>Siguiente: Ruta 2</span>
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
 <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
 </svg>
@@ -575,7 +534,7 @@ CREATE TABLE matricula (
 <!-- Footer -->
 <footer class="border-t border-dark-600 py-8 mt-16">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-<p>🗄️ FDB - Fundamentos de Banco de Dados | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
+<p>🗄️ FDB - Fundamentos de Banco de Datos | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
 </div>
 </footer>
 <!-- JavaScript -->

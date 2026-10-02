@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="dark" lang="es">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Modulo 3.1 - Arquitetura e Performance | FDB</title>
-<meta content="OLTP vs OLAP, particionamento, data warehouse, ETL, observabilidade e governanca de dados. Modulo avancado do curso FDB." name="description"/>
+<title>Módulo 3.1 - Arquitectura y rendimiento | FDB</title>
+<meta content="OLTP vs. OLAP, particionamiento, data warehouse, ETL, observabilidad y gobernanza de datos. Módulo avanzado del curso FDB." name="description"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
@@ -73,7 +73,7 @@
     html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
   </style>
 <link href="https://inematds.github.io/FDB/curso/trilha3/modulo-3-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha3/modulo-3-1.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha3/modulo-3-1.html" hreflang="es" rel="alternate"/></head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha3/modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha3/modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
 <!-- NAVIGATION -->
 <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,15 +89,15 @@
 <div class="flex items-center space-x-1 sm:space-x-2">
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html">
 <span class="sm:hidden">T1</span>
-<span class="hidden sm:inline">Iniciante</span>
+<span class="hidden sm:inline">Principiante</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html">
 <span class="sm:hidden">T2</span>
-<span class="hidden sm:inline">Tecnico</span>
+<span class="hidden sm:inline">Técnico</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html">
 <span class="sm:hidden">T3</span>
-<span class="hidden sm:inline">Avancado</span>
+<span class="hidden sm:inline">Avanzado</span>
 </a>
 <button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
 <svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
@@ -116,23 +116,23 @@
 <div class="flex items-center space-x-2 text-sm text-neutral-400">
 <a class="hover:text-purple-400" href="../../index.html">Inicio</a>
 <span>/</span>
-<a class="hover:text-purple-400" href="index.html">Trilha 3</a>
+<a class="hover:text-purple-400" href="index.html">Ruta 3</a>
 <span>/</span>
-<span class="text-purple-400">Modulo 3.1</span>
+<span class="text-purple-400">Módulo 3.1</span>
 </div>
 </nav>
 <!-- HEADER -->
 <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">
-        MODULO 3.1
+        MÓDULO 3.1
       </span>
-<h1 class="text-3xl sm:text-4xl font-bold mb-4">🏗️ Arquitetura e Performance</h1>
-<p class="text-lg text-neutral-400 max-w-3xl">OLTP vs OLAP, particionamento, data warehouse, ETL, observabilidade e governanca de dados para sistemas em escala.</p>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🏗️ Arquitectura y rendimiento</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">OLTP vs. OLAP, particionamiento, data warehouse, ETL, observabilidad y gobernanza de datos para sistemas a escala.</p>
 <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-purple-400">7</div>
-<div class="text-xs text-neutral-400">Topicos</div>
+<div class="text-xs text-neutral-400">Temas</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-purple-400">50</div>
@@ -158,31 +158,31 @@
 <h2 class="text-2xl font-bold">⚡ OLTP vs OLAP</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Dois paradigmas fundamentais de bancos de dados. <strong class="text-purple-400">OLTP</strong> processa transacoes em tempo real (INSERT, UPDATE, DELETE). <strong class="text-purple-400">OLAP</strong> analisa grandes volumes de dados historicos (SELECT com agregacoes massivas). Misturar os dois no mesmo banco e receita para desastre.
+        Dos paradigmas fundamentales de bases de datos. <strong class="text-purple-400">OLTP</strong> procesa transacciones en tiempo real (INSERT, UPDATE, DELETE). <strong class="text-purple-400">OLAP</strong> analiza grandes volúmenes de datos históricos (SELECT con agregaciones masivas). Mezclar ambos en la misma base de datos es una receta para el desastre.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Transacional vs Analitico
+<span class="mr-2">🎯</span> Transaccional vs. analítico
         </h3>
 <p class="text-neutral-300 mb-4">
-<strong class="text-white">OLTP (Online Transaction Processing)</strong> e otimizado para operacoes rapidas e pontuais: cadastrar um cliente, registrar uma venda, atualizar estoque. Usa <strong>row-store</strong> (dados organizados por linha).
+<strong class="text-white">OLTP (procesamiento de transacciones en línea)</strong> está optimizado para operaciones rápidas y puntuales: registrar un cliente, registrar una venta, actualizar el inventario. Usa <strong>row-store</strong> (datos organizados por fila).
         </p>
 <p class="text-neutral-300 mb-4">
-<strong class="text-white">OLAP (Online Analytical Processing)</strong> e otimizado para varrer milhoes de registros e gerar agregacoes: "qual o faturamento por regiao nos ultimos 3 anos?". Usa <strong>column-store</strong> (dados organizados por coluna), o que permite comprimir e ler apenas as colunas necessarias.
+<strong class="text-white">OLAP (procesamiento analítico en línea)</strong> está optimizado para recorrer millones de registros y generar agregaciones: "¿cuál fue la facturación por región en los últimos 3 años?". Usa <strong>column-store</strong> (datos organizados por columna), lo que permite comprimir y leer solo las columnas necesarias.
         </p>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Row-store:</strong> Otimo para buscar um registro inteiro (SELECT * WHERE id = X). PostgreSQL, MySQL, Oracle.</span>
+<span><strong>Almacenamiento por filas:</strong> Ideal para buscar un registro completo (SELECT * WHERE id = X). PostgreSQL, MySQL, Oracle.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Column-store:</strong> Otimo para agregar uma coluna inteira (SUM, AVG, COUNT). BigQuery, Redshift, ClickHouse.</span>
+<span><strong>Almacenamiento columnar:</strong> Ideal para agregar una columna completa (SUM, AVG, COUNT). BigQuery, Redshift, ClickHouse.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Hibrido (HTAP):</strong> Tenta combinar ambos. TiDB, CockroachDB, AlloyDB. Complexo mas promissor.</span>
+<span><strong>Híbrido (HTAP):</strong> Intenta combinar ambos. TiDB, CockroachDB, AlloyDB. Complejo, pero prometedor.</span>
 </li>
 </ul>
 </div>
@@ -190,24 +190,24 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
 <h4 class="font-semibold text-green-400 mb-3 flex items-center">
-<span class="mr-2">✅</span> FACA
+<span class="mr-2">✅</span> HAZLO
           </h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Separe cargas OLTP e OLAP em bancos distintos</li>
-<li>• Use replicas de leitura para queries analiticas</li>
-<li>• Avalie column-store para dashboards pesados</li>
-<li>• Defina SLAs diferentes para cada carga</li>
+<li>• Separa las cargas OLTP y OLAP en bases de datos distintas</li>
+<li>• Usa réplicas de lectura para consultas analíticas</li>
+<li>• Evalúa un column-store para dashboards exigentes</li>
+<li>• Define SLAs diferentes para cada carga</li>
 </ul>
 </div>
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
 <h4 class="font-semibold text-red-400 mb-3 flex items-center">
-<span class="mr-2">❌</span> NAO FACA
+<span class="mr-2">❌</span> NO HAGAS
           </h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Rodar relatorios pesados no banco de producao</li>
-<li>• Achar que um unico banco resolve tudo</li>
-<li>• Ignorar latencia de escrita em sistemas OLAP</li>
-<li>• Confundir row-store lento com "banco ruim"</li>
+<li>• Ejecutar informes pesados en la base de datos de producción</li>
+<li>• Creer que una sola base de datos lo resuelve todo</li>
+<li>• Ignorar la latencia de escritura en sistemas OLAP</li>
+<li>• Confundir un row-store lento con una "base de datos mala"</li>
 </ul>
 </div>
 </div>
@@ -216,14 +216,14 @@
 <section class="mb-16" id="topico-2">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">2</span>
-<h2 class="text-2xl font-bold">📦 Particionamento</h2>
+<h2 class="text-2xl font-bold">📦 Particionamiento</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Particionamento</strong> divide uma tabela grande em pedacos menores (particoes) baseados em um criterio. O banco sabe em qual particao buscar, evitando varrer a tabela inteira. Essencial para tabelas com <strong class="text-white">milhoes ou bilhoes de linhas</strong>.
+<strong class="text-purple-400">Particionamiento</strong> divide una tabla grande en partes más pequeñas (particiones) basadas en un criterio. La base de datos sabe en qué partición buscar, lo que evita recorrer toda la tabla. Es esencial para tablas con <strong class="text-white">millones o miles de millones de filas</strong>.
       </p>
 <!-- SQL Examples -->
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
-<h3 class="text-lg font-semibold text-purple-400 mb-4">💻 Particionamento por Range (PostgreSQL)</h3>
+<h3 class="text-lg font-semibold text-purple-400 mb-4">💻 Particionamiento por rango (PostgreSQL)</h3>
 <pre class="bg-dark-900 rounded-lg p-4 overflow-x-auto text-sm text-neutral-300 mb-4"><code>CREATE TABLE pedido (
   id        SERIAL,
   total     NUMERIC,
@@ -239,30 +239,30 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🔍</span> Tipos de Particionamento
+<span class="mr-2">🔍</span> Tipos de particionamiento
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-neutral-300">
 <div>
-<p class="font-semibold text-white mb-1">Range</p>
-<p class="text-sm">Divide por faixas de valor (datas, IDs). O mais comum. Ideal para dados temporais.</p>
+<p class="font-semibold text-white mb-1">Rango</p>
+<p class="text-sm">Divide en rangos de valores (fechas, ID). Es el método más común. Ideal para datos temporales.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">Hash</p>
-<p class="text-sm">Distribui uniformemente por hash de uma coluna. Bom para balancear carga entre particoes.</p>
+<p class="text-sm">Distribuye uniformemente según el hash de una columna. Es útil para equilibrar la carga entre particiones.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">List</p>
-<p class="text-sm">Divide por valores discretos (pais, status, categoria). Cada valor vai para sua particao.</p>
+<p class="text-sm">Divide según valores discretos (país, estado, categoría). Cada valor va a su partición.</p>
 </div>
 </div>
 </div>
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Dica Pratica
+<span class="mr-2">💡</span> Consejo práctico
         </h3>
 <p class="text-neutral-300 text-sm">
-          Particione somente tabelas com <strong>milhoes de registros</strong>. Tabelas pequenas nao se beneficiam e o overhead de gerenciar particoes nao vale. A coluna de particao deve estar presente em praticamente todas as queries com WHERE para que o <strong>partition pruning</strong> funcione.
+          Particiona solo tablas con <strong>millones de registros</strong>. Las tablas pequeñas no se benefician y el costo adicional de administrar particiones no compensa. La columna de partición debe estar presente en prácticamente todas las consultas con WHERE para que el <strong>partition pruning</strong> funcione.
         </p>
 </div>
 </section>
@@ -270,45 +270,45 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-16" id="topico-3">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
-<h2 class="text-2xl font-bold">🗄️ Arquivamento e Retencao</h2>
+<h2 class="text-2xl font-bold">🗄️ Archivado y retención</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Dados nao podem ficar no banco para sempre. <strong class="text-purple-400">Politicas de retencao</strong> definem quanto tempo manter cada tipo de dado. <strong class="text-purple-400">Arquivamento</strong> move dados antigos para storage mais barato. E questao de <strong class="text-white">compliance, custo e performance</strong>.
+        Los datos no pueden permanecer en la base de datos para siempre. <strong class="text-purple-400">Políticas de retención</strong> definen cuánto tiempo conservar cada tipo de dato. <strong class="text-purple-400">Archivado</strong> mueve los datos antiguos a un almacenamiento más barato. Es cuestión de <strong class="text-white">cumplimiento normativo, costo y rendimiento</strong>.
       </p>
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Compliance: LGPD e GDPR
+<span class="mr-2">🎯</span> Cumplimiento normativo: LGPD y GDPR
         </h3>
 <p class="text-neutral-300 mb-4">
-          Leis de protecao de dados exigem que dados pessoais sejam mantidos apenas pelo tempo necessario. Guardar dados alem do necessario e <strong class="text-white">risco juridico e financeiro</strong>.
+          Las leyes de protección de datos exigen que los datos personales se conserven solo durante el tiempo necesario. Guardar datos más tiempo del necesario es <strong class="text-white">riesgo jurídico y financiero</strong>.
         </p>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>LGPD (Brasil):</strong> Dados pessoais devem ser eliminados quando a finalidade for atingida ou o consentimento revogado</span>
+<span><strong>LGPD (Brasil):</strong> Los datos personales deben eliminarse cuando se haya cumplido el propósito o se revoque el consentimiento</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>GDPR (Europa):</strong> Principio de minimizacao - colete e retenha apenas o estritamente necessario</span>
+<span><strong>GDPR (Europa):</strong> Principio de minimización: recopila y conserva solo lo estrictamente necesario</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Cold Storage:</strong> Dados historicos podem ir para storage barato (S3 Glacier, Azure Archive) com acesso eventual</span>
+<span><strong>Almacenamiento en frío:</strong> Los datos históricos pueden ir a un almacenamiento económico (S3 Glacier, Azure Archive) con acceso ocasional</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Purge Jobs:</strong> Jobs agendados que removem dados expirados automaticamente. Sem purge, o banco so cresce.</span>
+<span><strong>Purge Jobs:</strong> Jobs programados que eliminan automáticamente los datos vencidos. Sin purge, la base de datos solo crece.</span>
 </li>
 </ul>
 </div>
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Dica Pratica
+<span class="mr-2">💡</span> Consejo práctico
         </h3>
 <p class="text-neutral-300 text-sm">
-          Crie uma tabela de <strong>politicas de retencao</strong> que mapeie cada tipo de dado ao seu prazo maximo. Implemente um cron job (ou pg_cron) que roda semanalmente, verifica os prazos e executa o arquivamento/purge automaticamente. Documente tudo - auditorias vao pedir.
+          Crea una tabla de <strong>políticas de retención</strong> que mapee cada tipo de dato a su plazo máximo. Implementa un cron job (o pg_cron) que se ejecute semanalmente, verifique los plazos y realice el archivado/purga automáticamente. Documenta todo: te lo pedirán en las auditorías.
         </p>
 </div>
 </section>
@@ -316,10 +316,10 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-16" id="topico-4">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">4</span>
-<h2 class="text-2xl font-bold">📊 Data Warehouse</h2>
+<h2 class="text-2xl font-bold">📊 Almacén de datos</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Um <strong class="text-purple-400">Data Warehouse</strong> e um repositorio centralizado otimizado para consultas analiticas. Enquanto bancos OLTP servem a aplicacao, o DW serve o <strong class="text-white">business intelligence</strong>. Dados de multiplas fontes sao consolidados em um modelo otimizado para analise.
+        Un <strong class="text-purple-400">Almacén de datos</strong> y un repositorio centralizado optimizado para consultas analíticas. Mientras que las bases de datos OLTP sirven a la aplicación, el DW sirve al <strong class="text-white">inteligencia de negocios</strong>. Los datos de múltiples fuentes se consolidan en un modelo optimizado para el análisis.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
@@ -327,29 +327,29 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <span class="mr-2">🎯</span> Star Schema
         </h3>
 <p class="text-neutral-300 mb-4">
-          O modelo mais usado em Data Warehouses. Uma <strong class="text-white">tabela fato</strong> central (metricas, eventos) cercada por <strong class="text-white">tabelas dimensao</strong> (contexto descritivo).
+          El modelo más usado en Data Warehouses. Un <strong class="text-white">tabla de hechos</strong> central (métricas, eventos) rodeada por <strong class="text-white">tablas de dimensiones</strong> (contexto descriptivo).
         </p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
-<h4 class="font-bold text-purple-400 mb-1">Tabela Fato (fact)</h4>
-<p class="text-neutral-300 text-sm">Contem metricas quantitativas: valor da venda, quantidade, custo. Chaves estrangeiras para dimensoes. Muitas linhas, poucas colunas.</p>
+<h4 class="font-bold text-purple-400 mb-1">Tabla de hechos (fact)</h4>
+<p class="text-neutral-300 text-sm">Contiene métricas cuantitativas: valor de la venta, cantidad, costo. Claves foráneas para dimensiones. Muchas filas, pocas columnas.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
-<h4 class="font-bold text-purple-400 mb-1">Tabela Dimensao (dim)</h4>
-<p class="text-neutral-300 text-sm">Contem atributos descritivos: nome do produto, cidade, categoria. Poucas linhas, muitas colunas. Responde "quem, o que, onde, quando".</p>
+<h4 class="font-bold text-purple-400 mb-1">Tabla de dimensión (dim)</h4>
+<p class="text-neutral-300 text-sm">Contiene atributos descriptivos: nombre del producto, ciudad, categoría. Pocas filas, muchas columnas. Responde "quién, qué, dónde, cuándo".</p>
 </div>
 </div>
 </div>
 <!-- Data research box -->
 <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🔍</span> Ecossistema Data Warehouse
+<span class="mr-2">🔍</span> Ecosistema de Data Warehouse
         </h3>
 <ul class="space-y-2 text-neutral-300">
-<li><strong>BigQuery (Google):</strong> Serverless, column-store, paga por query. Escala automaticamente.</li>
-<li><strong>Redshift (AWS):</strong> Cluster gerenciado, column-store, integracao nativa com S3.</li>
-<li><strong>Snowflake:</strong> Multi-cloud, separa storage de compute, concurrency nativa.</li>
-<li><strong>ClickHouse:</strong> Open source, extremamente rapido para agregacoes, usado por Cloudflare e Uber.</li>
+<li><strong>BigQuery (Google):</strong> Serverless, column-store, pago por query. Escala automáticamente.</li>
+<li><strong>Redshift (AWS):</strong> Clúster administrado, column-store, integración nativa con S3.</li>
+<li><strong>Snowflake:</strong> Multicloud, separa el almacenamiento del cómputo, concurrencia nativa.</li>
+<li><strong>ClickHouse:</strong> Open source, extremadamente rápido para agregaciones, usado por Cloudflare y Uber.</li>
 </ul>
 </div>
 </section>
@@ -357,30 +357,30 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-16" id="topico-5">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">5</span>
-<h2 class="text-2xl font-bold">🔄 ETL e Pipelines</h2>
+<h2 class="text-2xl font-bold">🔄 ETL y Pipelines</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">ETL</strong> (Extract, Transform, Load) e o processo de mover dados entre sistemas. Dados brutos saem da origem, sao limpos e transformados, e carregados no destino. Sem pipeline confiavel, seu Data Warehouse e <strong class="text-white">lixo com interface bonita</strong>.
+<strong class="text-purple-400">ETL</strong> (Extract, Transform, Load) es el proceso de mover datos entre sistemas. Los datos sin procesar salen del origen, se limpian y transforman, y se cargan en el destino. Sin un pipeline confiable, tu Data Warehouse es <strong class="text-white">basura con una interfaz bonita</strong>.
       </p>
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🔍</span> ETL vs ELT
+<span class="mr-2">🔍</span> ETL vs. ELT
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
 <div>
-<p class="font-semibold text-white mb-1">ETL (classico)</p>
-<p class="text-sm">Transforma antes de carregar. Dados chegam limpos no destino. Mais controle, mais lento. Ferramentas: Airflow, Informatica, Talend.</p>
+<p class="font-semibold text-white mb-1">ETL (clásico)</p>
+<p class="text-sm">Transforma antes de cargar. Los datos llegan limpios al destino. Más control, más lento. Herramientas: Airflow, Informatica, Talend.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">ELT (moderno)</p>
-<p class="text-sm">Carrega bruto e transforma no destino (que tem poder computacional). Mais rapido, mais flexivel. Ferramentas: dbt, Fivetran + BigQuery.</p>
+<p class="text-sm">Carga los datos sin transformar y los transforma en el destino (que tiene capacidad de cómputo). Más rápido, más flexible. Herramientas: dbt, Fivetran + BigQuery.</p>
 </div>
 </div>
 </div>
 <!-- Timeline Component -->
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
-<h3 class="text-lg font-semibold text-purple-400 mb-6">🔄 Pipeline ETL em 3 Etapas</h3>
+<h3 class="text-lg font-semibold text-purple-400 mb-6">🔄 Pipeline ETL en 3 etapas</h3>
 <div class="relative">
 <!-- Line -->
 <div class="absolute left-6 top-8 bottom-8 w-0.5 bg-purple-500/30"></div>
@@ -388,8 +388,8 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <div class="relative flex items-start space-x-4 mb-8">
 <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">1</div>
 <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
-<h4 class="font-semibold text-white mb-1">Extract (Extrair)</h4>
-<p class="text-neutral-300 text-sm">Coleta dados das fontes: APIs, bancos OLTP, arquivos CSV, logs, webhooks. O objetivo e capturar tudo sem perder nada. Incremental e melhor que full load.</p>
+<h4 class="font-semibold text-white mb-1">Extract (Extraer)</h4>
+<p class="text-neutral-300 text-sm">Recopila datos de las fuentes: API, bases de datos OLTP, archivos CSV, logs, webhooks. El objetivo es capturarlo todo sin perder nada. La carga incremental es mejor que la carga completa.</p>
 </div>
 </div>
 <!-- Step 2 -->
@@ -397,15 +397,15 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">2</div>
 <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
 <h4 class="font-semibold text-white mb-1">Transform (Transformar)</h4>
-<p class="text-neutral-300 text-sm">Limpa, normaliza, agrega e enriquece os dados. Remove duplicatas, padroniza formatos, calcula metricas derivadas. dbt e a ferramenta referencia para transformacoes em SQL.</p>
+<p class="text-neutral-300 text-sm">Limpia, normaliza, agrega y enriquece los datos. Elimina duplicados, estandariza formatos y calcula métricas derivadas. dbt es la herramienta de referencia para las transformaciones en SQL.</p>
 </div>
 </div>
 <!-- Step 3 -->
 <div class="relative flex items-start space-x-4">
 <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 border-2 border-purple-400 text-purple-400 font-bold text-lg z-10">3</div>
 <div class="flex-1 bg-dark-700/50 rounded-lg p-4">
-<h4 class="font-semibold text-white mb-1">Load (Carregar)</h4>
-<p class="text-neutral-300 text-sm">Insere os dados transformados no destino (Data Warehouse, Data Lake). Pode ser batch (diario/horario) ou streaming (tempo real com Kafka/Kinesis).</p>
+<h4 class="font-semibold text-white mb-1">Load (Cargar)</h4>
+<p class="text-neutral-300 text-sm">Inserta los datos transformados en el destino (Data Warehouse, Data Lake). Puede ser por lotes (diario/por hora) o en streaming (en tiempo real con Kafka/Kinesis).</p>
 </div>
 </div>
 </div>
@@ -413,10 +413,10 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Dica Pratica
+<span class="mr-2">💡</span> Consejo práctico
         </h3>
 <p class="text-neutral-300 text-sm">
-          Comece com <strong>Airflow</strong> para orquestrar pipelines e <strong>dbt</strong> para transformacoes SQL. Ambos sao open source e o padrao de mercado. Sempre implemente <strong>data quality checks</strong> entre as etapas - dados ruins propagados pelo pipeline contaminam tudo downstream.
+          Empieza con <strong>Airflow</strong> para orquestar pipelines y <strong>dbt</strong> para transformaciones SQL. Ambos son de código abierto y el estándar del mercado. Implementa siempre <strong>comprobaciones de calidad de datos</strong> entre las etapas: los datos defectuosos que se propagan por el pipeline contaminan todo lo que viene después.
         </p>
 </div>
 </section>
@@ -424,52 +424,52 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-16" id="topico-6">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
-<h2 class="text-2xl font-bold">📡 Observabilidade</h2>
+<h2 class="text-2xl font-bold">📡 Observabilidad</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Observabilidade</strong> e a capacidade de entender o estado interno do banco atraves de sinais externos. Os tres pilares: <strong class="text-white">metricas, logs e traces</strong>. Banco sem monitoramento e bomba-relogio. Quando o incidente acontecer - e vai acontecer - voce precisa saber onde olhar.
+<strong class="text-purple-400">Observabilidad</strong> es la capacidad de entender el estado interno de la base de datos a través de señales externas. Los tres pilares: <strong class="text-white">métricas, logs y trazas</strong>. Una base de datos sin monitoreo es una bomba de tiempo. Cuando ocurra el incidente —y ocurrirá— necesitas saber dónde buscar.
       </p>
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Os 3 Pilares da Observabilidade
+<span class="mr-2">🎯</span> Los 3 pilares de la observabilidad
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
-<h4 class="font-bold text-purple-400 mb-1">Metricas</h4>
-<p class="text-neutral-300 text-sm">Numeros ao longo do tempo: latencia p95/p99, throughput (queries/s), conexoes ativas, uso de disco, cache hit ratio. pg_stat_statements e essencial.</p>
+<h4 class="font-bold text-purple-400 mb-1">Métricas</h4>
+<p class="text-neutral-300 text-sm">Métricas a lo largo del tiempo: latencia p95/p99, throughput (queries/s), conexiones activas, uso de disco, cache hit ratio. pg_stat_statements es esencial.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-purple-400 mb-1">Logs</h4>
-<p class="text-neutral-300 text-sm">Registros de eventos: queries lentas, erros, deadlocks, autovacuum. Configure log_min_duration_statement para capturar slow queries automaticamente.</p>
+<p class="text-neutral-300 text-sm">Registros de eventos: consultas lentas, errores, deadlocks, autovacuum. Configura log_min_duration_statement para capturar consultas lentas automáticamente.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
-<h4 class="font-bold text-purple-400 mb-1">Traces</h4>
-<p class="text-neutral-300 text-sm">Rastreamento fim-a-fim de uma requisicao: do frontend ao banco e volta. Identifica gargalos na cadeia completa. OpenTelemetry e o padrao.</p>
+<h4 class="font-bold text-purple-400 mb-1">Trazas</h4>
+<p class="text-neutral-300 text-sm">Seguimiento de extremo a extremo de una solicitud: del frontend a la base de datos y de vuelta. Identifica cuellos de botella en toda la cadena. OpenTelemetry es el estándar.</p>
 </div>
 </div>
 </div>
 <!-- Alert Box (Red) -->
 <div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-red-400 mb-4 flex items-center">
-<span class="mr-2">🚨</span> Falhas Comuns de Monitoramento
+<span class="mr-2">🚨</span> Fallos comunes de monitoreo
         </h3>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-red-400 mt-1">•</span>
-<span><strong>Alertas so para "disco cheio":</strong> Quando o alerta dispara, ja e tarde. Monitore taxa de crescimento, nao apenas uso absoluto.</span>
+<span><strong>Alertas solo para "disco lleno":</strong> Cuando se activa la alerta, ya es tarde. Monitorea la tasa de crecimiento, no solo el uso absoluto.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-red-400 mt-1">•</span>
-<span><strong>Sem baseline:</strong> Se voce nao sabe o que e "normal", nao consegue detectar anomalias. Colete metricas por semanas antes de definir thresholds.</span>
+<span><strong>Sin baseline:</strong> Si no sabes qué es “normal”, no puedes detectar anomalías. Recopila métricas durante semanas antes de definir thresholds.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-red-400 mt-1">•</span>
-<span><strong>Alert fatigue:</strong> 200 alertas/dia = zero alertas uteis. Priorize e silencie ruido. Menos alertas, mais acao.</span>
+<span><strong>Fatiga por alertas:</strong> 200 alertas/día = cero alertas útiles. Prioriza y silencia el ruido. Menos alertas, más acción.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-red-400 mt-1">•</span>
-<span><strong>Monitorar so o banco:</strong> O problema pode estar na rede, na app, no connection pool. Observabilidade e fim-a-fim.</span>
+<span><strong>Monitorear solo la base de datos:</strong> El problema puede estar en la red, en la app o en el connection pool. La observabilidad es de extremo a extremo.</span>
 </li>
 </ul>
 </div>
@@ -478,46 +478,46 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-16" id="topico-7">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
-<h2 class="text-2xl font-bold">🏛️ Governanca</h2>
+<h2 class="text-2xl font-bold">🏛️ Gobernanza</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Governanca de dados</strong> e o framework de politicas, processos e responsabilidades que garante que dados sejam tratados como ativo estrategico. Sem governanca, dados viram <strong class="text-white">lixo caro</strong>. Qualidade, seguranca e compliance dependem dela.
+<strong class="text-purple-400">Gobernanza de datos</strong> es el marco de políticas, procesos y responsabilidades que garantiza que los datos se traten como un activo estratégico. Sin gobernanza, los datos se convierten en <strong class="text-white">basura costosa</strong>. La calidad, la seguridad y el cumplimiento normativo dependen de ella.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Pilares da Governanca
+<span class="mr-2">🎯</span> Pilares de la gobernanza
         </h3>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Data Catalog:</strong> Inventario de todos os datasets, tabelas, colunas, owners e descricoes. "Que dados temos e onde estao?" DataHub, Amundsen, OpenMetadata.</span>
+<span><strong>Catálogo de datos:</strong> Inventario de todos los datasets, tablas, columnas, responsables y descripciones. "¿Qué datos tenemos y dónde están?" DataHub, Amundsen, OpenMetadata.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Data Lineage:</strong> Rastreamento da origem e transformacao dos dados. "De onde veio esse numero no relatorio?" Essencial para auditoria e debug.</span>
+<span><strong>Linaje de datos:</strong> Seguimiento del origen y la transformación de los datos. "¿De dónde salió este número del informe?" Esencial para auditoría y depuración.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>RBAC (Role-Based Access Control):</strong> Cada pessoa/sistema acessa apenas o que precisa. Principio do menor privilegio. GRANT/REVOKE no PostgreSQL.</span>
+<span><strong>RBAC (control de acceso basado en roles):</strong> Cada persona/sistema accede solo a lo que necesita. Principio del menor privilegio. GRANT/REVOKE en PostgreSQL.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Classificacao de dados:</strong> Publico, interno, confidencial, restrito. Cada nivel com regras de acesso, retencao e criptografia diferentes.</span>
+<span><strong>Clasificación de datos:</strong> Público, interno, confidencial, restringido. Cada nivel tiene reglas distintas de acceso, retención y cifrado.</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Auditoria:</strong> Logs de quem acessou o que, quando e por que. Requisito legal (LGPD/GDPR) e base para investigacao de incidentes.</span>
+<span><strong>Auditoría:</strong> Logs de quién accedió a qué, cuándo y por qué. Requisito legal (LGPD/GDPR) y base para investigar incidentes.</span>
 </li>
 </ul>
 </div>
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Dica Pratica
+<span class="mr-2">💡</span> Consejo práctico
         </h3>
 <p class="text-neutral-300 text-sm">
-          Governanca nao precisa comecar grande. Primeiro passo: documente quem e o <strong>owner</strong> de cada tabela/dataset. Segundo: implemente RBAC basico com roles no banco. Terceiro: ligue <strong>audit logging</strong>. Esses tres passos ja cobrem 80% do que auditorias pedem.
+          La gobernanza no tiene que empezar a gran escala. Primer paso: documenta quién es el <strong>owner</strong> de cada tabla/dataset. Segundo: implementa RBAC básico con roles en la base de datos. Tercero: activa <strong>registro de auditoría</strong>. Estos tres pasos ya cubren el 80% de lo que piden las auditorías.
         </p>
 </div>
 </section>
@@ -525,40 +525,40 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <section class="mb-12">
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6">
 <h3 class="text-xl font-bold text-purple-400 mb-6 flex items-center">
-<span class="mr-2">✅</span> Checklist do Modulo 3.1
+<span class="mr-2">✅</span> Lista de verificación del módulo 3.1
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Entendo a diferenca entre OLTP e OLAP</span>
+<span>Entiendo la diferencia entre OLTP y OLAP</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Sei quando usar row-store vs column-store</span>
+<span>Sé cuándo usar row-store vs column-store</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Consigo criar tabelas particionadas no PostgreSQL</span>
+<span>Puedo crear tablas particionadas en PostgreSQL</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Conheco politicas de retencao e compliance</span>
+<span>Conozco las políticas de retención y cumplimiento normativo</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Entendo Star Schema e tabelas fato/dimensao</span>
+<span>Entiendo el esquema estrella y las tablas de hechos y dimensiones</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Sei a diferenca entre ETL e ELT</span>
+<span>Sé la diferencia entre ETL y ELT</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Conheco os 3 pilares da observabilidade</span>
+<span>Conozco los 3 pilares de la observabilidad</span>
 </label>
 <label class="flex items-center space-x-3 text-neutral-300 cursor-pointer">
 <input class="w-4 h-4 rounded border-dark-600 text-purple-500 focus:ring-purple-500 bg-dark-700 accent-purple-500" type="checkbox"/>
-<span>Entendo governanca: catalog, lineage, RBAC</span>
+<span>Entiendo la gobernanza: catálogo, linaje, RBAC</span>
 </label>
 </div>
 </div>
@@ -566,17 +566,17 @@ CREATE TABLE pedido_2025 PARTITION OF pedido
 <!-- Navegacao entre modulos -->
 <div class="flex justify-between items-center pt-8 border-t border-dark-600">
 <a class="text-neutral-400 hover:text-purple-400 transition-colors text-sm" href="index.html">
-        ← Voltar para Trilha 3
+        ← Volver a la Ruta 3
       </a>
 <a class="text-purple-400 hover:text-purple-300 transition-colors text-sm font-semibold" href="modulo-3-2.html">
-        Modulo 3.2 - IA Aplicada a Dados →
+        Módulo 3.2 - IA aplicada a datos →
       </a>
 </div>
 </main>
 <!-- FOOTER -->
 <footer class="border-t border-dark-600 py-8 mt-16">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-<p>🗄️ FDB - Fundamentos de Banco de Dados | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
+<p>🗄️ FDB - Fundamentos de Banco de Datos | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
 </div>
 </footer>
 <script>

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Trilha 2 - Dominio Tecnico | FDB</title>
-<meta content="Indices, transacoes, tipos de SGBDs e boas praticas. Nivel intermediario para dominar o funcionamento interno dos bancos de dados." name="description"/>
+<title>Track 2 - Technical Mastery | FDB</title>
+<meta content="Indexes, transactions, DBMS types, and best practices. Intermediate level to master how databases work internally." name="description"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
@@ -99,7 +99,7 @@
     }
   </style>
 <link href="https://inematds.github.io/FDB/curso/trilha2/" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha2/" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha2/" hreflang="es" rel="alternate"/></head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="./" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha2/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha2/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
 <!-- NAVIGATION -->
 <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -115,15 +115,15 @@
 <div class="flex items-center space-x-1 sm:space-x-2">
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html">
 <span class="sm:hidden">T1</span>
-<span class="hidden sm:inline">Iniciante</span>
+<span class="hidden sm:inline">Beginner</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html">
 <span class="sm:hidden">T2</span>
-<span class="hidden sm:inline">Tecnico</span>
+<span class="hidden sm:inline">Technical</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html">
 <span class="sm:hidden">T3</span>
-<span class="hidden sm:inline">Avancado</span>
+<span class="hidden sm:inline">Advanced</span>
 </a>
 <button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
 <svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
@@ -141,26 +141,26 @@
 <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-16 border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">
-        TRILHA 2
+        TRACK 2
       </span>
-<h1 class="text-4xl sm:text-5xl font-bold mb-4">🛠️ Dominio Tecnico</h1>
-<p class="text-xl text-neutral-400 max-w-3xl mb-8">Domine indices, transacoes, tipos de SGBDs e boas praticas SQL. Entenda o funcionamento interno dos bancos de dados e faca escolhas tecnicas com criterio.</p>
+<h1 class="text-4xl sm:text-5xl font-bold mb-4">🛠️ Technical Mastery</h1>
+<p class="text-xl text-neutral-400 max-w-3xl mb-8">Master indexes, transactions, DBMS types, and SQL best practices. Understand how databases work internally and make informed technical choices.</p>
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <div class="text-2xl font-bold text-blue-400">2</div>
-<div class="text-sm text-neutral-400">Modulos</div>
+<div class="text-sm text-neutral-400">Modules</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <div class="text-2xl font-bold text-blue-400">12</div>
-<div class="text-sm text-neutral-400">Topicos</div>
+<div class="text-sm text-neutral-400">Topics</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <div class="text-2xl font-bold text-blue-400">~1.5h</div>
-<div class="text-sm text-neutral-400">Duracao</div>
+<div class="text-sm text-neutral-400">Duration</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <div class="text-2xl font-bold text-blue-400">Inter</div>
-<div class="text-sm text-neutral-400">Nivel</div>
+<div class="text-sm text-neutral-400">Level</div>
 </div>
 </div>
 </div>
@@ -169,8 +169,8 @@
 <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <!-- VISAO GERAL DOS MODULOS -->
 <section class="mb-16">
-<h2 class="text-2xl font-bold mb-6">Visao Geral dos Modulos</h2>
-<p class="text-neutral-400 mb-8">Clique em um card para acessar o modulo completo.</p>
+<h2 class="text-2xl font-bold mb-6">Module Overview</h2>
+<p class="text-neutral-400 mb-8">Click a card to access the full module.</p>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
 <!-- Card 2.1 -->
 <a class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-blue-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group" href="modulo-2-1.html">
@@ -178,8 +178,8 @@
 <span class="text-blue-400 font-bold">2.1</span>
 <span class="text-xs text-neutral-500">~45 min</span>
 </div>
-<h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">⚡ Indices e Transacoes</h3>
-<p class="text-neutral-400 text-sm">CREATE INDEX, EXPLAIN ANALYZE, transacoes ACID, niveis de isolamento e boas praticas SQL</p>
+<h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">⚡ Indexes and Transactions</h3>
+<p class="text-neutral-400 text-sm">CREATE INDEX, EXPLAIN ANALYZE, ACID transactions, isolation levels, and SQL best practices</p>
 </a>
 <!-- Card 2.2 -->
 <a class="bg-dark-800 rounded-xl border border-dark-600 p-5 hover:border-blue-500/50 hover:bg-dark-700/50 transition-all cursor-pointer block group" href="modulo-2-2.html">
@@ -187,15 +187,15 @@
 <span class="text-blue-400 font-bold">2.2</span>
 <span class="text-xs text-neutral-500">~45 min</span>
 </div>
-<h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">🗂️ Tipos e Comparativos de SGBDs</h3>
-<p class="text-neutral-400 text-sm">Relacionais, documentos, chave-valor, colunares, grafos, series temporais e como escolher</p>
+<h3 class="text-lg font-bold mb-2 group-hover:text-blue-400 transition-colors">🗂️ Database Types and Comparisons</h3>
+<p class="text-neutral-400 text-sm">Relational, document, key-value, columnar, graph, time-series databases, and how to choose</p>
 </a>
 </div>
 </section>
 <!-- MODULOS DETALHADOS -->
 <section>
-<h2 class="text-2xl font-bold mb-6">Conteudo Detalhado</h2>
-<p class="text-neutral-400 mb-8">Explore os topicos de cada modulo. Clique para expandir.</p>
+<h2 class="text-2xl font-bold mb-6">Detailed Content</h2>
+<p class="text-neutral-400 mb-8">Explore the topics in each module. Click to expand.</p>
 <!-- MODULO 2.1 -->
 <div class="bg-dark-800 rounded-xl border border-dark-600 mb-6">
 <div class="p-6 border-b border-dark-600">
@@ -203,8 +203,8 @@
 <span class="text-blue-400 font-bold">2.1</span>
 <span class="text-xs text-neutral-500">~45 min</span>
 </div>
-<h3 class="text-2xl font-bold mb-2">⚡ Indices e Transacoes</h3>
-<p class="text-neutral-400">Domine indices para acelerar buscas, transacoes ACID para garantir consistencia e boas praticas SQL para queries profissionais.</p>
+<h3 class="text-2xl font-bold mb-2">⚡ Indexes and Transactions</h3>
+<p class="text-neutral-400">Master indexes to speed up searches, ACID transactions to ensure consistency, and SQL best practices for professional queries.</p>
 </div>
 <div class="divide-y divide-dark-600">
 <!-- Topico 1 -->
@@ -213,23 +213,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
 <span class="text-lg">📈</span>
 <div>
-<span class="font-medium">Por que Indices</span>
-<span class="text-neutral-500 text-sm ml-2">- Acelerando buscas</span>
+<span class="font-medium">Why Indexes</span>
+<span class="text-neutral-500 text-sm ml-2">- Speeding up searches</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Estrutura auxiliar que acelera consultas evitando full table scan.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">An auxiliary structure that speeds up queries by avoiding a full table scan.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Sem indice, toda busca varre a tabela inteira. Performance cai exponencialmente.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Without an index, every search scans the entire table. Performance drops exponentially.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">B-tree, Hash, indice cobridor, seletividade, custo de manutencao</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">B-tree, Hash, covering index, selectivity, maintenance cost</p>
 </div>
 </div>
 </div>
@@ -240,23 +240,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
 <span class="text-lg">🔧</span>
 <div>
-<span class="font-medium">CREATE INDEX na pratica</span>
-<span class="text-neutral-500 text-sm ml-2">- Criando e avaliando</span>
+<span class="font-medium">CREATE INDEX in practice</span>
+<span class="text-neutral-500 text-sm ml-2">- Creating and evaluating</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Comando para criar indices com escolha de colunas e estrategia.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Command to create indexes by choosing columns and a strategy.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Indice errado e pior que nenhum. Consome espaco e lentifica escritas.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">The wrong index is worse than no index. It consumes space and slows down writes.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">CREATE INDEX, indice composto, indice parcial, INCLUDE, UNIQUE INDEX</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">CREATE INDEX, composite index, partial index, INCLUDE, UNIQUE INDEX</p>
 </div>
 </div>
 </div>
@@ -267,23 +267,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
 <span class="text-lg">🔬</span>
 <div>
-<span class="font-medium">EXPLAIN e EXPLAIN ANALYZE</span>
-<span class="text-neutral-500 text-sm ml-2">- Diagnosticando queries</span>
+<span class="font-medium">EXPLAIN and EXPLAIN ANALYZE</span>
+<span class="text-neutral-500 text-sm ml-2">- Diagnosing queries</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Ferramentas para ver o plano de execucao e custo real de uma query.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Tools for viewing a query's execution plan and actual cost.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Sem EXPLAIN voce otimiza no escuro. E o raio-X da performance.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Without EXPLAIN, you're optimizing in the dark. It's an X-ray of performance.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">Seq Scan, Index Scan, Nested Loop, Hash Join, custo estimado vs real</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">Seq Scan, Index Scan, Nested Loop, Hash Join, estimated vs. actual cost</p>
 </div>
 </div>
 </div>
@@ -294,23 +294,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
 <span class="text-lg">🔒</span>
 <div>
-<span class="font-medium">Transacoes ACID</span>
-<span class="text-neutral-500 text-sm ml-2">- Garantindo consistencia</span>
+<span class="font-medium">ACID Transactions</span>
+<span class="text-neutral-500 text-sm ml-2">- Ensuring consistency</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Conjunto de operacoes que executa como unidade atomica (tudo ou nada).</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">A set of operations that executes as an atomic unit (all or nothing).</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Transferencia bancaria sem transacao pode perder dinheiro. ACID e fundamental.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">A bank transfer without a transaction can lose money. ACID is essential.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">Atomicidade, Consistencia, Isolamento, Durabilidade, BEGIN/COMMIT/ROLLBACK</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">Atomicity, Consistency, Isolation, Durability, BEGIN/COMMIT/ROLLBACK</p>
 </div>
 </div>
 </div>
@@ -321,22 +321,22 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
 <span class="text-lg">🔄</span>
 <div>
-<span class="font-medium">Niveis de Isolamento</span>
-<span class="text-neutral-500 text-sm ml-2">- Controlando concorrencia</span>
+<span class="font-medium">Isolation Levels</span>
+<span class="text-neutral-500 text-sm ml-2">- Controlling concurrency</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Configuracao que define o que uma transacao ve das mudancas de outras.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">A setting that defines which changes from other transactions a transaction can see.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Isolamento errado causa dirty reads, phantom reads e dados inconsistentes.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Incorrect isolation causes dirty reads, phantom reads, and inconsistent data.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
 <p class="text-neutral-300 text-sm">READ UNCOMMITTED, READ COMMITTED, REPEATABLE READ, SERIALIZABLE</p>
 </div>
 </div>
@@ -348,23 +348,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
 <span class="text-lg">📋</span>
 <div>
-<span class="font-medium">Boas Praticas SQL</span>
-<span class="text-neutral-500 text-sm ml-2">- Escrevendo queries profissionais</span>
+<span class="font-medium">SQL Best Practices</span>
+<span class="text-neutral-500 text-sm ml-2">- Writing professional queries</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Padroes e habitos para queries seguras, performaticas e manteniveis.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Patterns and habits for safe, performant, and maintainable queries.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">SQL mal escrito e divida tecnica. Boa pratica hoje evita incidente amanha.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Poorly written SQL and technical debt. Good practices today prevent incidents tomorrow.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">Prepared statements, evitar SELECT *, parametros, monitoramento</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">Prepared statements, avoid SELECT *, parameters, monitoring</p>
 </div>
 </div>
 </div>
@@ -373,10 +373,10 @@
 <!-- Botoes (ESQUERDA!) -->
 <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
 <button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-1')">
-            Ver em Modal
+            View in Modal
           </button>
 <a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-1.html">
-            Ver Completo
+            View Full
           </a>
 </div>
 </div>
@@ -387,8 +387,8 @@
 <span class="text-blue-400 font-bold">2.2</span>
 <span class="text-xs text-neutral-500">~45 min</span>
 </div>
-<h3 class="text-2xl font-bold mb-2">🗂️ Tipos e Comparativos de SGBDs</h3>
-<p class="text-neutral-400">Conheca os diferentes tipos de bancos de dados, quando usar cada um e como tomar a decisao certa para cada cenario.</p>
+<h3 class="text-2xl font-bold mb-2">🗂️ Database Types and Comparisons</h3>
+<p class="text-neutral-400">Learn about the different types of databases, when to use each one, and how to make the right choice for each scenario.</p>
 </div>
 <div class="divide-y divide-dark-600">
 <!-- Topico 1 -->
@@ -397,23 +397,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">1</span>
 <span class="text-lg">🏛️</span>
 <div>
-<span class="font-medium">Bancos Relacionais</span>
-<span class="text-neutral-500 text-sm ml-2">- O padrao da industria</span>
+<span class="font-medium">Relational Databases</span>
+<span class="text-neutral-500 text-sm ml-2">- The industry standard</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">SGBDs com schema rigido, SQL, ACID e integridade referencial.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">DBMSs with rigid schemas, SQL, ACID, and referential integrity.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Mais de 40 anos de maturidade. Padrao para OLTP e sistemas transacionais.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">More than 40 years of maturity. Standard for OLTP and transactional systems.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">PostgreSQL, MySQL, SQL Server, Oracle, SQLite, quando usar cada</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">PostgreSQL, MySQL, SQL Server, Oracle, SQLite, when to use each</p>
 </div>
 </div>
 </div>
@@ -424,23 +424,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">2</span>
 <span class="text-lg">📄</span>
 <div>
-<span class="font-medium">Bancos de Documentos</span>
-<span class="text-neutral-500 text-sm ml-2">- Flexibilidade JSON</span>
+<span class="font-medium">Document Databases</span>
+<span class="text-neutral-500 text-sm ml-2">- JSON flexibility</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Armazenam documentos JSON/BSON sem schema fixo.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Store JSON/BSON documents without a fixed schema.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Iteracao rapida, conteudo variavel. Ideal para prototipagem e CMS.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Fast iteration, variable content. Ideal for prototyping and CMS.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">MongoDB, Couchbase, agregacoes, sharding, transacoes multi-documento</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">MongoDB, Couchbase, aggregations, sharding, multi-document transactions</p>
 </div>
 </div>
 </div>
@@ -451,23 +451,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">3</span>
 <span class="text-lg">⚡</span>
 <div>
-<span class="font-medium">Chave-Valor e Cache</span>
-<span class="text-neutral-500 text-sm ml-2">- Velocidade maxima</span>
+<span class="font-medium">Key-Value and Cache</span>
+<span class="text-neutral-500 text-sm ml-2">- Maximum speed</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Mapeamento simples key-&gt;value com latencia sub-milissegundo.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Simple key-&gt;value mapping with sub-millisecond latency.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Cache, sessoes, filas. Redis e o banco mais rapido do ecossistema.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Cache, sessions, queues. Redis is the fastest database in the ecosystem.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">Redis, DynamoDB, TTL, persistencia, pub/sub, Streams</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">Redis, DynamoDB, TTL, persistence, pub/sub, Streams</p>
 </div>
 </div>
 </div>
@@ -478,23 +478,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">4</span>
 <span class="text-lg">📊</span>
 <div>
-<span class="font-medium">Bancos Colunares</span>
-<span class="text-neutral-500 text-sm ml-2">- Analytics em escala</span>
+<span class="font-medium">Columnar Databases</span>
+<span class="text-neutral-500 text-sm ml-2">- Analytics at scale</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Armazenam dados por coluna (nao por linha), otimizados para agregacoes.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Store data by column (not by row), optimized for aggregations.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">OLAP, data warehouse, BI. Compressao e scan de colunas sao ordens de magnitude mais rapidos.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">OLAP, data warehouse, BI. Compression and column scans are orders of magnitude faster.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">BigQuery, Redshift, ClickHouse, Snowflake, compressao colunar</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">BigQuery, Redshift, ClickHouse, Snowflake, columnar compression</p>
 </div>
 </div>
 </div>
@@ -505,22 +505,22 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">5</span>
 <span class="text-lg">🕸️</span>
 <div>
-<span class="font-medium">Grafos e Series Temporais</span>
-<span class="text-neutral-500 text-sm ml-2">- Casos especiais</span>
+<span class="font-medium">Graphs and Time Series</span>
+<span class="text-neutral-500 text-sm ml-2">- Special cases</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Grafos modelam relacoes complexas. Series temporais otimizam dados cronologicos.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">Graphs model complex relationships. Time series optimize chronological data.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Redes sociais, recomendacoes, fraude (grafos). IoT, metricas, logs (series).</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">Social networks, recommendations, fraud (graphs). IoT, metrics, logs (time series).</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
 <p class="text-neutral-300 text-sm">Neo4j, InfluxDB, TimescaleDB, Cypher, Prometheus</p>
 </div>
 </div>
@@ -532,23 +532,23 @@
 <span class="w-6 h-6 rounded-full bg-blue-500/20 text-blue-400 text-sm font-bold flex items-center justify-center flex-shrink-0">6</span>
 <span class="text-lg">⚖️</span>
 <div>
-<span class="font-medium">Como Escolher</span>
-<span class="text-neutral-500 text-sm ml-2">- Decisao por cenario</span>
+<span class="font-medium">How to Choose</span>
+<span class="text-neutral-500 text-sm ml-2">- Choosing by scenario</span>
 </div>
 </button>
 <div class="topic-explanation px-6 pb-4">
 <div class="bg-dark-700/50 rounded-lg p-4 space-y-3 ml-9">
 <div>
-<span class="text-blue-400 font-semibold">O que e:</span>
-<p class="text-neutral-300 text-sm">Framework para selecionar o SGBD certo baseado em requisitos.</p>
+<span class="text-blue-400 font-semibold">What it is:</span>
+<p class="text-neutral-300 text-sm">A framework for selecting the right DBMS based on requirements.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Por que aprender:</span>
-<p class="text-neutral-300 text-sm">Escolha errada custa meses de retrabalho. Decidir com criterio e profissionalismo.</p>
+<span class="text-blue-400 font-semibold">Why learn:</span>
+<p class="text-neutral-300 text-sm">A wrong choice costs months of rework. Decide with sound judgment and professionalism.</p>
 </div>
 <div>
-<span class="text-blue-400 font-semibold">Conceitos-chave:</span>
-<p class="text-neutral-300 text-sm">OLTP vs OLAP, consistencia vs disponibilidade, latencia, custo, ecossistema</p>
+<span class="text-blue-400 font-semibold">Key concepts:</span>
+<p class="text-neutral-300 text-sm">OLTP vs OLAP, consistency vs availability, latency, cost, ecosystem</p>
 </div>
 </div>
 </div>
@@ -557,10 +557,10 @@
 <!-- Botoes (ESQUERDA!) -->
 <div class="p-4 bg-dark-700/30 flex justify-start space-x-3">
 <button class="px-4 py-2 text-sm bg-dark-600 hover:bg-dark-500 rounded-lg transition-colors" onclick="openModal('modal-2-2')">
-            Ver em Modal
+            View in Modal
           </button>
 <a class="px-4 py-2 text-sm bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-2.html">
-            Ver Completo
+            View Full
           </a>
 </div>
 </div>
@@ -579,7 +579,7 @@
 <!-- FOOTER -->
 <footer class="border-t border-dark-600 py-8 mt-16">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-<p>🗄️ FDB - Fundamentos de Banco de Dados | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
+<p>🗄️ FDB - Database Fundamentals | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
 </div>
 </footer>
 <script>

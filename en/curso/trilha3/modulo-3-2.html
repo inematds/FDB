@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Modulo 3.2 - IA Aplicada a Dados | FDB</title>
-<meta content="Janela de contexto, RAG, pgvector, Weaviate, Milvus, Qdrant, Redis Vetorial, Chroma e Azure AI Search. Modulo avancado do curso FDB." name="description"/>
+<title>Module 3.2 - AI Applied to Data | FDB</title>
+<meta content="Context window, RAG, pgvector, Weaviate, Milvus, Qdrant, Redis Vector, Chroma, and Azure AI Search. Advanced module of the FDB course." name="description"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
@@ -74,7 +74,7 @@
     html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
   </style>
 <link href="https://inematds.github.io/FDB/curso/trilha3/modulo-3-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha3/modulo-3-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha3/modulo-3-2.html" hreflang="es" rel="alternate"/></head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-3-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha3/modulo-3-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha3/modulo-3-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
 <!-- NAVIGATION -->
 <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,15 +90,15 @@
 <div class="flex items-center space-x-1 sm:space-x-2">
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html">
 <span class="sm:hidden">T1</span>
-<span class="hidden sm:inline">Iniciante</span>
+<span class="hidden sm:inline">Beginner</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-blue-400 hover:bg-blue-500/10 transition-colors" href="../trilha2/index.html">
 <span class="sm:hidden">T2</span>
-<span class="hidden sm:inline">Tecnico</span>
+<span class="hidden sm:inline">Technical</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-purple-400 bg-purple-500/10" href="index.html">
 <span class="sm:hidden">T3</span>
-<span class="hidden sm:inline">Avancado</span>
+<span class="hidden sm:inline">Advanced</span>
 </a>
 <button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
 <svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
@@ -115,37 +115,37 @@
 <!-- BREADCRUMB -->
 <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 <div class="flex items-center space-x-2 text-sm text-neutral-400">
-<a class="hover:text-purple-400" href="../../index.html">Inicio</a>
+<a class="hover:text-purple-400" href="../../index.html">Start</a>
 <span>/</span>
-<a class="hover:text-purple-400" href="index.html">Trilha 3</a>
+<a class="hover:text-purple-400" href="index.html">Track 3</a>
 <span>/</span>
-<span class="text-purple-400">Modulo 3.2</span>
+<span class="text-purple-400">Module 3.2</span>
 </div>
 </nav>
 <!-- HEADER -->
 <header class="bg-gradient-to-br from-purple-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4">
-        MODULO 3.2
+        MODULE 3.2
       </span>
-<h1 class="text-3xl sm:text-4xl font-bold mb-4">🤖 IA Aplicada a Dados</h1>
-<p class="text-lg text-neutral-400 max-w-3xl">Janela de contexto, RAG, bancos vetoriais e busca semantica. De pgvector a Weaviate, Milvus, Qdrant, Redis, Chroma e Azure AI Search.</p>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🤖 AI Applied to Data</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Context window, RAG, vector databases, and semantic search. From pgvector to Weaviate, Milvus, Qdrant, Redis, Chroma, and Azure AI Search.</p>
 <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-purple-400">7</div>
-<div class="text-xs text-neutral-400">Topicos</div>
+<div class="text-xs text-neutral-400">Topics</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-purple-400">70</div>
-<div class="text-xs text-neutral-400">Minutos</div>
+<div class="text-xs text-neutral-400">Minutes</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
-<div class="text-xl font-bold text-purple-400">Avan</div>
-<div class="text-xs text-neutral-400">Avancado</div>
+<div class="text-xl font-bold text-purple-400">Advan</div>
+<div class="text-xs text-neutral-400">Advanced</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-purple-400">🧪</div>
-<div class="text-xs text-neutral-400">Pratica</div>
+<div class="text-xs text-neutral-400">Practice</div>
 </div>
 </div>
 </div>
@@ -156,45 +156,45 @@
 <section class="mb-16" id="topico-1">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">1</span>
-<h2 class="text-2xl font-bold">🧠 Janela de Contexto</h2>
+<h2 class="text-2xl font-bold">🧠 Context Window</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        A <strong class="text-purple-400">janela de contexto</strong> (context window) e a quantidade maxima de tokens que um LLM consegue processar de uma vez. Tudo que entra no prompt - instrucoes, dados, historico - compete por esse espaco. Estourar a janela significa <strong class="text-white">perder informacao ou truncar dados criticos</strong>.
+        A <strong class="text-purple-400">context window</strong> (context window) is the maximum number of tokens an LLM can process at once. Everything in the prompt—instructions, data, history—competes for that space. Exceeding the window means <strong class="text-white">lose information or truncate critical data</strong>.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Conceito: Tokens e Limites
+<span class="mr-2">🎯</span> Concept: Tokens and Limits
         </h3>
 <p class="text-neutral-300 mb-4">
-          Modelos modernos variam de 8K a 2M tokens de contexto, mas <strong class="text-white">mais contexto nao significa melhor resultado</strong>. O modelo perde precisao no "meio" de janelas muito grandes (problema do "lost in the middle"). A estrategia e colocar <strong class="text-purple-400">apenas o que e relevante</strong>.
+          Modern models range from 8K to 2M context tokens, but <strong class="text-white">more context doesn’t mean a better result</strong>. The model loses accuracy in the "middle" of very large windows (the "lost in the middle" problem). The strategy is to place <strong class="text-purple-400">only what's relevant</strong>.
         </p>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Token:</strong> Unidade minima de texto. ~1 token = ~4 caracteres em ingles, ~3 em portugues</span>
+<span><strong>Token:</strong> Minimum unit of text. ~1 token = ~4 characters in English, ~3 in Portuguese</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Compressao:</strong> Resumir documentos longos antes de enviar ao modelo</span>
+<span><strong>Compression:</strong> Summarize long documents before sending them to the model</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Sumarizacao hierarquica:</strong> Resumir blocos, depois resumir os resumos</span>
+<span><strong>Hierarchical summarization:</strong> Summarize chunks, then summarize the summaries</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Priorizacao por relevancia:</strong> Usar busca semantica para selecionar os trechos mais importantes</span>
+<span><strong>Relevance-based prioritization:</strong> Use semantic search to select the most important passages</span>
 </li>
 </ul>
 </div>
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Dica Pratica
+<span class="mr-2">💡</span> Practical Tip
         </h3>
 <p class="text-neutral-300 text-sm">
-          Para aplicacoes de dados, a regra e: <strong>nao jogue o banco inteiro no prompt</strong>. Use RAG para buscar apenas os trechos relevantes, comprima documentos longos e reserve pelo menos 30% da janela para a resposta do modelo. Custo escala com tokens (input + output). 5 chunks bem selecionados superam 50 paginas inteiras.
+          For data applications, the rule is: <strong>don’t put the entire database in the prompt</strong>. Use RAG to retrieve only relevant passages, compress long documents, and reserve at least 30% of the window for the model's response. Cost scales with tokens (input + output). 5 well-selected chunks outperform 50 full pages.
         </p>
 </div>
 </section>
@@ -205,37 +205,37 @@
 <h2 class="text-2xl font-bold">🔎 RAG - Retrieval-Augmented Generation</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">RAG</strong> e a tecnica que conecta LLMs aos seus dados. Em vez de depender apenas do conhecimento interno do modelo, RAG <strong class="text-white">busca informacoes relevantes</strong> na sua base e injeta no prompt antes de gerar a resposta. E assim que chatbots "conhecem" dados internos da empresa.
+<strong class="text-purple-400">RAG</strong> is the technique that connects LLMs to your data. Instead of relying only on the model’s internal knowledge, RAG <strong class="text-white">retrieves relevant information</strong> in your database and injects it into the prompt before generating a response. That’s how chatbots “know” a company’s internal data.
       </p>
 <!-- Pipeline RAG -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🔄</span> Pipeline RAG Completo
+<span class="mr-2">🔄</span> Complete RAG Pipeline
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
 <div>
 <p class="font-semibold text-white mb-1">1. Chunking</p>
-<p class="text-sm">Dividir documentos em pedacos de ~500-1000 tokens com overlap</p>
+<p class="text-sm">Split documents into chunks of ~500-1000 tokens with overlap</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">2. Embeddings</p>
-<p class="text-sm">Converter cada chunk em vetor numerico que captura significado semantico</p>
+<p class="text-sm">Convert each chunk into a numeric vector that captures semantic meaning</p>
 </div>
 <div>
-<p class="font-semibold text-white mb-1">3. Indexacao</p>
-<p class="text-sm">Armazenar vetores em banco vetorial com indice para busca rapida</p>
+<p class="font-semibold text-white mb-1">3. Indexing</p>
+<p class="text-sm">Store vectors in a vector database with an index for fast search</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">4. Query</p>
-<p class="text-sm">Converter a pergunta do usuario em vetor e buscar chunks similares</p>
+<p class="text-sm">Convert the user's question into a vector and search for similar chunks</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">5. Reranking</p>
-<p class="text-sm">Reordenar resultados com modelo cross-encoder para maior precisao</p>
+<p class="text-sm">Reorder results with a cross-encoder model for greater accuracy</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">6. Generation</p>
-<p class="text-sm">Montar prompt com contexto recuperado e gerar resposta com o LLM</p>
+<p class="text-sm">Build a prompt with the retrieved context and generate a response with the LLM</p>
 </div>
 </div>
 </div>
@@ -253,13 +253,13 @@ answer = llm.generate(prompt)</code></pre>
 <!-- Box Dados -->
 <div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">📊</span> Numeros de Referencia
+<span class="mr-2">📊</span> Reference Numbers
         </h3>
 <ul class="space-y-2 text-neutral-300">
-<li>Chunk size tipico: <strong>500-1000 tokens</strong> com 10-20% de overlap</li>
-<li>Embeddings populares: <strong>text-embedding-3-small</strong> (1536 dims), <strong>BGE</strong>, <strong>E5</strong></li>
-<li>Top-k tipico: <strong>3-10 chunks</strong> dependendo do tamanho da janela</li>
-<li>Reranking melhora precisao em <strong>10-25%</strong> vs busca vetorial pura</li>
+<li>Typical chunk size: <strong>500-1000 tokens</strong> with 10-20% overlap</li>
+<li>Popular embeddings: <strong>text-embedding-3-small</strong> (1536 dims), <strong>BGE</strong>, <strong>E5</strong></li>
+<li>Typical top-k: <strong>3-10 chunks</strong> depending on the size of the window</li>
+<li>Reranking improves accuracy in <strong>10-25%</strong> vs. pure vector search</li>
 </ul>
 </div>
 </section>
@@ -267,10 +267,10 @@ answer = llm.generate(prompt)</code></pre>
 <section class="mb-16" id="topico-3">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">3</span>
-<h2 class="text-2xl font-bold">🐘 pgvector no PostgreSQL</h2>
+<h2 class="text-2xl font-bold">🐘 pgvector in PostgreSQL</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">pgvector</strong> adiciona o tipo <code class="text-purple-400">VECTOR</code> ao PostgreSQL, permitindo busca por similaridade direto no banco relacional que voce ja conhece. Sem infra extra, sem novo banco. Ideal para <strong class="text-white">ate ~1 milhao de vetores</strong> com boa performance.
+<strong class="text-purple-400">pgvector</strong> adds the type <code class="text-purple-400">VECTOR</code> to PostgreSQL, enabling similarity search directly in the relational database you already know. No extra infrastructure, no new database. Ideal for <strong class="text-white">up to ~1 million vectors</strong> with good performance.
       </p>
 <!-- SQL Code -->
 <pre class="bg-dark-800 rounded-xl p-4 border border-dark-600 overflow-x-auto mb-6"><code class="text-sm text-neutral-300">-- Habilitar a extensao
@@ -291,34 +291,34 @@ LIMIT 5;</code></pre>
 <!-- Tip box ivfflat -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Performance: ivfflat e HNSW
+<span class="mr-2">💡</span> Performance: ivfflat and HNSW
         </h3>
 <p class="text-neutral-300 text-sm mb-3">
-          Sem indice, pgvector faz busca exata (seq scan). Para tabelas grandes, crie um indice aproximado:
+          Without an index, pgvector performs an exact search (seq scan). For large tables, create an approximate index:
         </p>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• <strong>ivfflat:</strong> Divide vetores em <code class="text-purple-400">lists</code> (clusters). Na busca, consulta apenas <code class="text-purple-400">probes</code> clusters proximos. Regra: <code class="text-purple-400">lists = sqrt(n)</code>, <code class="text-purple-400">probes = sqrt(lists)</code>.</li>
-<li>• <strong>HNSW:</strong> Grafo hierarquico navegavel. Mais rapido que ivfflat para busca, mais lento para construir. Melhor para producao com alta QPS.</li>
-<li>• Comece com ivfflat e migre para HNSW quando precisar de mais velocidade de busca.</li>
+<li>• <strong>ivfflat:</strong> Divides vectors into <code class="text-purple-400">lists</code> (clusters). In a search, query only <code class="text-purple-400">probes</code> nearby clusters. Rule: <code class="text-purple-400">lists = sqrt(n)</code>, <code class="text-purple-400">probes = sqrt(lists)</code>.</li>
+<li>• <strong>HNSW:</strong> A navigable hierarchical graph. Faster than ivfflat for searching, slower to build. Best for production with high QPS.</li>
+<li>• Start with ivfflat and migrate to HNSW when you need faster search.</li>
 </ul>
 </div>
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Operadores de Distancia
+<span class="mr-2">🎯</span> Distance Operators
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-neutral-300">
 <div>
-<p class="font-semibold text-white mb-1">&lt;=&gt; Cosseno</p>
-<p class="text-sm">Mais usado. Compara direcao dos vetores, ignora magnitude.</p>
+<p class="font-semibold text-white mb-1">&lt;=&gt; Cosine</p>
+<p class="text-sm">Most widely used. Compares vector direction, ignoring magnitude.</p>
 </div>
 <div>
-<p class="font-semibold text-white mb-1">&lt;-&gt; L2 (Euclidiana)</p>
-<p class="text-sm">Distancia geometrica. Sensivel a magnitude dos vetores.</p>
+<p class="font-semibold text-white mb-1">&lt;-&gt; L2 (Euclidean)</p>
+<p class="text-sm">Geometric distance. Sensitive to vector magnitude.</p>
 </div>
 <div>
-<p class="font-semibold text-white mb-1">&lt;#&gt; Produto Interno</p>
-<p class="text-sm">Maximiza similaridade. Usado com vetores normalizados.</p>
+<p class="font-semibold text-white mb-1">&lt;#&gt; Inner Product</p>
+<p class="text-sm">Maximizes similarity. Used with normalized vectors.</p>
 </div>
 </div>
 </div>
@@ -330,7 +330,7 @@ LIMIT 5;</code></pre>
 <h2 class="text-2xl font-bold">🌊 Weaviate</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Weaviate</strong> e um banco vetorial com busca hibrida nativa: combina <strong class="text-white">busca semantica</strong> (vetores) com <strong class="text-white">busca por palavras-chave</strong> (BM25). Busca puramente semantica pode perder termos exatos. O hibrido resolve isso combinando os dois rankings.
+<strong class="text-purple-400">Weaviate</strong> and a vector database with native hybrid search: it combines <strong class="text-white">semantic search</strong> (vectors) with <strong class="text-white">keyword search</strong> (BM25). Purely semantic search can miss exact terms. Hybrid search solves this by combining both rankings.
       </p>
 <!-- Python Code -->
 <pre class="bg-dark-800 rounded-xl p-4 border border-dark-600 overflow-x-auto mb-6"><code class="text-sm text-neutral-300">import weaviate
@@ -354,24 +354,24 @@ result = client.query.get("Document", ["content", "source"]) \
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🔍</span> Diferenciais do Weaviate
+<span class="mr-2">🔍</span> Weaviate’s strengths
         </h3>
 <ul class="space-y-2 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Hybrid search:</strong> Parametro alpha controla o balanco entre semantica e BM25</span>
+<span><strong>Hybrid search:</strong> The alpha parameter controls the balance between semantics and BM25</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Modules:</strong> Modulos integrados para embedding automatico (text2vec-openai, text2vec-cohere)</span>
+<span><strong>Modules:</strong> Integrated modules for automatic embedding (text2vec-openai, text2vec-cohere)</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>Multi-tenancy:</strong> Isola dados por tenant sem duplicar infra. Bom para SaaS</span>
+<span><strong>Multi-tenancy:</strong> Isolates data by tenant without duplicating infrastructure. Good for SaaS</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-purple-400 mt-1">•</span>
-<span><strong>GraphQL API:</strong> Interface de consulta expressiva e bem documentada</span>
+<span><strong>GraphQL API:</strong> Expressive, well-documented query interface</span>
 </li>
 </ul>
 </div>
@@ -383,7 +383,7 @@ result = client.query.get("Document", ["content", "source"]) \
 <h2 class="text-2xl font-bold">⚡ Milvus</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Milvus</strong> e um banco vetorial open source projetado para <strong class="text-white">bilhoes de vetores</strong>. Quando pgvector nao escala mais, Milvus e a opcao mais madura. Suporta GPU acceleration, sharding distribuido e multiplos tipos de indice.
+<strong class="text-purple-400">Milvus</strong> and an open-source vector database designed to <strong class="text-white">billions of vectors</strong>. When pgvector no longer scales, Milvus is the most mature option. It supports GPU acceleration, distributed sharding, and multiple index types.
       </p>
 <!-- Python Code -->
 <pre class="bg-dark-800 rounded-xl p-4 border border-dark-600 overflow-x-auto mb-6"><code class="text-sm text-neutral-300">from pymilvus import (
@@ -426,20 +426,20 @@ results = collection.search(
 <!-- Box Dados -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Quando Milvus Brilha
+<span class="mr-2">🎯</span> When Milvus Shines
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-neutral-300">
 <div>
-<p class="font-semibold text-white mb-1">Escala</p>
-<p class="text-sm">Bilhoes de vetores distribuidos em cluster. Sharding automatico, replicas de leitura.</p>
+<p class="font-semibold text-white mb-1">Scale</p>
+<p class="text-sm">Billions of vectors distributed across a cluster. Automatic sharding, read replicas.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">GPU Acceleration</p>
-<p class="text-sm">Suporte nativo a GPU para indexacao e busca. Ordens de magnitude mais rapido.</p>
+<p class="text-sm">Native GPU support for indexing and search. Orders of magnitude faster.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">Zilliz Cloud</p>
-<p class="text-sm">Versao gerenciada (SaaS) do Milvus. Sem ops, escala sob demanda.</p>
+<p class="text-sm">Managed (SaaS) version of Milvus. No ops, scales on demand.</p>
 </div>
 </div>
 </div>
@@ -448,10 +448,10 @@ results = collection.search(
 <section class="mb-16" id="topico-6">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">6</span>
-<h2 class="text-2xl font-bold">🎯 Qdrant e Redis Vetorial</h2>
+<h2 class="text-2xl font-bold">🎯 Qdrant and Redis Vector</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Qdrant</strong> armazena vetores com payloads filtraveis - ideal para buscas semanticas com filtros complexos. <strong class="text-purple-400">Redis</strong> com o modulo RediSearch adiciona busca vetorial ao cache que muitos ja usam em producao. Duas abordagens, dois cenarios diferentes.
+<strong class="text-purple-400">Qdrant</strong> stores vectors with filterable payloads — ideal for semantic searches with complex filters. <strong class="text-purple-400">Redis</strong> with the RediSearch module adds vector search to the cache many already use in production. Two approaches, two different scenarios.
       </p>
 <!-- Qdrant Code -->
 <pre class="bg-dark-800 rounded-xl p-4 border border-dark-600 overflow-x-auto mb-6"><code class="text-sm text-neutral-300"># Qdrant com qdrant-client
@@ -523,21 +523,21 @@ FT.SEARCH idx_docs
 <!-- Comparacao -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
-<h4 class="font-semibold text-purple-400 mb-3">Qdrant - Ideal para</h4>
+<h4 class="font-semibold text-purple-400 mb-3">Qdrant - Ideal for</h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Busca semantica + filtros complexos por payload</li>
-<li>• Multi-tenancy nativo com isolamento</li>
-<li>• Escrito em Rust, baixa latencia</li>
-<li>• API REST e gRPC nativas</li>
+<li>• Semantic search + complex payload filters</li>
+<li>• Native multi-tenancy with isolation</li>
+<li>• Written in Rust, low latency</li>
+<li>• Native REST API and gRPC</li>
 </ul>
 </div>
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
-<h4 class="font-semibold text-purple-400 mb-3">Redis Vetorial - Ideal para</h4>
+<h4 class="font-semibold text-purple-400 mb-3">Redis Vector - Ideal for</h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Ja usa Redis? Adicione vetores sem nova infra</li>
-<li>• Cache + busca vetorial na mesma instancia</li>
-<li>• Latencia ultra-baixa (in-memory)</li>
-<li>• TTL nativo para vetores temporarios</li>
+<li>• Already using Redis? Add vectors without new infrastructure</li>
+<li>• Cache + vector search in the same instance</li>
+<li>• Ultra-low latency (in-memory)</li>
+<li>• Native TTL for temporary vectors</li>
 </ul>
 </div>
 </div>
@@ -546,10 +546,10 @@ FT.SEARCH idx_docs
 <section class="mb-16" id="topico-7">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 font-bold text-xl">7</span>
-<h2 class="text-2xl font-bold">🧪 Chroma e Azure AI Search</h2>
+<h2 class="text-2xl font-bold">🧪 Chroma and Azure AI Search</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-<strong class="text-purple-400">Chroma</strong> e o banco vetorial mais leve para desenvolvimento local e prototipagem rapida. <strong class="text-purple-400">Azure AI Search</strong> e a solucao enterprise gerenciada da Microsoft com SLA, integracao com Azure OpenAI e busca hibrida. Dev vs Enterprise.
+<strong class="text-purple-400">Chroma</strong> is the lightest vector database for local development and rapid prototyping. <strong class="text-purple-400">Azure AI Search</strong> is Microsoft’s managed enterprise solution with an SLA, Azure OpenAI integration, and hybrid search. Dev vs Enterprise.
       </p>
 <!-- Chroma Code -->
 <pre class="bg-dark-800 rounded-xl p-4 border border-dark-600 overflow-x-auto mb-6"><code class="text-sm text-neutral-300"># Chroma - banco vetorial mais simples
@@ -612,16 +612,16 @@ print(results["documents"])</code></pre>
 <!-- Box Conceito -->
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Quando Usar Cada Um
+<span class="mr-2">🎯</span> When to Use Each One
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
 <div>
 <p class="font-semibold text-white mb-1">Chroma</p>
-<p class="text-sm">Prototipagem, hackathons, dev local, projetos pequenos. Zero config, roda in-memory ou persiste em SQLite. Nao recomendado para producao com alta carga.</p>
+<p class="text-sm">Prototyping, hackathons, local development, small projects. Zero configuration; runs in memory or persists to SQLite. Not recommended for high-load production.</p>
 </div>
 <div>
 <p class="font-semibold text-white mb-1">Azure AI Search</p>
-<p class="text-sm">Producao enterprise, SLA 99.95%, integracao Azure OpenAI, skillsets para enriquecimento automatico, reranking semantico nativo.</p>
+<p class="text-sm">Enterprise production, 99.95% SLA, Azure OpenAI integration, skillsets for automatic enrichment, native semantic reranking.</p>
 </div>
 </div>
 </div>
@@ -630,36 +630,36 @@ print(results["documents"])</code></pre>
 <section class="mb-16">
 <div class="bg-gradient-to-br from-purple-900/30 to-dark-800 rounded-xl border border-purple-500/30 p-6">
 <h3 class="text-xl font-bold text-purple-400 mb-4 flex items-center">
-<span class="mr-2">✅</span> Checklist do Modulo 3.2
+<span class="mr-2">✅</span> Module 3.2 Checklist
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-neutral-300">
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Entendo tokens, context window e estrategias de compressao</span>
+<span>Understand tokens, context window, and compression strategies</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Sei montar um pipeline RAG completo (chunk, embed, index, retrieve)</span>
+<span>I know how to build a complete RAG pipeline (chunk, embed, index, retrieve)</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Consigo usar pgvector para busca vetorial no PostgreSQL</span>
+<span>I can use pgvector for vector search in PostgreSQL</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Entendo busca hibrida (semantica + BM25) com Weaviate</span>
+<span>Understand hybrid search (semantic + BM25) with Weaviate</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Sei quando usar Milvus para escala com bilhoes de vetores</span>
+<span>I know when to use Milvus to scale to billions of vectors</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Conhego Qdrant (payload filters) e Redis Vetorial (HNSW + KNN)</span>
+<span>I know Qdrant (payload filters) and Redis Vector (HNSW + KNN)</span>
 </label>
 <label class="flex items-start space-x-3 cursor-pointer">
 <input class="mt-1 accent-purple-500" type="checkbox"/>
-<span>Sei escolher entre Chroma (dev) e Azure AI Search (enterprise)</span>
+<span>I know how to choose between Chroma (dev) and Azure AI Search (enterprise)</span>
 </label>
 </div>
 </div>
@@ -667,17 +667,17 @@ print(results["documents"])</code></pre>
 <!-- Navegacao -->
 <div class="flex justify-start items-center gap-4 pt-8 border-t border-dark-600">
 <a class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-sm font-medium transition-colors" href="index.html">
-        ← Voltar para Trilha
+        ← Back to Track
       </a>
 <a class="px-4 py-2 bg-dark-600 hover:bg-dark-500 text-neutral-200 rounded-lg text-sm font-medium transition-colors" href="../../index.html">
-        Voltar ao Inicio
+        Back to Home
       </a>
 </div>
 </main>
 <!-- FOOTER -->
 <footer class="border-t border-dark-600 py-8 mt-16">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-<p>🗄️ FDB - Fundamentos de Banco de Dados | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
+<p>🗄️ FDB - Database Fundamentals | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
 </div>
 </footer>
 <script>

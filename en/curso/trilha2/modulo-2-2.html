@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<html class="dark" lang="pt-BR">
+<html class="dark" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Modulo 2.2 - Tipos e Comparativos | FDB</title>
-<meta content="Tipos de SGBDs: relacional, documento, chave-valor, colunar, grafo e series temporais. Comparativo e como escolher o SGBD certo. Modulo tecnico do curso FDB." name="description"/>
+<title>Module 2.2 - Types and Comparisons | FDB</title>
+<meta content="Types of DBMS: relational, document, key-value, columnar, graph, and time-series. Comparison and how to choose the right DBMS. Technical module of the FDB course." name="description"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
@@ -69,7 +69,7 @@
     html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
   </style>
 <link href="https://inematds.github.io/FDB/curso/trilha2/modulo-2-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://inematds.github.io/FDB/en/curso/trilha2/modulo-2-2.html" hreflang="en" rel="alternate"/><link href="https://inematds.github.io/FDB/es/curso/trilha2/modulo-2-2.html" hreflang="es" rel="alternate"/></head>
-<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha2/modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha2/modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="inema-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
 <!-- NAVIGATION -->
 <nav class="sticky top-0 z-50 bg-dark-900/95 backdrop-blur-sm border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -85,15 +85,15 @@
 <div class="flex items-center space-x-1 sm:space-x-2">
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/index.html">
 <span class="sm:hidden">T1</span>
-<span class="hidden sm:inline">Iniciante</span>
+<span class="hidden sm:inline">Beginner</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-blue-400 bg-blue-500/10" href="index.html">
 <span class="sm:hidden">T2</span>
-<span class="hidden sm:inline">Tecnico</span>
+<span class="hidden sm:inline">Technical</span>
 </a>
 <a class="px-3 py-1.5 rounded-lg text-sm font-semibold text-neutral-400 hover:text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/index.html">
 <span class="sm:hidden">T3</span>
-<span class="hidden sm:inline">Avancado</span>
+<span class="hidden sm:inline">Advanced</span>
 </a>
 <button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
 <svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
@@ -110,37 +110,37 @@
 <!-- BREADCRUMB -->
 <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 <div class="flex items-center space-x-2 text-sm text-neutral-400">
-<a class="hover:text-blue-400" href="../../index.html">Inicio</a>
+<a class="hover:text-blue-400" href="../../index.html">Start</a>
 <span>/</span>
-<a class="hover:text-blue-400" href="index.html">Trilha 2</a>
+<a class="hover:text-blue-400" href="index.html">Track 2</a>
 <span>/</span>
-<span class="text-blue-400">Modulo 2.2</span>
+<span class="text-blue-400">Module 2.2</span>
 </div>
 </nav>
 <!-- HEADER -->
 <header class="bg-gradient-to-br from-blue-900/30 via-dark-800 to-dark-800 py-12 border-b border-dark-600">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 <span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4">
-        MODULO 2.2
+        MODULE 2.2
       </span>
-<h1 class="text-3xl sm:text-4xl font-bold mb-4">🗂️ Tipos e Comparativos de SGBDs</h1>
-<p class="text-lg text-neutral-400 max-w-3xl">Conheca os principais modelos de bancos de dados, suas forcas, limitacoes e quando usar cada um para tomar decisoes tecnicas fundamentadas.</p>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🗂️ Database Types and Comparisons</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Learn about the main database models, their strengths and limitations, and when to use each one to make well-informed technical decisions.</p>
 <div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-blue-400">6</div>
-<div class="text-xs text-neutral-400">Topicos</div>
+<div class="text-xs text-neutral-400">Topics</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-blue-400">45</div>
-<div class="text-xs text-neutral-400">Minutos</div>
+<div class="text-xs text-neutral-400">Minutes</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
 <div class="text-xl font-bold text-blue-400">Inter</div>
-<div class="text-xs text-neutral-400">Nivel</div>
+<div class="text-xs text-neutral-400">Level</div>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
-<div class="text-xl font-bold text-blue-400">Teoria</div>
-<div class="text-xs text-neutral-400">Tipo</div>
+<div class="text-xl font-bold text-blue-400">Theory</div>
+<div class="text-xs text-neutral-400">Type</div>
 </div>
 </div>
 </div>
@@ -151,36 +151,36 @@
 <section class="mb-16" id="topico-1">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">1</span>
-<h2 class="text-2xl font-bold">🏛️ Bancos Relacionais</h2>
+<h2 class="text-2xl font-bold">🏛️ Relational Databases</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Os bancos <strong class="text-blue-400">relacionais</strong> organizam dados em tabelas com schema rigido, usam SQL como linguagem padrao e garantem propriedades ACID. Sao a base da maioria das aplicacoes corporativas e o modelo mais maduro do mercado.
+        The databases <strong class="text-blue-400">relational</strong> organize data into tables with a rigid schema, use SQL as the standard language, and guarantee ACID properties. They’re the foundation of most enterprise applications and the most mature model on the market.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Principais SGBDs Relacionais
+<span class="mr-2">🎯</span> Main Relational DBMSs
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">PostgreSQL</h4>
-<p class="text-neutral-300 text-sm">O mais completo open-source. Extensoes (PostGIS, pgvector), tipos avancados, JSON nativo. Ideal para quem quer flexibilidade sem abrir mao de SQL.</p>
+<p class="text-neutral-300 text-sm">The most complete open-source option. Extensions (PostGIS, pgvector), advanced types, native JSON. Ideal if you want flexibility without giving up SQL.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">MySQL</h4>
-<p class="text-neutral-300 text-sm">Popular, simples de operar, ecossistema enorme. Primeira escolha para apps web, CMSs e stacks LAMP. Performance excelente para leitura.</p>
+<p class="text-neutral-300 text-sm">Popular, simple to operate, with a huge ecosystem. First choice for web apps, CMSs, and LAMP stacks. Excellent read performance.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">SQL Server</h4>
-<p class="text-neutral-300 text-sm">Integracao nativa com ecossistema Microsoft (.NET, Azure, Power BI). Forte em ambientes corporativos Windows.</p>
+<p class="text-neutral-300 text-sm">Native integration with the Microsoft ecosystem (.NET, Azure, Power BI). Strong in Windows corporate environments.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">Oracle</h4>
-<p class="text-neutral-300 text-sm">Enterprise. RAC, Data Guard, particionamento avancado. Custo alto, mas recursos de missao critica incomparaveis.</p>
+<p class="text-neutral-300 text-sm">Enterprise. RAC, Data Guard, advanced partitioning. High cost, but unparalleled mission-critical capabilities.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600 md:col-span-2">
 <h4 class="font-bold text-blue-400 mb-1">SQLite</h4>
-<p class="text-neutral-300 text-sm">Banco embarcado, zero configuracao, arquivo unico. Perfeito para apps mobile, IoT, prototipagem e testes. Nao precisa de servidor.</p>
+<p class="text-neutral-300 text-sm">Embedded database, zero configuration, single file. Perfect for mobile apps, IoT, prototyping, and testing. No server required.</p>
 </div>
 </div>
 </div>
@@ -188,24 +188,24 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
 <h4 class="font-semibold text-green-400 mb-3 flex items-center">
-<span class="mr-2">✅</span> USAR QUANDO
+<span class="mr-2">✅</span> USE WHEN
           </h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Dados altamente estruturados com relacoes claras</li>
-<li>• Integridade referencial e consistencia sao prioridade</li>
-<li>• Workloads OLTP (muitas transacoes curtas e concorrentes)</li>
-<li>• Queries complexas com JOINs, agregacoes e subqueries</li>
+<li>• Highly structured data with clear relationships</li>
+<li>• Referential integrity and consistency are priorities</li>
+<li>• OLTP workloads (many short, concurrent transactions)</li>
+<li>• Complex queries with JOINs, aggregations, and subqueries</li>
 </ul>
 </div>
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
 <h4 class="font-semibold text-red-400 mb-3 flex items-center">
-<span class="mr-2">❌</span> NAO USAR QUANDO
+<span class="mr-2">❌</span> DO NOT USE WHEN
           </h4>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• Schema muda constantemente e de forma imprevisivel</li>
-<li>• Escala horizontal massiva (milhares de nos) e requisito</li>
-<li>• Dados sao predominantemente nao-estruturados (logs, JSON variado)</li>
-<li>• Latencia sub-milissegundo e critica (cache, sessoes)</li>
+<li>• Schema changes constantly and unpredictably</li>
+<li>• Massive horizontal scaling (thousands of nodes) is required</li>
+<li>• Data is predominantly unstructured (logs, varied JSON)</li>
+<li>• Sub-millisecond latency is critical (cache, sessions)</li>
 </ul>
 </div>
 </div>
@@ -214,49 +214,49 @@
 <section class="mb-16" id="topico-2">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">2</span>
-<h2 class="text-2xl font-bold">📄 Bancos de Documentos</h2>
+<h2 class="text-2xl font-bold">📄 Document Databases</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Bancos de <strong class="text-blue-400">documentos</strong> armazenam dados como JSON/BSON, sem schema rigido. Cada documento pode ter estrutura diferente, o que traz flexibilidade para cenarios onde os dados evoluem rapidamente ou variam entre registros.
+        Databases for <strong class="text-blue-400">documents</strong> store data as JSON/BSON, without a rigid schema. Each document can have a different structure, which provides flexibility for scenarios where data evolves rapidly or varies between records.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Principais SGBDs de Documentos
+<span class="mr-2">🎯</span> Main Document DBMSs
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">MongoDB</h4>
-<p class="text-neutral-300 text-sm">O mais popular. Schema flexivel, aggregation pipeline poderoso, sharding nativo. Ecossistema rico com Atlas (cloud), Compass (GUI) e drivers para todas as linguagens.</p>
+<p class="text-neutral-300 text-sm">The most popular. Flexible schema, powerful aggregation pipeline, native sharding. Rich ecosystem with Atlas (cloud), Compass (GUI), and drivers for every language.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">Couchbase</h4>
-<p class="text-neutral-300 text-sm">Combina documento + cache em memoria. N1QL (SQL-like query), replicacao multi-datacenter. Forte em cenarios que precisam de baixa latencia com documentos complexos.</p>
+<p class="text-neutral-300 text-sm">Combines documents with an in-memory cache. N1QL (SQL-like query), multi-datacenter replication. Well suited to scenarios that need low latency with complex documents.</p>
 </div>
 </div>
 </div>
 <!-- Concept box -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🔍</span> Documento vs Relacional: Quando Escolher
+<span class="mr-2">🔍</span> Document vs. Relational: When to Choose
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-neutral-300">
 <div>
-<p class="font-semibold text-white mb-1">Escolha Documento quando...</p>
+<p class="font-semibold text-white mb-1">Choose Document when...</p>
 <ul class="space-y-1 text-sm">
-<li>• Dados tem estrutura variavel (catalogo de produtos com atributos diferentes)</li>
-<li>• Prototipagem rapida sem migrations</li>
-<li>• Dados sao naturalmente hierarquicos (posts com comentarios aninhados)</li>
-<li>• Escala horizontal e prioridade</li>
+<li>• Data has a variable structure (product catalog with different attributes)</li>
+<li>• Rapid prototyping without migrations</li>
+<li>• Data is naturally hierarchical (posts with nested comments)</li>
+<li>• Horizontal scaling is a priority</li>
 </ul>
 </div>
 <div>
-<p class="font-semibold text-white mb-1">Escolha Relacional quando...</p>
+<p class="font-semibold text-white mb-1">Choose Relational when...</p>
 <ul class="space-y-1 text-sm">
-<li>• Relacoes entre entidades sao complexas e frequentes</li>
-<li>• Consistencia transacional e obrigatoria</li>
-<li>• Dados tem schema estavel e bem definido</li>
-<li>• Queries com muitos JOINs sao a norma</li>
+<li>• Relationships between entities are complex and frequent</li>
+<li>• Transactional consistency is mandatory</li>
+<li>• Data has a stable, well-defined schema</li>
+<li>• Queries with many JOINs are the norm</li>
 </ul>
 </div>
 </div>
@@ -266,50 +266,50 @@
 <section class="mb-16" id="topico-3">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">3</span>
-<h2 class="text-2xl font-bold">⚡ Chave-Valor e Cache</h2>
+<h2 class="text-2xl font-bold">⚡ Key-Value and Cache</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Bancos <strong class="text-blue-400">chave-valor</strong> sao os mais simples conceitualmente: uma chave mapeia para um valor. Essa simplicidade permite latencia <strong class="text-white">sub-milissegundo</strong> e throughput massivo. Sao a base de sistemas de cache, sessoes e filas em tempo real.
+        Databases <strong class="text-blue-400">key-value</strong> are the simplest conceptually: a key maps to a value. This simplicity enables low latency <strong class="text-white">sub-millisecond</strong> and massive throughput. They are the foundation of real-time cache, session, and queue systems.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Principais SGBDs Chave-Valor
+<span class="mr-2">🎯</span> Main Key-Value DBMSs
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">Redis</h4>
-<p class="text-neutral-300 text-sm">In-memory, latencia sub-milissegundo. Estruturas de dados ricas (strings, hashes, listas, sets, sorted sets). Pub/Sub, Streams, Lua scripting. O canivete suico do cache.</p>
+<p class="text-neutral-300 text-sm">In-memory, sub-millisecond latency. Rich data structures (strings, hashes, lists, sets, sorted sets). Pub/Sub, Streams, Lua scripting. The Swiss Army knife of caching.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">DynamoDB</h4>
-<p class="text-neutral-300 text-sm">Serverless da AWS, auto-scaling, SLA de single-digit ms. Modelo chave-valor + documento. Pay-per-request ou capacidade provisionada. Zero ops.</p>
+<p class="text-neutral-300 text-sm">AWS serverless, auto-scaling, single-digit ms SLA. Key-value + document model. Pay-per-request or provisioned capacity. Zero ops.</p>
 </div>
 </div>
 </div>
 <!-- Box Dados -->
 <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">📊</span> Casos de Uso
+<span class="mr-2">📊</span> Use Cases
         </h3>
 <ul class="space-y-2 text-neutral-300">
-<li>• <strong>Cache de aplicacao:</strong> respostas de API, resultados de queries pesadas, paginas renderizadas</li>
-<li>• <strong>Sessoes de usuario:</strong> armazenamento rapido e expiravel de dados de sessao</li>
-<li>• <strong>Filas e mensageria:</strong> Redis Lists e Streams para processamento assincrono</li>
-<li>• <strong>Contadores em tempo real:</strong> page views, rate limiting, leaderboards</li>
-<li>• <strong>Pub/Sub:</strong> notificacoes em tempo real, chat, eventos</li>
+<li>• <strong>Application cache:</strong> API responses, results of heavy queries, rendered pages</li>
+<li>• <strong>User sessions:</strong> fast, expiring storage for session data</li>
+<li>• <strong>Queues and messaging:</strong> Redis Lists and Streams for asynchronous processing</li>
+<li>• <strong>Real-time counters:</strong> page views, rate limiting, leaderboards</li>
+<li>• <strong>Pub/Sub:</strong> real-time notifications, chat, events</li>
 </ul>
 </div>
 <!-- Dica pratica -->
 <div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
 <h3 class="text-lg font-semibold text-primary mb-3 flex items-center">
-<span class="mr-2">💡</span> Padroes de Cache
+<span class="mr-2">💡</span> Cache Patterns
         </h3>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li><strong>Cache-Aside (Lazy Loading):</strong> App verifica o cache primeiro. Se nao encontra (miss), busca no banco, grava no cache e retorna. Simples e eficiente.</li>
-<li><strong>Write-Through:</strong> Toda escrita vai para o cache E para o banco ao mesmo tempo. Cache sempre atualizado, mas escrita mais lenta.</li>
-<li><strong>Write-Behind:</strong> Escrita vai para o cache imediatamente. O banco e atualizado de forma assincrona. Risco de perda se o cache cair antes do sync.</li>
-<li><strong>TTL (Time-To-Live):</strong> Defina expiracao para evitar dados stale. Padrao: 5-15 min para dados de leitura, 30-60s para dados volateis.</li>
+<li><strong>Cache-Aside (Lazy Loading):</strong> The app checks the cache first. If it doesn't find anything (miss), it fetches the data from the database, writes it to the cache, and returns it. Simple and efficient.</li>
+<li><strong>Write-Through:</strong> Every write goes to the cache AND the database at the same time. Cache is always up to date, but writes are slower.</li>
+<li><strong>Write-Behind:</strong> Writes go to the cache immediately. The database is updated asynchronously. There is a risk of data loss if the cache fails before the sync.</li>
+<li><strong>TTL (Time-To-Live):</strong> Set expiration to avoid stale data. Default: 5-15 min for read data, 30-60s for volatile data.</li>
 </ul>
 </div>
 </section>
@@ -317,42 +317,42 @@
 <section class="mb-16" id="topico-4">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">4</span>
-<h2 class="text-2xl font-bold">📊 Bancos Colunares</h2>
+<h2 class="text-2xl font-bold">📊 Columnar Databases</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Bancos <strong class="text-blue-400">colunares</strong> armazenam dados por coluna em vez de por linha. Isso permite compressao extrema e scans muito rapidos para queries analiticas que acessam poucas colunas em tabelas com bilhoes de linhas. Sao a base de <strong class="text-white">Data Warehouses modernos</strong>.
+        Databases <strong class="text-blue-400">columnar</strong> store data by column instead of by row. This enables extreme compression and very fast scans for analytical queries that access only a few columns in tables with billions of rows. They are the foundation of <strong class="text-white">Modern Data Warehouses</strong>.
       </p>
 <!-- Box Conceito Principal -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Principais SGBDs Colunares
+<span class="mr-2">🎯</span> Main Columnar DBMSs
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">BigQuery</h4>
-<p class="text-neutral-300 text-sm">Serverless do Google. Escala automatica, SQL padrao, integracao com GCP. Paga por query executada. Ideal para analytics ad-hoc.</p>
+<p class="text-neutral-300 text-sm">Google serverless. Automatic scaling, standard SQL, GCP integration. Pay per query executed. Ideal for ad hoc analytics.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">Redshift</h4>
-<p class="text-neutral-300 text-sm">Data warehouse da AWS. Cluster gerenciado, Redshift Spectrum para S3, integracao com ecossistema AWS.</p>
+<p class="text-neutral-300 text-sm">AWS data warehouse. Managed cluster, Redshift Spectrum for S3, integration with the AWS ecosystem.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">ClickHouse</h4>
-<p class="text-neutral-300 text-sm">Open-source, criado pela Yandex. Performance absurda para OLAP, compressao agressiva. Forte em logs, metricas e analytics em tempo real.</p>
+<p class="text-neutral-300 text-sm">Open-source, created by Yandex. Exceptional OLAP performance, aggressive compression. Strong in logs, metrics, and real-time analytics.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">Snowflake</h4>
-<p class="text-neutral-300 text-sm">Multi-cloud, separacao de storage e compute. Escala independente, compartilhamento de dados entre organizacoes. UX excelente.</p>
+<p class="text-neutral-300 text-sm">Multi-cloud, separation of storage and compute. Independent scaling, data sharing across organizations. Excellent UX.</p>
 </div>
 </div>
 </div>
 <!-- Box Dados -->
 <div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">📊</span> Dado Importante
+<span class="mr-2">📊</span> Important Data
         </h3>
 <p class="text-neutral-300">
-          Bancos colunares podem ser <strong class="text-white">100x mais rapidos</strong> que row-stores para agregacoes em tabelas largas. Em uma tabela com 50 colunas, se a query usa apenas 3, o colunar le apenas 6% dos dados. A compressao colunar reduz storage em ate 10x porque valores similares ficam juntos.
+          Columnar databases can be <strong class="text-white">100x faster</strong> than row stores for aggregations on wide tables. In a table with 50 columns, if the query uses only 3, the columnar store reads only 6% of the data. Columnar compression reduces storage by up to 10x because similar values are stored together.
         </p>
 </div>
 </section>
@@ -360,47 +360,47 @@
 <section class="mb-16" id="topico-5">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">5</span>
-<h2 class="text-2xl font-bold">🕸️ Grafos e Series Temporais</h2>
+<h2 class="text-2xl font-bold">🕸️ Graphs and Time Series</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Modelos especializados para dados com <strong class="text-blue-400">relacoes complexas</strong> (grafos) ou <strong class="text-blue-400">dados indexados por tempo</strong> (series temporais). Cada um resolve problemas especificos de forma muito mais eficiente que um banco relacional generico.
+        Specialized models for data with <strong class="text-blue-400">complex relationships</strong> (graphs) or <strong class="text-blue-400">time-indexed data</strong> (time series). Each solves specific problems far more efficiently than a generic relational database.
       </p>
 <!-- Grafos -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🕸️</span> Bancos de Grafos
+<span class="mr-2">🕸️</span> Graph Databases
         </h3>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600 mb-4">
 <h4 class="font-bold text-blue-400 mb-1">Neo4j</h4>
-<p class="text-neutral-300 text-sm mb-2">O lider em bancos de grafos. Usa Cypher como linguagem de query, otimizado para travessia de caminhos e pattern matching.</p>
+<p class="text-neutral-300 text-sm mb-2">The leader in graph databases. Uses Cypher as its query language, optimized for path traversal and pattern matching.</p>
 </div>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• <strong>Redes sociais:</strong> amigos de amigos, sugestoes de conexao, graus de separacao</li>
-<li>• <strong>Recomendacoes:</strong> "quem comprou X tambem comprou Y" com travessia de grafo</li>
-<li>• <strong>Deteccao de fraude:</strong> identificar padroes de conexao suspeitos entre contas</li>
-<li>• <strong>Knowledge graphs:</strong> relacoes entre entidades, ontologias, busca semantica</li>
+<li>• <strong>Social networks:</strong> friends of friends, connection suggestions, degrees of separation</li>
+<li>• <strong>Recommendations:</strong> “people who bought X also bought Y” with graph traversal</li>
+<li>• <strong>Fraud detection:</strong> identify suspicious connection patterns between accounts</li>
+<li>• <strong>Knowledge graphs:</strong> relationships between entities, ontologies, semantic search</li>
 </ul>
 </div>
 <!-- Series Temporais -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">⏱️</span> Series Temporais
+<span class="mr-2">⏱️</span> Time Series
         </h3>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">InfluxDB</h4>
-<p class="text-neutral-300 text-sm">Nativo para series temporais. Flux query language, retencao automatica, downsampling. Forte em metricas de infraestrutura e IoT.</p>
+<p class="text-neutral-300 text-sm">Native time series support. Flux query language, automatic retention, downsampling. Strong for infrastructure and IoT metrics.</p>
 </div>
 <div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
 <h4 class="font-bold text-blue-400 mb-1">TimescaleDB</h4>
-<p class="text-neutral-300 text-sm">Extensao do PostgreSQL. SQL completo + hypertables otimizadas para time-series. Melhor dos dois mundos: SQL familiar + performance temporal.</p>
+<p class="text-neutral-300 text-sm">A PostgreSQL extension. Full SQL + hypertables optimized for time series. The best of both worlds: familiar SQL + time-series performance.</p>
 </div>
 </div>
 <ul class="space-y-2 text-neutral-300 text-sm">
-<li>• <strong>Metricas de sistema:</strong> CPU, memoria, disco, rede em dashboards Grafana</li>
-<li>• <strong>IoT:</strong> sensores, telemetria, dados de dispositivos em alta frequencia</li>
-<li>• <strong>Janelas de tempo:</strong> medias moveis, agregacoes por intervalo, deteccao de anomalias</li>
-<li>• <strong>Financeiro:</strong> precos de acoes, ticks, candlesticks com resolucao temporal</li>
+<li>• <strong>System metrics:</strong> CPU, memory, disk, network in Grafana dashboards</li>
+<li>• <strong>IoT:</strong> sensors, telemetry, high-frequency device data</li>
+<li>• <strong>Time windows:</strong> moving averages, interval-based aggregations, anomaly detection</li>
+<li>• <strong>Finance:</strong> stock prices, ticks, candlesticks with time resolution</li>
 </ul>
 </div>
 </section>
@@ -408,68 +408,68 @@
 <section class="mb-16" id="topico-6">
 <div class="flex items-center space-x-4 mb-6">
 <span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl">6</span>
-<h2 class="text-2xl font-bold">⚖️ Como Escolher</h2>
+<h2 class="text-2xl font-bold">⚖️ How to Choose</h2>
 </div>
 <p class="text-neutral-300 mb-6 leading-relaxed">
-        Nao existe SGBD perfeito para tudo. A escolha depende do <strong class="text-blue-400">modelo de dados</strong>, do <strong class="text-blue-400">padrao de acesso</strong> e dos <strong class="text-blue-400">requisitos nao-funcionais</strong>. Muitas arquiteturas modernas usam <strong class="text-white">polyglot persistence</strong>: cada servico escolhe o banco ideal para seu caso de uso.
+        There is no perfect DBMS for everything. The choice depends on <strong class="text-blue-400">data model</strong>, from the <strong class="text-blue-400">access pattern</strong> and <strong class="text-blue-400">non-functional requirements</strong>. Many modern architectures use <strong class="text-white">polyglot persistence</strong>: each service chooses the ideal database for its use case.
       </p>
 <!-- Tabela Comparativa -->
 <div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">📊</span> Tabela Comparativa
+<span class="mr-2">📊</span> Comparison Table
         </h3>
 <div class="overflow-x-auto">
 <table class="w-full text-sm text-neutral-300">
 <thead>
 <tr class="border-b border-dark-600">
-<th class="text-left py-2 pr-4 text-blue-400 font-semibold">SGBD</th>
-<th class="text-left py-2 px-3 text-blue-400 font-semibold">Modelo</th>
-<th class="text-left py-2 px-3 text-blue-400 font-semibold">Forcas</th>
-<th class="text-left py-2 pl-4 text-blue-400 font-semibold">Atencao</th>
+<th class="text-left py-2 pr-4 text-blue-400 font-semibold">DBMS</th>
+<th class="text-left py-2 px-3 text-blue-400 font-semibold">Model</th>
+<th class="text-left py-2 px-3 text-blue-400 font-semibold">Strengths</th>
+<th class="text-left py-2 pl-4 text-blue-400 font-semibold">Attention</th>
 </tr>
 </thead>
 <tbody>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">PostgreSQL</td>
-<td class="py-2 px-3">Relacional</td>
-<td class="py-2 px-3">SQL padrao, extensoes</td>
-<td class="py-2 pl-4 text-neutral-400">Tune fino</td>
+<td class="py-2 px-3">Relational</td>
+<td class="py-2 px-3">Standard SQL, extensions</td>
+<td class="py-2 pl-4 text-neutral-400">Fine-tuning</td>
 </tr>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">MySQL</td>
-<td class="py-2 px-3">Relacional</td>
-<td class="py-2 px-3">Popular, simples</td>
-<td class="py-2 pl-4 text-neutral-400">Recursos por engine</td>
+<td class="py-2 px-3">Relational</td>
+<td class="py-2 px-3">Popular, simple</td>
+<td class="py-2 pl-4 text-neutral-400">Resources by engine</td>
 </tr>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">MongoDB</td>
-<td class="py-2 px-3">Documento</td>
-<td class="py-2 px-3">Flexivel, agregacao</td>
-<td class="py-2 pl-4 text-neutral-400">Transacoes multi-col</td>
+<td class="py-2 px-3">Document</td>
+<td class="py-2 px-3">Flexible, aggregation</td>
+<td class="py-2 pl-4 text-neutral-400">Multi-column transactions</td>
 </tr>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">Redis</td>
-<td class="py-2 px-3">Chave-valor</td>
-<td class="py-2 px-3">In-memory, latencia min</td>
-<td class="py-2 pl-4 text-neutral-400">Persistencia/HA</td>
+<td class="py-2 px-3">Key-value</td>
+<td class="py-2 px-3">In-memory, minimum latency</td>
+<td class="py-2 pl-4 text-neutral-400">Persistence/HA</td>
 </tr>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">ClickHouse</td>
-<td class="py-2 px-3">Colunar</td>
-<td class="py-2 px-3">Analitico rapido</td>
-<td class="py-2 pl-4 text-neutral-400">Apenas OLAP</td>
+<td class="py-2 px-3">Columnar</td>
+<td class="py-2 px-3">Fast analytics</td>
+<td class="py-2 pl-4 text-neutral-400">OLAP only</td>
 </tr>
 <tr class="border-b border-dark-700">
 <td class="py-2 pr-4 font-medium">Neo4j</td>
-<td class="py-2 px-3">Grafo</td>
-<td class="py-2 px-3">Caminhos eficientes</td>
-<td class="py-2 pl-4 text-neutral-400">Custo grafos densos</td>
+<td class="py-2 px-3">Graph</td>
+<td class="py-2 px-3">Efficient paths</td>
+<td class="py-2 pl-4 text-neutral-400">Cost of dense graphs</td>
 </tr>
 <tr>
 <td class="py-2 pr-4 font-medium">Elasticsearch</td>
-<td class="py-2 px-3">Busca</td>
-<td class="py-2 px-3">Full-text, agregacoes</td>
-<td class="py-2 pl-4 text-neutral-400">Nao substitui ACID</td>
+<td class="py-2 px-3">Search</td>
+<td class="py-2 px-3">Full-text, aggregations</td>
+<td class="py-2 pl-4 text-neutral-400">Does not replace ACID</td>
 </tr>
 </tbody>
 </table>
@@ -478,36 +478,36 @@
 <!-- Recomendacoes por cenario -->
 <div class="bg-gradient-to-br from-blue-900/30 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
 <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
-<span class="mr-2">🎯</span> Recomendacoes por Cenario
+<span class="mr-2">🎯</span> Recommendations by Scenario
         </h3>
 <ul class="space-y-3 text-neutral-300">
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>OLTP (transacional):</strong> PostgreSQL - SQL completo, ACID, extensoes, comunidade ativa</span>
+<span><strong>OLTP (transactional):</strong> PostgreSQL - full SQL, ACID, extensions, active community</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>CMS / Catalogo:</strong> MongoDB - schema flexivel para conteudo variado, iteracao rapida</span>
+<span><strong>CMS / Catalog:</strong> MongoDB - flexible schema for varied content, rapid iteration</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>Cache / Sessoes:</strong> Redis - in-memory, TTL nativo, estruturas de dados ricas</span>
+<span><strong>Cache / Sessions:</strong> Redis - in-memory, native TTL, rich data structures</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>Data Warehouse:</strong> BigQuery ou ClickHouse - analytics em escala, compressao colunar</span>
+<span><strong>Data Warehouse:</strong> BigQuery or ClickHouse - analytics at scale, columnar compression</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>Grafos / Relacoes:</strong> Neo4j - travessia eficiente, Cypher expressivo, visualizacao</span>
+<span><strong>Graphs / Relationships:</strong> Neo4j - efficient traversal, expressive Cypher, visualization</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>Series Temporais:</strong> TimescaleDB - SQL do PostgreSQL + hypertables otimizadas para tempo</span>
+<span><strong>Time Series:</strong> TimescaleDB - PostgreSQL SQL + time-optimized hypertables</span>
 </li>
 <li class="flex items-start space-x-2">
 <span class="text-blue-400 mt-1">•</span>
-<span><strong>Busca Full-text:</strong> Elasticsearch - indexacao invertida, scoring, agregacoes, facets</span>
+<span><strong>Full-text Search:</strong> Elasticsearch - inverted indexing, scoring, aggregations, facets</span>
 </li>
 </ul>
 </div>
@@ -515,17 +515,17 @@
 <!-- Navegacao entre modulos -->
 <div class="flex justify-between items-center pt-8 border-t border-dark-600">
 <a class="text-neutral-400 hover:text-blue-400 transition-colors text-sm" href="index.html">
-        ← Voltar para Trilha
+        ← Back to Track
       </a>
 <a class="text-blue-400 hover:text-blue-300 transition-colors text-sm font-semibold" href="../trilha3/index.html">
-        Proxima Trilha →
+        Next Track →
       </a>
 </div>
 </main>
 <!-- FOOTER -->
 <footer class="border-t border-dark-600 py-8 mt-16">
 <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-neutral-500 text-sm">
-<p>🗄️ FDB - Fundamentos de Banco de Dados | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
+<p>🗄️ FDB - Database Fundamentals | <a class="text-sky-400 hover:text-sky-300" href="https://inema.club" target="_blank">INEMA.CLUB</a> - 2026</p>
 </div>
 </footer>
 <script>
